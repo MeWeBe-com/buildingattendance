@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
-import { fingerPrintOutline, addCircleOutline } from 'ionicons/icons';
+import { fingerPrintOutline, addCircleOutline, alertCircle, close } from 'ionicons/icons';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +11,6 @@ import { fingerPrintOutline, addCircleOutline } from 'ionicons/icons';
 })
 export class AppComponent {
   constructor() {
-    addIcons({ fingerPrintOutline, addCircleOutline })
+    addIcons({ fingerPrintOutline, addCircleOutline, alertCircle, close })
   }
 }

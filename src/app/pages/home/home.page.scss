@@ -1,27 +1,66 @@
-#container {
-  text-align: center;
+.check {
+  margin: 50px 0;
 
+  h2 {
+    font-weight: bold;
+  }
+}
+
+.check2 {
+  margin: 50px 0 100px 0;
+}
+
+.box {
+  position: relative;
+  background-color: #fff;
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 5px;
+  box-shadow: 0 0 10px -5px #000;
+
+  .cls-btn {
+
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 5;
+
+    ion-icon {
+      color: #000;
+      font-size: 20px;
+    }
+  }
+
+  .icon {
+    color: var(--ion-color-success);
+    font-size: 20px;
+  }
+
+  .d-flex {
+    align-items: flex-start;
+
+    p {
+      padding-left: 10px;
+      margin: 0 0 5px 0;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .text {
+      padding-left: 10px;
+    }
+
+  }
+}
+
+.logo-box {
+  margin-top: 80px;
+}
+
+.status-box {
   position: absolute;
+  bottom: 30px;
   left: 0;
   right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
+  gap: 15px;
 }
