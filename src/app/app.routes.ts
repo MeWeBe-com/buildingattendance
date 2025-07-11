@@ -22,4 +22,8 @@ export const routes: Routes = [
     path: 'signuppreview',
     loadComponent: () => import('./pages/signuppreview/signuppreview.page').then( m => m.SignuppreviewPage)
   },
+  {
+    path: 'selectlocation',
+    loadComponent: () => import('./pages/selectlocation/selectlocation.page').then( m => m.SelectlocationPage)
+  },
 ];
