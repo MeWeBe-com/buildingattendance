@@ -1,0 +1,77 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content [fullscreen]="true">
+  <!-- <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">login</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+
+  <div class="ion-padding">
+
+    <div class="selection ion-margin-bottom">
+
+      <div class="morgan ion-margin-vertical">
+        Morgan Stanley
+      </div>
+
+      <div class="cbre">
+        CBRE
+      </div>
+
+      <div class="ion-text-center">
+        Please select company
+      </div>
+    </div>
+
+    <div class="form">
+      <ion-input label-placement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md">
+        <div slot="label">Email</div>
+      </ion-input>
+
+      <ion-input label-placement="floating" fill="outline" type="passowrd" mode="md">
+        <div slot="label">Passowrd</div>
+      </ion-input>
+
+      <div class="ion-margin-top ion-text-right">
+        <ion-button fill="clear" size="small" mode="ios">
+          Forgotten Passowrd?
+        </ion-button>
+      </div>
+
+      <div class="ion-margin-bottom">
+        <ion-checkbox labelPlacement="end">Remember me</ion-checkbox>
+      </div>
+
+      <div>
+        <ion-button expand="block" mode="ios">
+          Sign In
+        </ion-button>
+      </div>
+
+      <div class="ion-text-center or">
+        Or
+      </div>
+
+      <div>
+        <ion-button expand="block" mode="ios" fill="clear" size="large" (click)="performBiometricVerification()">
+          Login with Finger Print
+          <ion-icon slot="end" name="finger-print-outline"></ion-icon>
+        </ion-button>
+      </div>
+
+      <div class="d-flex align-items-center ion-margin justify-content-center">
+        Dont have an account?
+        <ion-button fill="clear" mode="ios" [routerLink]="['/signup']">
+          Sign Up
+        </ion-button>
+      </div>
+
+    </div>
+  </div>
+
+</ion-content>
