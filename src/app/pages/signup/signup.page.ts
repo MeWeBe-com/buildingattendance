@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { IonContent, IonInput, IonButton, IonCheckbox, IonIcon } from '@ionic/angular/standalone';
 
 @Component({
@@ -8,7 +9,7 @@ import { IonContent, IonInput, IonButton, IonCheckbox, IonIcon } from '@ionic/an
   templateUrl: './signup.page.html',
   styleUrls: ['./signup.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule,
+  imports: [CommonModule, FormsModule, RouterLink,
     IonContent, IonInput, IonButton, IonCheckbox, IonIcon
   ]
 })
