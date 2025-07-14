@@ -1,9 +1,4 @@
-<ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar mode="ios" [ngClass]="selectedCar ? selectedCar.status : ''">
-    <ion-title>Select Location</ion-title>
-
-  </ion-toolbar>
-</ion-header>
+<app-header [selected]="selectedCar.status"></app-header>
 
 <ion-content [ngClass]="selectedCar ? selectedCar.status : ''">
 

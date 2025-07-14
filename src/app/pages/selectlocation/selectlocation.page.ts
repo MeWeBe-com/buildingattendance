@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonIcon } from '@ionic/angular/standalone';
+import { HeaderComponent } from 'src/app/components/header/header.component';
 import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
 
 @Component({
@@ -9,13 +10,15 @@ import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
   templateUrl: './selectlocation.page.html',
   styleUrls: ['./selectlocation.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, NgSelectComponent, NgOptionComponent,
-    IonContent, IonHeader, IonTitle, IonToolbar, IonIcon
+  imports: [CommonModule, FormsModule, NgSelectComponent, NgOptionComponent, HeaderComponent,
+    IonContent, IonIcon
   ]
 })
 export class SelectlocationPage implements OnInit {
 
-  selectedCar: any;
+  selectedCar: any = {
+    status: ''
+  };
 
   cars = [
     { id: 1, name: 'Volvo', status: 'red' },

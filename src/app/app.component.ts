@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
-import { fingerPrintOutline, addCircleOutline, alertCircle, close, lockOpenOutline, arrowForwardCircle } from 'ionicons/icons';
+import { fingerPrintOutline, addCircleOutline, alertCircle, close, lockOpenOutline, arrowForwardCircle, menuOutline, homeOutline, settingsOutline, locationOutline, logOutOutline, folderOutline, warningOutline, bookOutline, shieldOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +11,6 @@ import { fingerPrintOutline, addCircleOutline, alertCircle, close, lockOpenOutli
 })
 export class AppComponent {
   constructor() {
-    addIcons({ fingerPrintOutline, addCircleOutline, alertCircle, close, lockOpenOutline, arrowForwardCircle })
+    addIcons({ fingerPrintOutline, addCircleOutline, alertCircle, close, lockOpenOutline, arrowForwardCircle, menuOutline, homeOutline, settingsOutline, locationOutline, logOutOutline, folderOutline, warningOutline, bookOutline, shieldOutline })
   }
 }
