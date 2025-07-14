@@ -1,0 +1,39 @@
+.status {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.green {
+    background-color: var(--ion-color-success);
+    --background: var(--ion-color-success);
+}
+
+.red {
+    background-color: var(--ion-color-danger);
+    --background: var(--ion-color-danger);
+}
+
+.orange {
+    background-color:var(--ion-color-warning);
+    --background: var(--ion-color-warning);
+}
+
+.lock-icon {
+    margin: 50px;
+    color: #fff;
+
+    ion-icon {
+        font-size: 50px;
+    }
+}
+
+.arrow-icon {
+    margin: 70px;
+    color: #fff;
+
+    ion-icon {
+        font-size: 100px;
+    }
+}

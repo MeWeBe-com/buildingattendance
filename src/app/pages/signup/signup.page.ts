@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { IonContent, IonInput, IonButton, IonCheckbox, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonInput, IonButton, IonCheckbox } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-signup',
@@ -10,7 +10,7 @@ import { IonContent, IonInput, IonButton, IonCheckbox, IonIcon } from '@ionic/an
   styleUrls: ['./signup.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink,
-    IonContent, IonInput, IonButton, IonCheckbox, IonIcon
+    IonContent, IonInput, IonButton, IonCheckbox
   ]
 })
 export class SignupPage implements OnInit {

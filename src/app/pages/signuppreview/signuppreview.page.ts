@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonButton, IonCheckbox, IonButtons, IonBackButton } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonButton, IonButtons, IonBackButton } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-signuppreview',
@@ -9,7 +9,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonButton, IonCh
   styleUrls: ['./signuppreview.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule,
-    IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonButton, IonCheckbox, IonButtons, IonBackButton
+    IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonButton, IonButtons, IonBackButton
   ]
 })
 export class SignuppreviewPage implements OnInit {

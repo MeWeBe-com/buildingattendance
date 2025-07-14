@@ -1,18 +1,30 @@
 <ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar mode="ios">
+  <ion-toolbar mode="ios" [ngClass]="selectedCar ? selectedCar.status : ''">
     <ion-title>Select Location</ion-title>
-  
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [ngClass]="selectedCar ? selectedCar.status : ''">
 
   <div class="ion-padding">
-    <ion-select interface="popover" label="Select Location" label-placement="floating" fill="outline">
-      <ion-select-option value="apples">Apples</ion-select-option>
-      <ion-select-option value="oranges">Oranges</ion-select-option>
-      <ion-select-option value="bananas">Bananas</ion-select-option>
-    </ion-select>
+    <ng-select [(ngModel)]="selectedCar" (change)="changeLocation($event)">
+      @for (car of cars; track car.id) {
+      <ng-option [value]="car"> <span class="status" [ngClass]="car.status"></span> {{car.name}}</ng-option>
+      }
+    </ng-select>
   </div>
-  
+
+  <div class="ion-text-center lock-icon">
+    <ion-icon name="lock-open-outline"></ion-icon>
+  </div>
+
+
+  <div class="ion-text-center arrow-icon">
+    <ion-icon name="arrow-forward-circle"></ion-icon>
+    <div>
+      All systems operational.
+    </div>
+  </div>
+
 </ion-content>
