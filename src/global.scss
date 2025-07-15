@@ -36,6 +36,15 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 // @import '@ionic/angular/css/palettes/dark.system.css';
 
+.roboto-font {
+    font-family: 'Roboto', sans-serif;
+    font-optical-sizing: auto;
+}
+
+.inter-font {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+}
 
 /* Flexbox Utility Classes */
 /* Flex Container */
@@ -142,4 +151,8 @@
 
 .justify-content-evenly {
     justify-content: space-evenly;
+}
+
+ion-input {
+    --highlight-color-focused: var(--theme-purple) !important;
 }

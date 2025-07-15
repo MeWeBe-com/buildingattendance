@@ -1,35 +1,102 @@
-.selection{
-    margin-top: 50px;
-    .morgan{
-        background-color: navy;
-        color: #fff;
-        line-height: 50px;
-        text-align: center;
-        border-radius: 10px;
-        width: 80%;
-        margin: 20px auto;
-        font-size: 20px;
-        font-weight: bold;
+.faceid {
+
+    p {
+        color: var(--theme-grey);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 28px;
+        line-height: 36px;
     }
 
-    .cbre{
-        background-color: green;
-        color: #fff;
-        line-height: 50px;
-        text-align: center;
-        border-radius: 10px;
-        width: 80%;
-        margin: 20px auto;
-        font-size: 20px;
-        font-weight: bold;
+    img {
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
     }
-   
+
+    .cap {
+        margin-top: 10px;
+        margin-bottom: 40px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 28px;
+    }
 }
 
-.form{
-    margin-top: 50px;
+.selection {
 
-    .or{
-        margin-top: 25px;
+    .morgan {
+        background-image: url('../../../assets/imgs/login/morgan-btn.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        width: 85%;
+        height: 48px;
+        margin: 16px auto;
+    }
+
+    .cbre {
+        background-image: url('../../../assets/imgs/login/cbre-btn.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        width: 85%;
+        height: 48px;
+        margin: 16px auto;
+    }
+
+    .select-com {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+}
+
+.form {
+    width: 85%;
+    margin: 50px auto 0 auto;
+
+    .forget {
+        ion-button {
+            --color: var(--theme-light-blue);
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 18px;
+            --padding-end: 0;
+        }
+    }
+
+    ion-checkbox {
+        --border-color: var(--theme-purple);
+        --checkbox-background-checked: #fff;
+        --checkmark-color: var(--theme-light-green);
+        --border-radius: 4px;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        color: var(--theme-grey);
+
+    }
+
+    .no-account {
+        ion-button {
+            --color: var(--theme-light-blue);
+            --padding-start: 2px;
+        }
+    }
+
+    .login-btn {
+        ion-button {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+            --background: var(--theme-light-green);
+        }
     }
 }

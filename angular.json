@@ -38,6 +38,7 @@
             "styles": [
               "src/global.scss",
               "src/theme/variables.scss",
+              "src/theme/fonts.scss",
               "node_modules/@ng-select/ng-select/themes/default.theme.css"
             ],
             "scripts": [],
