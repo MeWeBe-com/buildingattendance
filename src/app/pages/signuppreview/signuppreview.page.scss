@@ -1,16 +1,39 @@
+ion-toolbar {
+    --min-height: 80px;
+    --background: #fff;
+
+    ion-title {
+        margin-top: 20px;
+        --color: var(--theme-grey);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 28px;
+        line-height: 36px;
+    }
+}
+
 .img-box {
     margin-top: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 25px;
 
     .upload {
         border: 1px solid lightgrey;
-        width: 120px;
-        height: 120px;
+        width: 93px;
+        height: 93px;
         margin: 0 auto;
         padding: 10px;
 
         &:hover {
             cursor: pointer;
+        }
+
+        h4 {
+            /* David Thompson */
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+
         }
 
         ion-icon {
@@ -26,30 +49,48 @@
     }
 
     .myp {
+        /* davidthompson@morgans.com */
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 500;
         font-size: 12px;
+        line-height: 18px;
+        color: var(--theme-grey);
     }
 }
 
 .detail-box {
-    h3 {
-        background-color: lightgrey;
-        height: 40px;
-        vertical-align: middle;
-        line-height: 40px;
-        text-indent: 10px;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
+    box-sizing: border-box;
+    border: 1px solid #E9EAEB;
+    border-radius: 11px 11px 0px 0px;
+
+    p {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+
     }
 
     .details {
         .item {
+            margin-bottom: 29px;
+
             .key {
                 width: 50%;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 18px;
+
             }
 
             .value {
                 width: 50%;
-                font-weight: bold;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 18px;
             }
         }
     }

@@ -11,13 +11,17 @@
     </ion-toolbar>
   </ion-header> -->
   <div class="ion-padding">
-    <div class="ion-text-center img-box">
-      <div class="upload d-flex align-items-center justify-content-center">
-        <!-- <ion-icon name="add-circle-outline"></ion-icon> -->
-        <img src="assets/icon/favicon.png">
-      </div>
 
-      <p class="myp">Tap to upload profile photo</p>
+    <div class="faceid ion-text-center ion-margin">
+      <p class="roboto-font">
+        Register
+      </p>
+
+      <img src="assets/imgs/signin/signin.png" />
+
+      <div class="cap inter-font">
+        Tap to upload profile photo
+      </div>
     </div>
 
     <div class="form ion-margin-top">
@@ -61,8 +65,9 @@
         </ion-checkbox>
       </div>
 
-      <div>
-        <ion-button expand="block" mode="ios" [routerLink]="['/signuppreview']">
+
+      <div class="login-btn">
+        <ion-button expand="block" mode="ios" [routerLink]="['/signuppreview']" class="inter-font">
           Submit
         </ion-button>
       </div>
