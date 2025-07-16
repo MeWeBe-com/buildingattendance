@@ -1,13 +1,40 @@
+ion-content {
+  --background: url('../../../assets/imgs/bg-image.svg') center no-repeat;
+}
+
 .check {
-  margin: 50px 0;
+  margin: 83px 0 27px 0;
 
   h2 {
-    font-weight: bold;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+
+  }
+}
+
+.toggle {
+  div {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--theme-grey);
+  }
+
+  .enable {
+    color: var(--theme-light-green);
   }
 }
 
 .check2 {
-  margin: 50px 0 100px 0;
+  margin: 27px 0 100px 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+
 }
 
 .box {
