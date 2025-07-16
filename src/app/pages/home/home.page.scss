@@ -29,7 +29,7 @@ ion-content {
 }
 
 .check2 {
-  margin: 27px 0 100px 0;
+  margin: 27px 0 84px 0;
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
@@ -48,8 +48,8 @@ ion-content {
   .cls-btn {
 
     position: absolute;
-    right: 5px;
-    top: 5px;
+    right: 10px;
+    top: 15px;
     z-index: 5;
 
     ion-icon {
@@ -59,7 +59,6 @@ ion-content {
   }
 
   .icon {
-    color: var(--ion-color-success);
     font-size: 20px;
   }
 
@@ -69,12 +68,19 @@ ion-content {
     p {
       padding-left: 10px;
       margin: 0 0 5px 0;
-      font-size: 16px;
-      font-weight: bold;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17px;
+      color: #20232C;
     }
 
     .text {
       padding-left: 10px;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 18px;
     }
 
   }
@@ -82,12 +88,25 @@ ion-content {
 
 .logo-box {
   margin-top: 80px;
+  width: 131px;
+  height: 131px;
 }
 
 .status-box {
-  position: absolute;
-  bottom: 30px;
-  left: 0;
-  right: 0;
-  gap: 15px;
+  margin-top: 100px;
+  gap: 10px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+
+
+  ion-checkbox {
+    --border-color: #00BC2F;
+    --checkbox-background-checked: #00BC2F;
+    --checkmark-color: #fff;
+    --border-radius: 4px;
+    font-weight: 600;
+
+  }
 }
