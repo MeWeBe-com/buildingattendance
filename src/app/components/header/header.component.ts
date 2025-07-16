@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
   @ViewChild('popover') popover!: HTMLIonPopoverElement;
 
 
+  @Input() title: string = 'Select Location';
   @Input() selected: string = '';
   @Input() showMenu: boolean = false;
   isPopoverOpen: boolean = false;

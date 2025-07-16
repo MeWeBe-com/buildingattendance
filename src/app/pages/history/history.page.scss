@@ -1,0 +1,77 @@
+.history-page {
+
+
+
+
+
+  ion-item {
+    --background: #fff;
+
+    ion-label {
+      h2 {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        color: #181D27;
+
+      }
+
+      p {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: #535862;
+      }
+    }
+
+    .time-note {
+      font-weight: 500;
+      font-size: 14px;
+      color: #333;
+    }
+  }
+}
+
+.search-card {
+  background-color: #002C51;
+  color: #fff;
+
+  ion-searchbar {
+    --background: #fff;
+    padding: 0;
+
+
+    .searchbar-input-container.sc-ion-searchbar-ios {
+      min-height: 44px !important;
+    }
+  }
+}
+
+.date-filter-row {
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  ion-button {
+    background-color: #fff;
+    height: 44px;
+    font-size: 14px;
+    color: #000;
+    border-radius: 10px;
+  }
+
+
+
+}
+
+.history-heading {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 28px;
+  color: #181D27;
+
+}

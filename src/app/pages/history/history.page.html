@@ -1,0 +1,39 @@
+<app-header [title]="''" [showMenu]="true"></app-header>
+
+<ion-content>
+
+  <div class="search-card ion-padding">
+    <ion-searchbar placeholder="Search History" mode="ios">
+    </ion-searchbar>
+
+    <div class="date-filter-row">
+      <ion-button expand="block" fill="clear" class="cal-btn">
+        <ion-icon slot="start" name="calendar-outline"></ion-icon>
+        {{ selectedDateRange }}
+      </ion-button>
+
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" name="filter-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label class="history-heading">Your History</ion-label>
+    </ion-list-header>
+
+    @for(item of historyItems; track $index){
+    <ion-item class="inter-font">
+      <ion-label>
+        <h2>{{ item.location }}</h2>
+        <p>{{ item.date }}</p>
+      </ion-label>
+      <ion-note slot="end" class="time-note">
+        {{ item.startTime }} → {{ item.endTime }}
+      </ion-note>
+    </ion-item>
+    }
+  </ion-list>
+
+</ion-content>

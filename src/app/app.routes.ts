@@ -29,5 +29,10 @@ export const routes: Routes = [
   {
     path: 'selectlocation',
     loadComponent: () => import('./pages/selectlocation/selectlocation.page').then(m => m.SelectlocationPage)
+  },
+  {
+    path: 'history',
+    loadComponent: () => import('./pages/history/history.page').then(m => m.HistoryPage)
   }
+
 ];
