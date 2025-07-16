@@ -2,11 +2,13 @@
   <ion-toolbar mode="ios" [ngClass]="selected ? selected : ''">
     <ion-title>Select Location</ion-title>
 
+    @if(showMenu){
     <ion-buttons slot="end">
       <ion-button [color]="selected == '' ? 'dark' : 'light'" (click)="presentPopover($event)">
         <ion-icon name="menu-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
+    }
   </ion-toolbar>
 </ion-header>
 

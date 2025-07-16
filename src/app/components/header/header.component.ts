@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
 
 
   @Input() selected: string = '';
+  @Input() showMenu: boolean = false;
   isPopoverOpen: boolean = false;
 
 

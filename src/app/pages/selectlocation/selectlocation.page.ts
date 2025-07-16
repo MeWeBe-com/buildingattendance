@@ -33,6 +33,7 @@ export class SelectlocationPage implements OnInit {
 
   changeLocation(e: any) {
     console.log(e)
+    this.selectedCar = e;
   }
 
 }

@@ -1,11 +1,11 @@
-<app-header [selected]="selectedCar.status"></app-header>
+<app-header [selected]="selectedCar.status" [showMenu]="true"></app-header>
 
-<ion-content [ngClass]="selectedCar ? selectedCar.status : ''">
+<ion-content [ngClass]="selectedCar ? selectedCar.status : ''" class="ion-padding">
 
-  <div class="ion-padding">
-    <ng-select [(ngModel)]="selectedCar" (change)="changeLocation($event)">
+  <div>
+    <ng-select (change)="changeLocation($event)" placeholder="Start typing to search...">
       @for (car of cars; track car.id) {
-      <ng-option [value]="car"> <span class="status" [ngClass]="car.status"></span> {{car.name}}</ng-option>
+      <ng-option [value]="car"> <span class="select-status" [ngClass]="car.status"></span> {{car.name}}</ng-option>
       }
     </ng-select>
   </div>
@@ -15,11 +15,21 @@
   </div>
 
 
+  @if(selectedCar.status){
   <div class="ion-text-center arrow-icon">
-    <ion-icon name="arrow-forward-circle"></ion-icon>
-    <div>
+    <div class="arrow-bg d-flex align-items-center justify-content-center" [ngClass]="'arrow-'+selectedCar.status">
+      <ion-icon name="arrow-forward-circle-outline" [ngClass]="'arrow-'+selectedCar.status"></ion-icon>
+    </div>
+
+    <div class="text inter-font">
       All systems operational.
     </div>
   </div>
+  }@else{
+  <div class="logo-box">
+    <img src="assets/imgs/home/cbre.svg">
+  </div>
+  }
+
 
 </ion-content>
