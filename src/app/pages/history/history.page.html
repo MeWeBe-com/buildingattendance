@@ -6,8 +6,8 @@
     <ion-searchbar placeholder="Search History" mode="ios">
     </ion-searchbar>
 
-    <div class="date-filter-row">
-      <ion-button expand="block" fill="clear" class="cal-btn">
+    <div class="date-filter-row ">
+      <ion-button expand="block" fill="clear" class="cal-btn inter-font">
         <ion-icon slot="start" name="calendar-outline"></ion-icon>
         {{ selectedDateRange }}
       </ion-button>
@@ -20,7 +20,7 @@
 
   <ion-list>
     <ion-list-header>
-      <ion-label class="history-heading">Your History</ion-label>
+      <ion-label class="history-heading inter-font">Your History</ion-label>
     </ion-list-header>
 
     @for(item of historyItems; track $index){
