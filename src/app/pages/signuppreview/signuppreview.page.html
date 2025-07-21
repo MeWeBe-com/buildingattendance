@@ -15,7 +15,7 @@
         <img src="assets/icon/favicon.png">
       </div>
 
-      <h4 class="inter-font">David Thompson</h4>
+      <h4 class="inter-font">{{profile?.full_name}}</h4>
       <p class="inter-font myp">Tap to upload profile photo</p>
     </div>
 
@@ -32,7 +32,7 @@
             Full Name:
           </div>
           <div class="value inter-font">
-            David Thompson
+            {{profile?.full_name}}
           </div>
         </div>
 
@@ -41,7 +41,7 @@
             Position:
           </div>
           <div class="value">
-            Site Manager
+            {{profile?.position}}
           </div>
         </div>
 
@@ -50,7 +50,7 @@
             Company:
           </div>
           <div class="value">
-            Morgan Stanley
+            {{profile?.company}}
           </div>
         </div>
 
@@ -59,7 +59,7 @@
             Emergency Role:
           </div>
           <div class="value">
-            David Thompson
+            {{profile?.emergency_role}}
           </div>
         </div>
 
@@ -68,7 +68,7 @@
             Email:
           </div>
           <div class="value">
-            davidthomp_gmail.com
+            {{profile?.email}}
           </div>
         </div>
 
@@ -77,7 +77,7 @@
             Mobile:
           </div>
           <div class="value">
-            0789456123
+            {{profile?.mobile}}
           </div>
         </div>
 
@@ -85,20 +85,57 @@
 
 
       <div class="form ion-margin-top">
-        <ion-input label-placement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md">
-          <div slot="label">Create Password</div>
-        </ion-input>
+        <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()" novalidate>
+          <ion-input label-placement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md"
+            formControlName="password">
+            <div slot="label">Create Password
+              @if(isSubmitted && getControl['password'].errors){
+              @if(getControl['password'].errors['required']){
+              <ion-note color="danger">
+                is required*
+              </ion-note>
+              }
+              }
+            </div>
+          </ion-input>
 
-        <ion-input label-placement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md">
-          <div slot="label">Confirm Password</div>
-        </ion-input>
+          <ion-input label-placement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md"
+            formControlName="confirm_password">
+            <div slot="label">Confirm Password
+              @if(isSubmitted && getControl['confirm_password'].errors){
+              @if(getControl['confirm_password'].errors['required']){
+              <ion-note color="danger">
+                is required*
+              </ion-note>
+              }
+              }
+            </div>
+          </ion-input>
 
+          @if(getControl['password'].value != getControl['confirm_password'].value){
+          <div class="ion-margin-vertical">
+            <ion-note color="danger" style="font-size: 12px;">
+              Password Not Matched!
+            </ion-note>
+          </div>
+          }
 
-        <div class="login-btn">
-          <ion-button expand="block" mode="ios" class="inter-font">
-            Save
-          </ion-button>
-        </div>
+          @if(isSubmitted && (getControl['password'].errors || getControl['confirm_password'].errors )){
+          <div class="ion-margin-vertical">
+            <ion-note color="danger">
+              Password should contain at least: <br /> One uppercase letter <br /> One lowercase letter <br /> One
+              digit<br /> One
+              special character (!&#64;#$%^&amp;*)
+            </ion-note>
+          </div>
+          }
+
+          <div class="login-btn">
+            <ion-button expand="block" mode="ios" class="inter-font" type="submit">
+              Save
+            </ion-button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

@@ -32,9 +32,9 @@
  * https://ionicframework.com/docs/theming/dark-mode
  */
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-// @import '@ionic/angular/css/palettes/dark.system.css';
+//@import "@ionic/angular/css/palettes/dark.always.css";
+//@import "@ionic/angular/css/palettes/dark.class.css";
+//@import '@ionic/angular/css/palettes/dark.system.css';
 
 .roboto-font {
     font-family: 'Roboto', sans-serif;
@@ -153,7 +153,7 @@
     justify-content: space-evenly;
 }
 
-ion-input {
+ion-input, ion-select {
     --highlight-color-focused: var(--theme-purple) !important;
     font-family: 'Roboto', sans-serif;
     font-style: normal;

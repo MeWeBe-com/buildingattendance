@@ -12,7 +12,7 @@
   </ion-header> -->
   <div class="ion-padding">
 
-    <div class="faceid ion-text-center ion-margin">
+    <div class="faceid ion-text-center ion-margin" (click)="selectPhoto()">
       <p class="roboto-font">
         Register
       </p>
@@ -24,55 +24,113 @@
       </div>
     </div>
 
-    <div class="form ion-margin-top">
-      <ion-input label-placement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md">
-        <div slot="label">Full Name</div>
-      </ion-input>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="form ion-margin-top">
+        <ion-input label-placement="floating" fill="outline" type="text" class="ion-margin-bottom" mode="md"
+          formControlName="full_name">
+          <div slot="label">Full Name
+            @if(isSubmitted && getControl['full_name'].errors){
+            @if(getControl['full_name'].errors['required']){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            }
+          </div>
+        </ion-input>
 
-      <ion-input label-placement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md">
-        <div slot="label">Position</div>
-      </ion-input>
+        <ion-input label-placement="floating" fill="outline" type="text" class="ion-margin-bottom" mode="md"
+          formControlName="position">
+          <div slot="label">Position
+            @if(isSubmitted && getControl['position'].errors){
+            @if(getControl['position'].errors['required']){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            }
+          </div>
+        </ion-input>
 
-      <ion-input label-placement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md">
-        <div slot="label">Company</div>
-      </ion-input>
+        <!-- <ion-input label-placement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md">
+          <div slot="label">Company</div>
+        </ion-input> -->
 
-      <ion-input label-placement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md">
-        <div slot="label">Emergency Role (if any)</div>
-      </ion-input>
+        <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="company">
+          <div slot="label">Coompany
+            @if(isSubmitted && getControl['company'].errors){
+            @if(getControl['company'].errors['required']){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            }
+          </div>
+          @for(c of companies; track c?.id){
+            <ion-select-option [value]="c?.id">{{c?.company_name}}</ion-select-option>
+          }
+          
+        </ion-select>
 
-      <ion-input label-placement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md">
-        <div slot="label">Email</div>
-      </ion-input>
+        <ion-input label-placement="floating" fill="outline" type="text" class="ion-margin-bottom" mode="md"
+          formControlName="emergency_role">
+          <div slot="label">Emergency Role (if any)</div>
+        </ion-input>
 
-      <ion-input label-placement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md">
-        <div slot="label">Mobile</div>
-      </ion-input>
+        <ion-input label-placement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md"
+          formControlName="email">
+          <div slot="label">Email
+            @if(isSubmitted && getControl['email'].errors){
+            @if(getControl['email'].errors['required']){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            @if(getControl['email'].invalid && !getControl['email'].errors['required']){
+            <ion-note color="danger">(is invalid*)</ion-note>
+            }
+            }
+          </div>
+        </ion-input>
 
-      <div class="ion-margin-bottom">
-        <ion-checkbox labelPlacement="end">
-          <span class="ion-text-wrap">
-            Facial Recognition for faster login
-          </span>
-        </ion-checkbox>
+        <ion-input label-placement="floating" fill="outline" type="text" class="ion-margin-bottom" mode="md"
+          formControlName="mobile">
+          <div slot="label">Mobile
+            @if(isSubmitted && getControl['mobile'].errors){
+            @if(getControl['mobile'].errors['required']){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            }
+          </div>
+        </ion-input>
+
+        <!-- <div class="ion-margin-bottom">
+          <ion-checkbox labelPlacement="end">
+            <span class="ion-text-wrap">
+              Facial Recognition for faster login
+            </span>
+          </ion-checkbox>
+        </div> -->
+
+        <div class="ion-margin-bottom">
+          <ion-checkbox labelPlacement="end" formControlName="terms">
+            <span class="ion-text-wrap">
+              I agree to Terms of Service and Privacy Policy
+            </span>
+          </ion-checkbox>
+          <div>
+            @if(isSubmitted && getControl['terms'].errors){
+            @if(getControl['terms'].errors['required']){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            }
+          </div>
+        </div>
+
+
+        <div class="login-btn">
+          <ion-button expand="block" mode="ios" type="submit" class="inter-font">
+            Submit
+          </ion-button>
+        </div>
+
+
       </div>
-
-      <div class="ion-margin-bottom">
-        <ion-checkbox labelPlacement="end">
-          <span class="ion-text-wrap">
-            I agree to Terms of Service and Privacy Policy
-          </span>
-        </ion-checkbox>
-      </div>
-
-
-      <div class="login-btn">
-        <ion-button expand="block" mode="ios" [routerLink]="['/signuppreview']" class="inter-font">
-          Submit
-        </ion-button>
-      </div>
-
-
-    </div>
+    </form>
   </div>
+
+  <input type="file" #selfieInput (change)="uploadSelfie($event)" hidden="true" accept="image/*"
+    style="visibility: hidden;" />
 </ion-content>
