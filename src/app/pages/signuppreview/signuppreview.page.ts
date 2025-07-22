@@ -76,14 +76,13 @@ export class SignuppreviewPage implements OnInit {
       ...this.passwordForm.value
     };
 
-    this.http.post2('auth.php?action=signup', data, true).subscribe({
+    this.http.post2('RegisterUser', data, true).subscribe({
       next: async (res: any) => {
         await this.general.stopLoading();
-        console.log(res);
-        if(res.status == true){
+        if (res.status == true) {
           this.general.presentToast(res.message);
           this.general.goToPage('login')
-        }else{
+        } else {
           this.general.presentToast(res.error);
         }
       },

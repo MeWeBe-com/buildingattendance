@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://cbrm.qtcloud.co.uk/request/'
+  baseUrl: 'https://cbrm.qtcloud.co.uk/api/'
 };
 
 /*

@@ -27,10 +27,7 @@ export class SignupPage implements OnInit {
   signupForm!: FormGroup;
   isSubmitted: boolean = false;
 
-  companies: any = [
-    { id: 1, company_name: 'CBRE' },
-    { id: 2, company_name: 'Morgan Stanley' },
-  ];
+  companies: any = [];
 
   constructor() { }
 
@@ -38,17 +35,36 @@ export class SignupPage implements OnInit {
     this.initForm()
   }
 
+  ionViewWillEnter() {
+    this.getCompanies()
+  }
+
+  getCompanies() {
+    this.http.get2('GetCompanies', false).subscribe({
+      next: (res: any) => {
+        GlobaldataService.companies = res.data.company;
+        this.companies = res.data.company;
+      },
+      error: (err) => {
+        console.log(err)
+      },
+    })
+  }
+
   initForm() {
     this.signupForm = this.formBuilder.group({
       full_name: new FormControl('', Validators.required),
       position: new FormControl('', Validators.required),
-      company: new FormControl('', Validators.required),
+      company_id: new FormControl('', Validators.required),
       emergency_role: new FormControl(''),
-      email: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
-      mobile: new FormControl('', Validators.required),
+      email_address: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
+      mobile_number: new FormControl('', Validators.required),
       //biometric_login: new FormControl(false, Validators.requiredTrue),
       terms: new FormControl(false, Validators.requiredTrue),
-      profile_pic: new FormControl('')
+      profile_pic: new FormControl('', Validators.required),
+
+      company_name: new FormControl(''),
+      profile_pic_url: new FormControl('')
     })
   }
 
@@ -62,21 +78,14 @@ export class SignupPage implements OnInit {
       this.general.presentToast('Please fill form correctly!')
       return
     }
-
-    console.log(this.signupForm.value);
+    let company = this.companies.find((com: any) => com.company_id == this.signupForm.value.company_id);
+    this.signupForm.patchValue({
+      company_name: company.company_name
+    })
     GlobaldataService.signupData = this.signupForm.value;
     setTimeout(() => {
       this.general.goToPage('signuppreview')
     }, 50)
-
-    // this.http.post2('signup', this.signupForm.value, true).subscribe({
-    //   next: async (res: any) => {
-    //     await this.general.stopLoading();
-    //   },
-    //   error: async (err: any) => {
-    //     await this.general.stopLoading();
-    //   },
-    // })
 
   }
 
@@ -87,16 +96,23 @@ export class SignupPage implements OnInit {
   uploadSelfie(e: any) {
     if (e.target.files.length > 0) {
       const formData = new FormData();
-      formData.append('image', e.target.files[0]);
+      formData.append('media', e.target.files[0]);
       this.uploadImage(formData);
     }
-
   }
 
   uploadImage(formData: any) {
     this.http.uploadImages(formData, 'UploadMedia', true).subscribe({
       next: async (res: any) => {
         await this.general.stopLoading();
+        if (res.status == true) {
+          this.signupForm.patchValue({
+            profile_pic: res.filename,
+            profile_pic_url: res.media_url
+          });
+        } else {
+          this.general.presentToast('Something went wrong!')
+        }
         this.selfieInput.nativeElement.value = '';
       },
       error: async (err) => {

@@ -11,6 +11,7 @@ export class GlobaldataService {
   public static userObject: any = undefined;
   public static loginToken: any = '';
   public static signupData: any = null;
+  public static companies: any = [];
 
   static clearGobal() {
     this.userObject = undefined;

@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { IonContent, IonInput, IonButton, IonCheckbox, IonNote } from '@ionic/angular/standalone';
+import { IonContent, IonInput, IonButton, IonCheckbox, IonNote, IonAlert } from '@ionic/angular/standalone';
 
 import { NativeBiometric, BiometryType } from "@capgo/capacitor-native-biometric";
 import { HttpService } from 'src/app/providers/http.service';
@@ -16,7 +16,7 @@ import { GlobaldataService } from 'src/app/providers/globaldata.service';
   styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink,
-    IonContent, IonInput, IonButton, IonCheckbox, IonNote
+    IonContent, IonInput, IonButton, IonCheckbox, IonNote, IonAlert
   ]
 })
 export class LoginPage implements OnInit {
@@ -29,6 +29,24 @@ export class LoginPage implements OnInit {
   loginForm!: FormGroup;
   isSubmitted: boolean = false;
 
+  isBiometricSaveOpen: boolean = false;
+  public alertButtons = [
+    {
+      text: 'Not Now',
+      role: 'cancel',
+      handler: () => {
+        this.general.goToPage('home');
+      },
+    },
+    {
+      text: 'Yes, Enable',
+      role: 'confirm',
+      handler: () => {
+        this.setCredentials(this.loginForm.value.email, this.loginForm.value.password, 'www.cbre.com');
+      },
+    },
+  ];
+
   constructor() { }
 
   ngOnInit() {
@@ -38,7 +56,7 @@ export class LoginPage implements OnInit {
   initForm() {
     this.loginForm = this.formBuilder.group({
       decive_token: new FormControl(''),
-      email: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
+      email_address: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       password: new FormControl('', Validators.required)
     })
   }
@@ -54,18 +72,31 @@ export class LoginPage implements OnInit {
       return
     }
 
-    console.log(this.loginForm.value);
+    this.loginNow(this.loginForm.value);
+  }
 
-    this.http.post2('auth.php?action=login', this.loginForm.value, true).subscribe({
+  loginNow(data: any) {
+    this.http.post2('Login', data, true).subscribe({
       next: async (res: any) => {
         await this.general.stopLoading();
-        console.log(res);
-        if (res.status) {
-          GlobaldataService.userObject = res.user;
-          await this.storage.setObject('CBREUser', res.user);
-          setTimeout(() => {
+        if (res.status == true) {
+          GlobaldataService.userObject = res.data.user_token;
+          await this.storage.setObject('login_token', res.data.user_token);
+
+          const result = await NativeBiometric.isAvailable({ useFallback: true });
+          if (!result.isAvailable) {
             this.general.goToPage('home');
-          })
+          } else {
+            try {
+              const isCredentialSaved = await NativeBiometric.getCredentials({
+                server: "www.cbre.com",
+              });
+              this.general.goToPage('home');
+            } catch (e) {
+              this.isBiometricSaveOpen = true;
+              console.log(e)
+            }
+          }
         } else {
           this.general.presentToast(res.error)
         }
@@ -74,55 +105,50 @@ export class LoginPage implements OnInit {
         await this.general.stopLoading();
       },
     })
-
   }
 
   async performBiometricVerification() {
     const result = await NativeBiometric.isAvailable({ useFallback: true });
-    console.log('result', result);
-
     if (!result.isAvailable) return;
-
     const isFaceID = result.biometryType == BiometryType.FACE_ID;
 
-    console.log('isFaceID', isFaceID)
-
     const verified = await NativeBiometric.verifyIdentity({
-      reason: "For easy log in",
-      title: "Log in",
-      subtitle: "Maybe add subtitle here?",
-      description: "Maybe a description too?",
-    })
-      .then(() => true)
-      .catch(() => false);
-
-    console.log('verified', verified)
+      reason: "Authenticate to access your account quickly and securely",
+      title: "Biometric Login",
+      subtitle: "Use your fingerprint or face recognition",
+      description: "Your biometric data will be used to confirm your identity",
+      //allowedBiometryTypes:[BiometryType.FACE_ID, BiometryType.FACE_AUTHENTICATION, BiometryType.FINGERPRINT]
+    }).then(() => true).catch(() => false);
 
     if (!verified) return;
 
-    const credentials = await NativeBiometric.getCredentials({
-      server: "www.testingexample.com",
-    });
-
-    console.log('credentials', credentials);
+    try {
+      const credentials = await NativeBiometric.getCredentials({
+        server: "www.cbre.com",
+      });
+      this.loginNow({
+        email: credentials.username,
+        password: credentials.password
+      })
+    } catch (e) {
+      console.log(e)
+    }
   }
 
-  setCredentials() {
+  setCredentials(email: string, password: string, server: string) {
     NativeBiometric.setCredentials({
-      username: "saqib92",
-      password: "Password@321",
-      server: "www.testingexample.com",
+      username: email,
+      password: password,
+      server: server,
     }).then((cres: any) => {
-      console.log('cres', cres)
+      this.general.goToPage('home');
     });
   }
 
   deleteCredentials() {
     NativeBiometric.deleteCredentials({
       server: "www.testingexample.com",
-    }).then((cres: any) => {
-      console.log('cres del', cres)
-    });
+    }).then((cres: any) => { });
   }
 
 }

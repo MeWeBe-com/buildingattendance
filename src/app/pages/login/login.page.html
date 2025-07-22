@@ -2,7 +2,7 @@
 
   <div class="ion-padding">
 
-    <div class="faceid ion-text-center ion-margin">
+    <div class="faceid ion-text-center ion-margin" (click)="performBiometricVerification()">
       <p class="roboto-font">
         Sign In
       </p>
@@ -30,13 +30,13 @@
     <div class="form">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
         <ion-input label-placement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md"
-          formControlName="email">
+          formControlName="email_address">
           <div slot="label">Email
-            @if(isSubmitted && getControl['email'].errors){
-            @if(getControl['email'].errors['required']){
+            @if(isSubmitted && getControl['email_address'].errors){
+            @if(getControl['email_address'].errors['required']){
             <ion-note color="danger">(is required*)</ion-note>
             }
-            @if(getControl['email'].invalid && !getControl['email'].errors['required']){
+            @if(getControl['email_address'].invalid && !getControl['email_address'].errors['required']){
             <ion-note color="danger">(is invalid*)</ion-note>
             }
             }
@@ -80,5 +80,10 @@
 
     </div>
   </div>
+
+
+  <ion-alert [isOpen]="isBiometricSaveOpen" header="Biometric Authentication" subHeader="Enable Quick Login"
+    message="Would you like to save your login details and enable biometric authentication for faster and more secure access next time?"
+    [buttons]="alertButtons" (didDismiss)="isBiometricSaveOpen = false"></ion-alert>
 
 </ion-content>
