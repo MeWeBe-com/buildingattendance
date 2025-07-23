@@ -1,0 +1,52 @@
+.faceid {
+
+    p {
+        color: var(--theme-grey);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 28px;
+        line-height: 36px;
+    }
+
+    img {
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
+    }
+
+    .cap {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+    }
+}
+
+.form {
+    width: 85%;
+    margin: 20px auto 0 auto;
+
+    ion-checkbox {
+        --border-color: var(--theme-purple);
+        --checkbox-background-checked: #fff;
+        --checkmark-color: var(--theme-light-green);
+        --border-radius: 4px;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        color: var(--theme-grey);
+    }
+
+    .login-btn {
+        margin-top: 50px;
+
+        ion-button {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+            --background: var(--theme-light-green);
+        }
+    }
+}

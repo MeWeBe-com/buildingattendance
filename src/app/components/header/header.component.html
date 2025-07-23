@@ -24,7 +24,7 @@
         </ion-item>
 
         <!-- Profile -->
-        <ion-item button>
+        <ion-item button (click)="goTo('profile')">
           <ion-icon name="settings-outline" slot="start"></ion-icon>
           <ion-label>Profile</ion-label>
         </ion-item>
@@ -50,7 +50,7 @@
         </ion-item>
 
         <!-- History (Highlighted) -->
-        <ion-item button class="highlighted" [routerLink]="['/history']">
+        <ion-item button class="highlighted" (click)="goTo('history')">
           <ion-icon name="folder-outline" slot="start"></ion-icon>
           <ion-label>History</ion-label>
           <ion-badge slot="end" color="light">8</ion-badge>

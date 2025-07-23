@@ -23,6 +23,14 @@
     Automatically log you in and out based on location.
   </div>
 
+  <div class="selection">
+
+    <ion-button expand="block" mode="ios" [routerLink]="['/selectlocation']"
+      [ngStyle]="{'--background': user?.company_id == '1' ? 'var(--theme-green)' : 'var(--theme-darkblue)' }">
+      Select Location
+    </ion-button>
+  </div>
+
   <div class="box ion-padding">
     <div class="cls-btn">
       <ion-icon name="close"></ion-icon>
@@ -48,7 +56,7 @@
   </div>
 
   <div class="logo-box">
-    <img src="assets/imgs/home/cbre.svg">
+    <img [src]="user?.company_id == '1' ? 'assets/imgs/home/cbre.svg':'assets/imgs/home/morgan_stanley.svg'">
   </div>
 
 

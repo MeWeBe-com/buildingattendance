@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonButton, IonList, IonItem, IonLabel, IonBackButton, IonMenuButton, IonCard, IonCardContent, IonIcon, IonListHeader, IonNote, IonSearchbar } from '@ionic/angular/standalone';
+import { IonContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonListHeader, IonNote, IonSearchbar } from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
   styleUrls: ['./history.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, HeaderComponent,
-    IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonButton, IonList, IonItem, IonLabel, IonBackButton, IonMenuButton, IonCard, IonCardContent, IonIcon, IonListHeader, IonNote, IonSearchbar
+    IonContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonListHeader, IonNote, IonSearchbar
   ]
 })
 export class HistoryPage implements OnInit {

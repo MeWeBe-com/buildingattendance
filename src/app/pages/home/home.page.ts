@@ -1,18 +1,26 @@
 import { Component } from '@angular/core';
-import { IonContent, IonToggle, IonIcon, IonCheckbox } from '@ionic/angular/standalone';
+import { CommonModule } from '@angular/common';
+import { IonContent, IonToggle, IonIcon, IonCheckbox, IonButton } from '@ionic/angular/standalone';
+import { RouterLink } from '@angular/router';
+
+import { GlobaldataService } from 'src/app/providers/globaldata.service';
+
 import { Radar } from 'capacitor-radar';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonContent, IonToggle, IonIcon, IonCheckbox],
+  imports: [CommonModule, RouterLink, IonContent, IonToggle, IonIcon, IonCheckbox, IonButton],
 })
 export class HomePage {
+
+  user: any;
 
   constructor() { }
 
   ionViewDidEnter() {
+    this.user = GlobaldataService.userObject;
     Radar.setUserId({ userId: 'test123' });
 
     Radar.addListener('clientLocation', (result) => {

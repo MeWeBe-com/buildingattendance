@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GeneralService } from './general.service';
 import { GlobaldataService } from './globaldata.service';
-import { StorageService } from './storage.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,12 +9,10 @@ import { environment } from 'src/environments/environment';
 })
 export class HttpService {
 
-  constructor(
-    private http: HttpClient,
-    public general: GeneralService,
-    public storage: StorageService,
+  general = inject(GeneralService);
+  http = inject(HttpClient);
 
-  ) { }
+  constructor() { }
 
   post(link: string, data: any, loader: boolean) {
     if (loader == true) {

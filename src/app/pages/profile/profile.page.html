@@ -3,7 +3,7 @@
 
     <div class="faceid ion-text-center ion-margin" (click)="selectPhoto()">
       <p class="roboto-font">
-        Register
+        Profile
       </p>
 
       <img [src]="getControl['profile_pic_url'].value || 'assets/imgs/signin/signin.png'" />
@@ -19,7 +19,7 @@
       }
     </div>
 
-    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" novalidate>
       <div class="form ion-margin-top">
         <ion-input label-placement="floating" fill="outline" type="text" class="ion-margin-bottom" mode="md"
           formControlName="full_name">
@@ -65,7 +65,7 @@
         </ion-input>
 
         <ion-input label-placement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md"
-          formControlName="email_address">
+          formControlName="email_address" readonly>
           <div slot="label">Email
             @if(isSubmitted && getControl['email_address'].errors){
             @if(getControl['email_address'].errors['required']){
@@ -122,6 +122,79 @@
 
       </div>
     </form>
+
+    <div class="faceid">
+      <p class="roboto-font  ion-text-center">
+        Update Password
+      </p>
+
+      <div class="form ion-margin-top">
+        <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()" novalidate>
+          <ion-input label-placement="floating" fill="outline" type="password" class="ion-margin-bottom" mode="md"
+            formControlName="old_password">
+            <div slot="label">Old Password
+              @if(isPSubmitted && getPassControl['old_password'].errors){
+              @if(getPassControl['old_password'].errors['required']){
+              <ion-note color="danger">
+                is required*
+              </ion-note>
+              }
+              }
+            </div>
+          </ion-input>
+
+          <ion-input label-placement="floating" fill="outline" type="password" class="ion-margin-bottom" mode="md"
+            formControlName="new_password">
+            <div slot="label">Create Password
+              @if(isPSubmitted && getPassControl['new_password'].errors){
+              @if(getPassControl['new_password'].errors['required']){
+              <ion-note color="danger">
+                is required*
+              </ion-note>
+              }
+              }
+            </div>
+          </ion-input>
+
+          <ion-input label-placement="floating" fill="outline" type="password" class="ion-margin-bottom" mode="md"
+            formControlName="confirm_password">
+            <div slot="label">Confirm Password
+              @if(isPSubmitted && getPassControl['confirm_password'].errors){
+              @if(getPassControl['confirm_password'].errors['required']){
+              <ion-note color="danger">
+                is required*
+              </ion-note>
+              }
+              }
+            </div>
+          </ion-input>
+
+          @if(getPassControl['new_password'].value != getPassControl['confirm_password'].value){
+          <div class="ion-margin-vertical">
+            <ion-note color="danger" style="font-size: 12px;">
+              Password Not Matched!
+            </ion-note>
+          </div>
+          }
+
+          @if(isPSubmitted && (getPassControl['new_password'].errors || getPassControl['confirm_password'].errors )){
+          <div class="ion-margin-vertical ion-text-left">
+            <ion-note color="danger">
+              Password should contain at least: <br /> One uppercase letter <br /> One lowercase letter <br /> One
+              digit<br /> One
+              special character (!&#64;#$%^&amp;*)
+            </ion-note>
+          </div>
+          }
+
+          <div class="login-btn">
+            <ion-button expand="block" mode="ios" class="inter-font" type="submit">
+              Update Password
+            </ion-button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 
   <input type="file" #selfieInput (change)="uploadSelfie($event)" hidden="true" accept="image/*"

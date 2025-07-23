@@ -13,12 +13,13 @@ import { EventsService } from './events.service';
 export class PermissionsService {
   private isLoggedIn: boolean = false;
 
-  constructor(
-    private storage: StorageService,
-    public general: GeneralService,
-    public http: HttpService,
-    public events: EventsService
-  ) {
+  storage = inject(StorageService);
+  general = inject(GeneralService);
+  http = inject(HttpService);
+  events = inject(EventsService);
+
+
+  constructor() {
     // this.events.receiveIsLogout().subscribe((res: boolean) => {
     //   if (res == true) {
     //     this.isLoggedIn = false;

@@ -6,32 +6,39 @@ import { IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOptio
 import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
+import { StorageService } from 'src/app/providers/storage.service';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.page.html',
-  styleUrls: ['./signup.page.scss'],
+  selector: 'app-profile',
+  templateUrl: './profile.page.html',
+  styleUrls: ['./profile.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule,
     IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOption, IonNote
   ]
 })
-export class SignupPage implements OnInit {
+export class ProfilePage implements OnInit {
   @ViewChild('selfieInput', { static: false }) selfieInput!: ElementRef;
 
   http = inject(HttpService);
   general = inject(GeneralService);
   formBuilder = inject(FormBuilder);
+  storage = inject(StorageService);
 
-  signupForm!: FormGroup;
+  profileForm!: FormGroup;
   isSubmitted: boolean = false;
 
   companies: any = [];
 
+  passwordForm!: FormGroup;
+  isPSubmitted: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
-    this.initForm()
+    this.initForm();
+    this.initPasswordForm();
+    this.profileForm.patchValue(GlobaldataService.userObject);
   }
 
   ionViewWillEnter() {
@@ -51,7 +58,7 @@ export class SignupPage implements OnInit {
   }
 
   initForm() {
-    this.signupForm = this.formBuilder.group({
+    this.profileForm = this.formBuilder.group({
       full_name: new FormControl('', Validators.required),
       position: new FormControl('', Validators.required),
       company_id: new FormControl('', Validators.required),
@@ -68,24 +75,31 @@ export class SignupPage implements OnInit {
   }
 
   get getControl() {
-    return this.signupForm.controls;
+    return this.profileForm.controls;
   }
 
   onSubmit() {
     this.isSubmitted = true;
-    if (this.signupForm.invalid) {
+    if (this.profileForm.invalid) {
       this.general.presentToast('Please fill form correctly!')
       return
     }
-    let company = this.companies.find((com: any) => com.company_id == this.signupForm.value.company_id);
-    this.signupForm.patchValue({
-      company_name: company.company_name
-    })
-    GlobaldataService.signupData = this.signupForm.value;
-    setTimeout(() => {
-      this.general.goToPage('signuppreview')
-    }, 50)
 
+    this.http.post('UpdateUserProfile', this.profileForm.value, true).subscribe({
+      next: async (res: any) => {
+        console.log(res);
+        await this.general.stopLoading();
+        if (res.status == true) {
+          GlobaldataService.userObject = res.data;
+          await this.storage.setObject('CBREuserObject', res.data);
+          this.general.presentToast(res.message)
+        }
+      },
+      error: async (err) => {
+        await this.general.stopLoading()
+
+      },
+    })
   }
 
   selectPhoto() {
@@ -105,7 +119,7 @@ export class SignupPage implements OnInit {
       next: async (res: any) => {
         await this.general.stopLoading();
         if (res.status == true) {
-          this.signupForm.patchValue({
+          this.profileForm.patchValue({
             profile_pic: res.filename,
             profile_pic_url: res.media_url
           });
@@ -117,6 +131,64 @@ export class SignupPage implements OnInit {
       error: async (err) => {
         await this.general.stopLoading();
         console.log(err)
+      },
+    })
+  }
+
+  initPasswordForm() {
+    this.passwordForm = this.formBuilder.group({
+      old_password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(/[A-Z]/),
+        Validators.pattern(/[a-z]/),
+        Validators.pattern(/[0-9]/),
+        Validators.pattern(/[!@#$%^&*]/),
+      ]),
+      new_password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(/[A-Z]/),
+        Validators.pattern(/[a-z]/),
+        Validators.pattern(/[0-9]/),
+        Validators.pattern(/[!@#$%^&*]/),
+      ]),
+      confirm_password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(/[A-Z]/),
+        Validators.pattern(/[a-z]/),
+        Validators.pattern(/[0-9]/),
+        Validators.pattern(/[!@#$%^&*]/),
+      ])
+    })
+  }
+
+  get getPassControl() {
+    return this.passwordForm.controls;
+  }
+
+  onPasswordSubmit() {
+    this.isPSubmitted = true;
+    if (this.passwordForm.invalid || (this.getPassControl['new_password'].value != this.getPassControl['confirm_password'].value)) {
+      this.general.presentToast('Please fill form correctly!')
+      return
+    }
+
+    this.http.post('UpdateUserPassword', this.passwordForm.value, true).subscribe({
+      next: async (res: any) => {
+        await this.general.stopLoading();
+        if (res.status == true) {
+          this.general.presentToast(res.message);
+        } else {
+          this.general.presentToast(res.message);
+        }
+        this.isPSubmitted = false;
+        this.passwordForm.reset()
+      },
+      error: async (err) => {
+        await this.general.stopLoading()
+
       },
     })
   }
