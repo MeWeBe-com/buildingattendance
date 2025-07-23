@@ -20,16 +20,14 @@ export class HeaderComponent implements OnInit {
 
 
   @Input() title: string = 'Select Location';
-  @Input() selected: string = '';
+  @Input() selected: any = null;
   @Input() showMenu: boolean = false;
   isPopoverOpen: boolean = false;
 
 
   constructor() { }
 
-  ngOnInit() {
-    console.log(this.selected)
-  }
+  ngOnInit() { }
 
   presentPopover(e: Event) {
     this.popover.event = e;

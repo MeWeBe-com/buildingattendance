@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonIcon, IonAlert } from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
+import { HttpService } from 'src/app/providers/http.service';
+import { GeneralService } from 'src/app/providers/general.service';
+import { GlobaldataService } from 'src/app/providers/globaldata.service';
 
 @Component({
   selector: 'app-selectlocation',
@@ -11,29 +14,70 @@ import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
   styleUrls: ['./selectlocation.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, NgSelectComponent, NgOptionComponent, HeaderComponent,
-    IonContent, IonIcon
+    IonContent, IonIcon, IonAlert
   ]
 })
 export class SelectlocationPage implements OnInit {
 
-  selectedCar: any = {
-    status: ''
-  };
+  general = inject(GeneralService)
+  http = inject(HttpService);
 
-  cars = [
-    { id: 1, name: 'Volvo', status: 'red' },
-    { id: 2, name: 'Saab', status: 'green' },
-    { id: 3, name: 'Opel', status: 'orange' },
-  ];
+  user: any;
+  selectedProperty: any = undefined;
+  properties: any = [];
+  isAlertOpen: boolean = false;
+  alertHeader: string = '';
+  alertMessage: string = ''
+  alertButtons: any = [];
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  ionViewWillEnter() {
+    this.user = GlobaldataService.userObject;
+    this.getProperties();
+  }
+
+  getProperties() {
+    this.http.get('GetPropertiesByCompanyID', true).subscribe({
+      next: async (res: any) => {
+        await this.general.stopLoading()
+        if (res.status == true) {
+          this.properties = res.data;
+        }
+      },
+      error: async (err) => {
+        await this.general.stopLoading()
+        console.log(err)
+      }
+    })
+  }
+
   changeLocation(e: any) {
-    console.log(e)
-    this.selectedCar = e;
+    this.selectedProperty = e;
+
+    if (this.selectedProperty.status != '0') {
+      if (this.selectedProperty.status == '1') {
+        this.alertHeader = 'Emergency – Do Not Enter';
+        this.alertMessage = 'Contact Security for Assistance';
+        this.alertButtons = ['Dismiss']
+      } else {
+        this.alertHeader = 'Status: Temporarily Closed';
+        this.alertMessage = 'Tap below for more information';
+        this.alertButtons = [
+          {
+            text: 'Building Info',
+            role: 'confirm',
+            handler: () => {
+              console.log('Info confirmed');
+            },
+          },
+        ]
+      }
+      this.isAlertOpen = true;
+    }
   }
 
 }

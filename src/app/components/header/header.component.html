@@ -1,5 +1,9 @@
-<ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar mode="ios" [ngClass]="selected ? selected : 'blue-bg'">
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios" [ngClass]="{
+    'green': selected == '0',
+    'red': selected === '1',
+    'orange': selected === '2'
+  }">
     <ion-title>{{title}}</ion-title>
 
     @if(showMenu){

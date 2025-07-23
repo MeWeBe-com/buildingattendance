@@ -1,35 +1,58 @@
-<app-header [selected]="selectedCar.status" [showMenu]="true"></app-header>
+<app-header [selected]="selectedProperty?.status" [showMenu]="true"></app-header>
 
-<ion-content [ngClass]="selectedCar ? selectedCar.status : ''" class="ion-padding">
+<ion-content [ngClass]="{
+'green': selectedProperty?.status == '0',
+'red': selectedProperty?.status === '1',
+'orange': selectedProperty?.status === '2'
+}" class="ion-padding">
 
   <div>
     <ng-select (change)="changeLocation($event)" placeholder="Start typing to search...">
-      @for (car of cars; track car.id) {
-      <ng-option [value]="car"> <span class="select-status" [ngClass]="car.status"></span> {{car.name}}</ng-option>
+      @for (p of properties; track p?.property_id) {
+      <ng-option [value]="p">
+        <span class="select-status" [ngClass]="{
+          'green': p?.status == '0',
+          'red': p?.status === '1',
+          'orange': p?.status === '2'
+        }"></span>
+        {{p?.property_name}}
+      </ng-option>
       }
     </ng-select>
   </div>
 
+  @if(selectedProperty){
   <div class="ion-text-center lock-icon">
-    <ion-icon name="lock-open-outline"></ion-icon>
+    <ion-icon [name]="selectedProperty?.status == '0' ? 'lock-open-outline' :
+            (selectedProperty?.status === '1' ? 'warning-outline' :
+            (selectedProperty?.status === '2' ? 'lock-closed-outline' : ''))"></ion-icon>
   </div>
+  }
 
 
-  @if(selectedCar.status){
+  @if(selectedProperty && selectedProperty.status == '0'){
   <div class="ion-text-center arrow-icon">
-    <div class="arrow-bg d-flex align-items-center justify-content-center" [ngClass]="'arrow-'+selectedCar.status">
-      <ion-icon name="arrow-forward-circle-outline" [ngClass]="'arrow-'+selectedCar.status"></ion-icon>
+    <div class="arrow-bg d-flex align-items-center justify-content-center" [ngClass]="{
+      'arrow-green': selectedProperty?.status == '0',
+      'arrow-red': selectedProperty?.status === '1',
+      'arrow-orange': selectedProperty?.status === '2'
+    }">
+      <ion-icon name="arrow-forward-circle-outline"></ion-icon>
     </div>
 
     <div class="text inter-font">
       All systems operational.
     </div>
   </div>
-  }@else{
+  }@else if(selectedProperty == undefined){
   <div class="logo-box">
-    <img src="assets/imgs/home/cbre.svg">
+    <img [src]="user?.company_id == '1' ? 'assets/imgs/home/cbre.svg':'assets/imgs/home/morgan_stanley.svg'">
   </div>
   }
+
+
+  <ion-alert [isOpen]="isAlertOpen" [header]="alertHeader" [message]="alertMessage" [buttons]="alertButtons"
+    (didDismiss)="isAlertOpen = false"></ion-alert>
 
 
 </ion-content>

@@ -30,7 +30,8 @@ export const routes: Routes = [
   },
   {
     path: 'selectlocation',
-    loadComponent: () => import('./pages/selectlocation/selectlocation.page').then(m => m.SelectlocationPage)
+    loadComponent: () => import('./pages/selectlocation/selectlocation.page').then(m => m.SelectlocationPage),
+    canActivate: [AuthGuard]
   },
   {
     path: 'history',
