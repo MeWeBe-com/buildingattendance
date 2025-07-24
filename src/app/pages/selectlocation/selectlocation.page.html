@@ -1,4 +1,4 @@
-<app-header [title]="'Select Location'" [selected]="selectedProperty?.status" [showMenu]="true"></app-header>
+<app-header [title]="'Select Location'" [selected]="selectedProperty ? selectedProperty?.status : null" [showMenu]="true"></app-header>
 
 <ion-content [ngClass]="{
 'green': selectedProperty?.status == '0',

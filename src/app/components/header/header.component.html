@@ -1,14 +1,16 @@
 <ion-header class="ion-no-border">
   <ion-toolbar mode="ios" [ngClass]="{
+    'green-bg': (!selected && user?.company_id === '1' && title == 'history'),
+    'blue-bg': (!selected && user?.company_id === '2' && title == 'history'),
     'green': selected == '0',
     'red': selected === '1',
     'orange': selected === '2'
   }">
-    <ion-title>{{title}}</ion-title>
+    <ion-title>{{title == 'history' ? '' : title}}</ion-title>
 
     @if(showMenu){
     <ion-buttons slot="end">
-      <ion-button [color]="selected ? 'dark' : 'light'" (click)="presentPopover($event)">
+      <ion-button [color]="selected ? 'light' : 'dark'" (click)="presentPopover($event)">
         <ion-icon name="menu-outline"></ion-icon>
       </ion-button>
     </ion-buttons>

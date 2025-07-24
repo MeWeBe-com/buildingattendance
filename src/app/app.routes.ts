@@ -35,7 +35,8 @@ export const routes: Routes = [
   },
   {
     path: 'history',
-    loadComponent: () => import('./pages/history/history.page').then(m => m.HistoryPage)
+    loadComponent: () => import('./pages/history/history.page').then(m => m.HistoryPage),
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile',

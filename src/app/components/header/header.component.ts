@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonHeader, IonTitle, IonToolbar, IonIcon, IonButtons, IonButton, IonPopover, IonList, IonItem, IonItemDivider, IonLabel, IonNote, IonBadge } from '@ionic/angular/standalone';
 
 import { GeneralService } from 'src/app/providers/general.service';
+import { GlobaldataService } from 'src/app/providers/globaldata.service';
 
 @Component({
   selector: 'app-header',
@@ -20,14 +21,16 @@ export class HeaderComponent implements OnInit {
 
 
   @Input() title: string = '';
-  @Input() selected: any = null;
+  @Input() selected: any = undefined;
   @Input() showMenu: boolean = false;
   isPopoverOpen: boolean = false;
-
+  user:any;
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.user = GlobaldataService.userObject;   
+  }
 
   presentPopover(e: Event) {
     this.popover.event = e;

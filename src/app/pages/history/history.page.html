@@ -1,16 +1,26 @@
-<app-header [title]="''" [showMenu]="true"></app-header>
+<app-header [title]="'history'" [showMenu]="true"></app-header>
 
-<ion-content>
+<ion-content [ngClass]="{
+  'green-bg': user?.company_id === '1',
+   'blue-bg': user?.company_id === '2',
+}">
 
   <div class="search-card ion-padding">
     <ion-searchbar placeholder="Search History" mode="ios">
     </ion-searchbar>
 
     <div class="date-filter-row ">
-      <ion-button expand="block" fill="clear" class="cal-btn inter-font">
+      <ion-button expand="block" fill="clear" class="cal-btn inter-font" (click)="openDate($event)">
         <ion-icon slot="start" name="calendar-outline"></ion-icon>
-        {{ selectedDateRange }}
+        {{ (dateRange.from | date: 'MMM dd, yyyy') + ' - ' + (dateRange.to | date: 'MMM dd, yyyy') }}
       </ion-button>
+
+      <ion-popover #popover class="date-popover" [isOpen]="isDatePopoverOpen" (willDismiss)="isDatePopoverOpen = false">
+        <ng-template>
+          <ion-range-calendar [(ngModel)]="dateRange" (ionChange)="onChange($event)" [options]="optionsRange" [type]="type" [format]="'yyyy-MM-dd'">
+          </ion-range-calendar>
+        </ng-template>
+      </ion-popover>
 
       <ion-button fill="clear">
         <ion-icon slot="icon-only" name="filter-outline"></ion-icon>
@@ -26,11 +36,11 @@
     @for(item of historyItems; track $index){
     <ion-item class="inter-font">
       <ion-label>
-        <h2>{{ item.location }}</h2>
-        <p>{{ item.date }}</p>
+        <h2>{{ item?.property_name }}</h2>
+        <p>{{ item?.check_in_date }}</p>
       </ion-label>
       <ion-note slot="end" class="time-note">
-        {{ item.startTime }} → {{ item.endTime }}
+        {{ item?.check_in }} → {{ item?.check_out }}
       </ion-note>
     </ion-item>
     }

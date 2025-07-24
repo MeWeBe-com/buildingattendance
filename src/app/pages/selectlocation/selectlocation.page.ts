@@ -8,6 +8,7 @@ import { Geolocation } from '@capacitor/geolocation'
 import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-selectlocation',
@@ -44,7 +45,9 @@ export class SelectlocationPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.getLocation()
+    if(Capacitor.isNativePlatform()){
+      this.getLocation()
+    }
   }
 
   async getLocation() {

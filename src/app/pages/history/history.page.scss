@@ -1,5 +1,13 @@
+
+.blue-bg {
+  --background: var(--theme-darkblue);
+}
+
+.green-bg {
+  --background: var(--theme-green);
+}
+
 .search-card {
-  background-color: #002C51;
   color: #fff;
 
   ion-searchbar {
@@ -30,6 +38,10 @@
     border-radius: 8px;
   }
 
+}
+
+.date-popover{
+  --min-width	: 300px;
 }
 
 .history-heading {

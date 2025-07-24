@@ -17,7 +17,13 @@ ion-toolbar {
 }
 
 .blue-bg {
-  --background: #002C51;
+  --background: var(--theme-darkblue);
+  --color: #fff;
+  --min-height: unset;
+}
+
+.green-bg {
+  --background: var(--theme-green);
   --color: #fff;
   --min-height: unset;
 }
