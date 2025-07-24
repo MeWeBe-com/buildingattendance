@@ -1,0 +1,93 @@
+ion-content {
+    --background: url('../../../assets/imgs/bg-image.svg') center no-repeat;
+}
+
+.green {
+    background-color: #12B76A;
+}
+
+.img-box {
+    margin-top: 10px;
+    margin-bottom: 25px;
+
+    .upload {
+        width: 93px;
+        height: 93px;
+        margin: 0 auto;
+        padding: 10px;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        h4 {
+            /* David Thompson */
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+
+        }
+
+        ion-icon {
+            font-size: 30px;
+            color: grey;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+    }
+
+    .myp {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 18px;
+        color: #fff;
+    }
+}
+
+.arrow-icon {
+    margin: 70px 0;
+    color: #fff;
+
+    .arrow-bg {
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 50%;
+        width: 148px;
+        height: 148px;
+        border: 15px solid;
+
+        ion-icon {
+            font-size: 120px;
+        }
+    }
+
+    .arrow-green {
+        color: #12B76A;
+        border-color: #12B76A;
+    }
+}
+
+.check-icon {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+
+    img {
+        width: 148px;
+        height: 118px;
+        object-fit: contain;
+    }
+
+
+}

@@ -86,6 +86,10 @@ export class GeneralService {
     this.navController.back();
   }
 
+  goToRoot(page: string) {
+    this.navController.navigateRoot('/' + page)
+  }
+
   toggleMenu() {
     this.menu.toggle();
   }

@@ -46,6 +46,11 @@ export class PermissionsService {
               GlobaldataService.userObject = res2.data;
               await this.storage.setObject('CBREuserObject', res2.data);
               this.isLoggedIn = true;
+              if (res2.data.is_checked_in == true) {
+                this.general.goToRoot('checkout')
+              } else {
+                this.general.goToRoot('home')
+              }
               resolve(true);
             } else {
               await this.storage.clear()

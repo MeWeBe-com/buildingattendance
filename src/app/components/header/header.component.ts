@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   general = inject(GeneralService);
 
 
-  @Input() title: string = 'Select Location';
+  @Input() title: string = '';
   @Input() selected: any = null;
   @Input() showMenu: boolean = false;
   isPopoverOpen: boolean = false;

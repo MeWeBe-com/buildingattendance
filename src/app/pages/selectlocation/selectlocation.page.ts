@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonIcon, IonAlert } from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
+import { Geolocation } from '@capacitor/geolocation'
 import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
@@ -30,6 +31,8 @@ export class SelectlocationPage implements OnInit {
   alertMessage: string = ''
   alertButtons: any = [];
 
+  userPosition: any = null;
+
   constructor() { }
 
   ngOnInit() {
@@ -38,6 +41,26 @@ export class SelectlocationPage implements OnInit {
   ionViewWillEnter() {
     this.user = GlobaldataService.userObject;
     this.getProperties();
+  }
+
+  ionViewDidEnter() {
+    this.getLocation()
+  }
+
+  async getLocation() {
+    try {
+      let per = await Geolocation.requestPermissions();
+      if (per.location == 'granted') {
+        let position = await Geolocation.getCurrentPosition({ enableHighAccuracy: true });
+        console.log(position)
+        if (position) {
+          this.userPosition = position;
+        }
+      }
+    } catch (e) {
+      console.log(e)
+    }
+
   }
 
   getProperties() {
@@ -78,6 +101,30 @@ export class SelectlocationPage implements OnInit {
       }
       this.isAlertOpen = true;
     }
+  }
+
+  checkIn() {
+    let data = {
+      property_id: this.selectedProperty.property_id,
+      lat: this.userPosition.coords.latitude,
+      lng: this.userPosition.coords.longitude
+    }
+    this.http.post('CheckIn', data, true).subscribe({
+      next: async (res: any) => {
+        await this.general.stopLoading();
+        if (res.status == true) {
+          this.general.presentToast(res.message);
+          this.general.goToRoot('checkout');
+        } else {
+          this.general.presentToast(res.message)
+        }
+      },
+      error: async (err) => {
+        await this.general.stopLoading()
+        console.log(err)
+      },
+    })
+
   }
 
 }

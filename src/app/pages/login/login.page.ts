@@ -42,7 +42,7 @@ export class LoginPage implements OnInit {
       text: 'Yes, Enable',
       role: 'confirm',
       handler: () => {
-        this.setCredentials(this.loginForm.value.email, this.loginForm.value.password, 'www.cbre.com');
+        this.setCredentials(this.loginForm.value.email_address, this.loginForm.value.password, 'www.cbre.com');
       },
     },
   ];
@@ -98,7 +98,7 @@ export class LoginPage implements OnInit {
             }
           }
         } else {
-          this.general.presentToast(res.error)
+          this.general.presentToast(res.message)
         }
       },
       error: async (err: any) => {
@@ -127,7 +127,7 @@ export class LoginPage implements OnInit {
         server: "www.cbre.com",
       });
       this.loginNow({
-        email: credentials.username,
+        email_address: credentials.username,
         password: credentials.password
       })
     } catch (e) {
