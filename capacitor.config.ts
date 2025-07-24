@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'CBRE',
+  appId: 'com.cbrm.app',
+  appName: 'CBRM',
   webDir: 'www',
   plugins: {
     Keyboard: {
