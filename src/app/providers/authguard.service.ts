@@ -50,8 +50,8 @@ export class PermissionsService {
                 this.general.goToRoot('checkout')
               } else {
                 this.general.goToRoot('home')
+                resolve(true);
               }
-              resolve(true);
             } else {
               await this.storage.clear()
               reject(true)
