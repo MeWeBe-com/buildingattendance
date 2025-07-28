@@ -6,6 +6,7 @@ import { GlobaldataService } from 'src/app/providers/globaldata.service';
 import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { StorageService } from 'src/app/providers/storage.service';
+import { AnalyticsService } from 'src/app/providers/analytics.service';
 
 @Component({
   selector: 'app-signuppreview',
@@ -22,6 +23,8 @@ export class SignuppreviewPage implements OnInit {
   general = inject(GeneralService);
   storage = inject(StorageService);
   formBuilder = inject(FormBuilder);
+  analytics = inject(AnalyticsService);
+
 
   profile: any;
 
@@ -34,8 +37,9 @@ export class SignuppreviewPage implements OnInit {
     this.initForm()
   }
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
     this.profile = GlobaldataService.signupData;
+    await this.analytics.setCurrentScreen('SignUp Preview')
   }
 
   initForm() {
@@ -80,10 +84,12 @@ export class SignuppreviewPage implements OnInit {
       next: async (res: any) => {
         await this.general.stopLoading();
         if (res.status == true) {
+          await this.analytics.logEvent('Signup', data)
           this.general.presentToast(res.message);
           this.general.goToPage('login')
         } else {
           this.general.presentToast(res.error);
+          await this.analytics.logEvent('Signup Failed', res)
         }
       },
       error: async (err) => {

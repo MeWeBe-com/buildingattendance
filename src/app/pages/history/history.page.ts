@@ -8,6 +8,7 @@ import { CalendarComponentOptions, IonRangeCalendarComponent } from '@googlproxe
 import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
+import { AnalyticsService } from 'src/app/providers/analytics.service';
 
 @Component({
   selector: 'app-history',
@@ -23,6 +24,7 @@ export class HistoryPage implements OnInit {
 
   http = inject(HttpService);
   general = inject(GeneralService);
+  analytics = inject(AnalyticsService);
 
   isDatePopoverOpen: boolean = false;
   dateRange: any = { from: new Date(), to: new Date() };
@@ -42,9 +44,10 @@ export class HistoryPage implements OnInit {
   ngOnInit() {
   }
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
     this.user = GlobaldataService.userObject
-    this.getUserHistory()
+    this.getUserHistory();
+    await this.analytics.setCurrentScreen('History')
   }
 
   openDate(e: any) {

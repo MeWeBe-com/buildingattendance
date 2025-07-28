@@ -7,6 +7,7 @@ import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
 import { StorageService } from 'src/app/providers/storage.service';
+import { AnalyticsService } from 'src/app/providers/analytics.service';
 
 @Component({
   selector: 'app-profile',
@@ -24,6 +25,7 @@ export class ProfilePage implements OnInit {
   general = inject(GeneralService);
   formBuilder = inject(FormBuilder);
   storage = inject(StorageService);
+  analytics = inject(AnalyticsService);
 
   profileForm!: FormGroup;
   isSubmitted: boolean = false;
@@ -41,8 +43,9 @@ export class ProfilePage implements OnInit {
     this.profileForm.patchValue(GlobaldataService.userObject);
   }
 
-  ionViewWillEnter() {
-    this.getCompanies()
+  async ionViewWillEnter() {
+    this.getCompanies();
+    await this.analytics.setCurrentScreen('Profile');
   }
 
   getCompanies() {
@@ -87,12 +90,14 @@ export class ProfilePage implements OnInit {
 
     this.http.post('UpdateUserProfile', this.profileForm.value, true).subscribe({
       next: async (res: any) => {
-        console.log(res);
         await this.general.stopLoading();
         if (res.status == true) {
           GlobaldataService.userObject = res.data;
           await this.storage.setObject('CBREuserObject', res.data);
           this.general.presentToast(res.message)
+          await this.analytics.logEvent('Profile Update', res.data)
+        } else {
+          await this.analytics.logEvent('Profile Update Failed', res.data)
         }
       },
       error: async (err) => {
@@ -180,8 +185,10 @@ export class ProfilePage implements OnInit {
         await this.general.stopLoading();
         if (res.status == true) {
           this.general.presentToast(res.message);
+          await this.analytics.logEvent('Password Update', res.data)
         } else {
           this.general.presentToast(res.message);
+          await this.analytics.logEvent('Password Update Failed', res.data)
         }
         this.isPSubmitted = false;
         this.passwordForm.reset()

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "88611789809",
+    "project_id": "cbre-a8477",
+    "storage_bucket": "cbre-a8477.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:88611789809:android:eb5fafcc2cb20690ae0250",
+        "android_client_info": {
+          "package_name": "com.cbrm.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKQ78S-rDoie4SzHyMaN33OTESE-1gj_o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

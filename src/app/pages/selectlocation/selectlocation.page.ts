@@ -9,6 +9,7 @@ import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
 import { Capacitor } from '@capacitor/core';
+import { AnalyticsService } from 'src/app/providers/analytics.service';
 
 @Component({
   selector: 'app-selectlocation',
@@ -23,6 +24,7 @@ export class SelectlocationPage implements OnInit {
 
   general = inject(GeneralService)
   http = inject(HttpService);
+  analytics = inject(AnalyticsService);
 
   user: any;
   selectedProperty: any = undefined;
@@ -44,8 +46,9 @@ export class SelectlocationPage implements OnInit {
     this.getProperties();
   }
 
-  ionViewDidEnter() {
-    if(Capacitor.isNativePlatform()){
+  async ionViewDidEnter() {
+    await this.analytics.setCurrentScreen('Select Location')
+    if (Capacitor.isNativePlatform()) {
       this.getLocation()
     }
   }
@@ -81,8 +84,9 @@ export class SelectlocationPage implements OnInit {
     })
   }
 
-  changeLocation(e: any) {
+  async changeLocation(e: any) {
     this.selectedProperty = e;
+    await this.analytics.logEvent('Selected Location', e)
 
     if (this.selectedProperty.status != '0') {
       if (this.selectedProperty.status == '1') {
@@ -118,8 +122,10 @@ export class SelectlocationPage implements OnInit {
         if (res.status == true) {
           this.general.presentToast(res.message);
           this.general.goToRoot('checkout');
+          await this.analytics.logEvent('Check-In', { ...data, user_id: this.user.user_id })
         } else {
           this.general.presentToast(res.message)
+          await this.analytics.logEvent('Check-In Failed', { ...data, user_id: this.user.user_id })
         }
       },
       error: async (err) => {

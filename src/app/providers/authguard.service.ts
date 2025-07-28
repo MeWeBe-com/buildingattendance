@@ -6,6 +6,7 @@ import { HttpService } from './http.service';
 import { StorageService } from './storage.service';
 import { GlobaldataService } from './globaldata.service';
 import { EventsService } from './events.service';
+import { AnalyticsService } from './analytics.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class PermissionsService {
   general = inject(GeneralService);
   http = inject(HttpService);
   events = inject(EventsService);
+  analytics = inject(AnalyticsService);
 
 
   constructor() {
@@ -45,6 +47,8 @@ export class PermissionsService {
             if (res2.status == true) {
               GlobaldataService.userObject = res2.data;
               await this.storage.setObject('CBREuserObject', res2.data);
+              await this.analytics.setUserId(res2.data.user_id)
+              await this.analytics.logEvent('app_open', { user_id: res2.data.user_id })
               this.isLoggedIn = true;
               if (res2.data.is_checked_in == true) {
                 this.general.goToRoot('checkout')

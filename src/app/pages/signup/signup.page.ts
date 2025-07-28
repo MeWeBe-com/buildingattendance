@@ -6,6 +6,7 @@ import { IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOptio
 import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
+import { AnalyticsService } from 'src/app/providers/analytics.service';
 
 @Component({
   selector: 'app-signup',
@@ -22,6 +23,7 @@ export class SignupPage implements OnInit {
   http = inject(HttpService);
   general = inject(GeneralService);
   formBuilder = inject(FormBuilder);
+  analytics = inject(AnalyticsService);
 
   signupForm!: FormGroup;
   isSubmitted: boolean = false;
@@ -34,8 +36,9 @@ export class SignupPage implements OnInit {
     this.initForm()
   }
 
-  ionViewWillEnter() {
-    this.getCompanies()
+  async ionViewWillEnter() {
+    this.getCompanies();
+    await this.analytics.setCurrentScreen('SignUp')
   }
 
   getCompanies() {

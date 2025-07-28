@@ -9,6 +9,7 @@ import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { StorageService } from 'src/app/providers/storage.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
+import { AnalyticsService } from 'src/app/providers/analytics.service';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +26,7 @@ export class LoginPage implements OnInit {
   general = inject(GeneralService);
   storage = inject(StorageService);
   formBuilder = inject(FormBuilder);
+  analytics = inject(AnalyticsService);
 
   loginForm!: FormGroup;
   isSubmitted: boolean = false;
@@ -51,6 +53,10 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.initForm()
+  }
+
+  async ionViewWilLEnter() {
+    await this.analytics.setCurrentScreen('Login');
   }
 
   initForm() {
@@ -82,7 +88,7 @@ export class LoginPage implements OnInit {
         if (res.status == true) {
           GlobaldataService.userObject = res.data.user_token;
           await this.storage.setObject('login_token', res.data.user_token);
-
+          await this.analytics.logEvent('login', null);
           const result = await NativeBiometric.isAvailable({ useFallback: true });
           if (!result.isAvailable) {
             this.general.goToPage('home');
@@ -128,7 +134,8 @@ export class LoginPage implements OnInit {
       });
       this.loginNow({
         email_address: credentials.username,
-        password: credentials.password
+        password: credentials.password,
+        decive_token: GlobaldataService.deviceToken
       })
     } catch (e) {
       console.log(e)

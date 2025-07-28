@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonContent, IonToggle, IonIcon, IonCheckbox, IonButton } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
@@ -6,6 +6,7 @@ import { RouterLink } from '@angular/router';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
 
 import { Radar } from 'capacitor-radar';
+import { AnalyticsService } from 'src/app/providers/analytics.service';
 
 @Component({
   selector: 'app-home',
@@ -14,13 +15,16 @@ import { Radar } from 'capacitor-radar';
   imports: [CommonModule, RouterLink, IonContent, IonToggle, IonIcon, IonCheckbox, IonButton],
 })
 export class HomePage {
+  analytics = inject(AnalyticsService);
 
   user: any;
 
   constructor() { }
 
-  ionViewDidEnter() {
+  async ionViewDidEnter() {
     this.user = GlobaldataService.userObject;
+    await this.analytics.setCurrentScreen('Home');
+    
     Radar.setUserId({ userId: 'test123' });
 
     Radar.addListener('clientLocation', (result) => {
