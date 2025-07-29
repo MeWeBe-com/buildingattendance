@@ -11,7 +11,8 @@
       Disabled
     </div>
     <div>
-      <ion-toggle mode="ios"></ion-toggle>
+      <ion-toggle mode="ios" [(ngModel)]="user.auto_checkin" (ionChange)="onChange($event)"
+        [ngStyle]="{'--track-background-checked': user?.company_id == '1' ? 'var(--theme-green)' : 'var(--theme-darkblue)' }"></ion-toggle>
     </div>
     <div class="enable">
       Enabled
@@ -23,16 +24,18 @@
     Automatically log you in and out based on location.
   </div>
 
+  @if(!user?.auto_checkin){
   <div class="selection">
-
     <ion-button expand="block" mode="ios" [routerLink]="['/selectlocation']"
       [ngStyle]="{'--background': user?.company_id == '1' ? 'var(--theme-green)' : 'var(--theme-darkblue)' }">
       Select Location
     </ion-button>
   </div>
+  }
 
+  @if(!user?.auto_checkin && showAutoChekin){
   <div class="box ion-padding">
-    <div class="cls-btn">
+    <div class="cls-btn" (click)="showAutoChekin = false">
       <ion-icon name="close"></ion-icon>
     </div>
 
@@ -54,6 +57,7 @@
     </div>
 
   </div>
+  }
 
   <div class="logo-box">
     <img [src]="user?.company_id == '1' ? 'assets/imgs/home/cbre.svg':'assets/imgs/home/morgan_stanley.svg'">
@@ -66,7 +70,7 @@
     </div>
 
     <div>
-      <ion-checkbox mode="md" labelPlacement="end"><b>Checked Out</b></ion-checkbox>
+      <ion-checkbox mode="md" labelPlacement="end" [checked]="user?.is_checked_in"><b>Checked Out</b></ion-checkbox>
     </div>
   </div>
 </ion-content>

@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { IonContent, IonToggle, IonIcon, IonCheckbox, IonButton } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
 
@@ -7,44 +8,38 @@ import { GlobaldataService } from 'src/app/providers/globaldata.service';
 
 import { Radar } from 'capacitor-radar';
 import { AnalyticsService } from 'src/app/providers/analytics.service';
+import { HttpService } from 'src/app/providers/http.service';
+import { GeneralService } from 'src/app/providers/general.service';
+import { StorageService } from 'src/app/providers/storage.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [CommonModule, RouterLink, IonContent, IonToggle, IonIcon, IonCheckbox, IonButton],
+  imports: [CommonModule, FormsModule, RouterLink, IonContent, IonToggle, IonIcon, IonCheckbox, IonButton],
 })
 export class HomePage {
+  general = inject(GeneralService);
+  http = inject(HttpService);
+  storage = inject(StorageService);
   analytics = inject(AnalyticsService);
 
-  user: any;
+
+  showAutoChekin: boolean = true;
+  user: any = {
+    auto_checkin: false
+  };
 
   constructor() { }
 
   async ionViewDidEnter() {
     this.user = GlobaldataService.userObject;
     await this.analytics.setCurrentScreen('Home');
-    
-    Radar.setUserId({ userId: 'test123' });
-
-    Radar.addListener('clientLocation', (result) => {
-      // do something with result.location, result.stopped, result.source
-      console.log('clientLocation', result)
-    });
-
-    Radar.addListener('location', (result) => {
-      // do something with result.location, result.user
-      console.log('location', result)
-    });
-
-    Radar.addListener('events', (result) => {
-      // do something with result.events, result.user
-      console.log('events', result)
-    });
+    console.log(this.user.user_id)
+    Radar.setUserId({ userId: (this.user.user_id).toString() });
+    Radar.requestLocationPermissions({ background: true });
 
     Radar.getLocationPermissionsStatus().then((result) => {
-      // do something with result.status
-      console.log(result)
       if (result.status === 'DENIED') {
         Radar.requestLocationPermissions({ background: true });
       } else {
@@ -56,6 +51,23 @@ export class HomePage {
 
   startTracking() {
     Radar.startTrackingContinuous(); // start
+  }
+
+  onChange(e: any) {
+    this.http.post('UpdateCheckInStatus', { auto_checkin: e.detail.checked }, true).subscribe({
+      next: async (res: any) => {
+        GlobaldataService.userObject.auto_checkin = res.data.auto_checkin;
+        await this.storage.setObject('CBREuserObject', GlobaldataService.userObject);
+        await this.general.stopLoading();
+        await this.general.presentToast(res.message);
+        await this.analytics.logEvent('auto_check_in', { status: res.data.auto_checkin, user_id: this.user.user_id })
+      },
+      error: async (err) => {
+        await this.general.stopLoading()
+        console.log(err)
+
+      },
+    })
   }
 
 }
