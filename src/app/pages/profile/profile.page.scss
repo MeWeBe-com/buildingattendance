@@ -1,3 +1,7 @@
+::ng-deep ion-toolbar {
+  --min-height: unset !important;
+}
+
 .faceid {
 
     p {
@@ -6,6 +10,9 @@
         font-weight: 400;
         font-size: 28px;
         line-height: 36px;
+    }
+    .head{
+        margin-top: 0;
     }
 
     img {

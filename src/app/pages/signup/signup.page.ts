@@ -29,6 +29,7 @@ export class SignupPage implements OnInit {
   isSubmitted: boolean = false;
 
   companies: any = [];
+  emergencyRoles: any = [];
 
   constructor() { }
 
@@ -38,6 +39,7 @@ export class SignupPage implements OnInit {
 
   async ionViewWillEnter() {
     this.getCompanies();
+    this.getEmergencyRoles();
     await this.analytics.setCurrentScreen('SignUp')
   }
 
@@ -46,6 +48,17 @@ export class SignupPage implements OnInit {
       next: (res: any) => {
         GlobaldataService.companies = res.data.company;
         this.companies = res.data.company;
+      },
+      error: (err) => {
+        console.log(err)
+      },
+    })
+  }
+
+  getEmergencyRoles() {
+    this.http.get2('GetEmergencyRoles', false).subscribe({
+      next: (res: any) => {
+        this.emergencyRoles = res.data.roles;
       },
       error: (err) => {
         console.log(err)
@@ -66,6 +79,7 @@ export class SignupPage implements OnInit {
       profile_pic: new FormControl('', Validators.required),
 
       company_name: new FormControl(''),
+      emergency_name: new FormControl(''),
       profile_pic_url: new FormControl('')
     })
   }
@@ -81,9 +95,13 @@ export class SignupPage implements OnInit {
       return
     }
     let company = this.companies.find((com: any) => com.company_id == this.signupForm.value.company_id);
+    let emergencyRole = this.emergencyRoles.find((r: any) => r.id == this.signupForm.value.emergency_role);
+
     this.signupForm.patchValue({
-      company_name: company.company_name
-    })
+      company_name: company.company_name,
+      emergency_name: emergencyRole ? emergencyRole.name : ''
+    });
+
     GlobaldataService.signupData = this.signupForm.value;
     setTimeout(() => {
       this.general.goToPage('signuppreview')

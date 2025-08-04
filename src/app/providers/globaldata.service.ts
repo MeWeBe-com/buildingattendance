@@ -14,6 +14,7 @@ export class GlobaldataService {
   public static companies: any = [];
 
   static clearGobal() {
+    this.signupData = null
     this.userObject = undefined;
     this.loginToken = '';
   }

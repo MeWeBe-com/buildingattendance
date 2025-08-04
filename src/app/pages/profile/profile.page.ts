@@ -1,7 +1,8 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOption, IonNote } from '@ionic/angular/standalone';
+import { IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOption, IonNote, IonAlert } from '@ionic/angular/standalone';
+import { HeaderComponent } from 'src/app/components/header/header.component';
 
 import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
@@ -14,8 +15,8 @@ import { AnalyticsService } from 'src/app/providers/analytics.service';
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule,
-    IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOption, IonNote
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, HeaderComponent,
+    IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOption, IonNote, IonAlert
   ]
 })
 export class ProfilePage implements OnInit {
@@ -31,9 +32,29 @@ export class ProfilePage implements OnInit {
   isSubmitted: boolean = false;
 
   companies: any = [];
+  emergencyRoles:any = [];
 
   passwordForm!: FormGroup;
   isPSubmitted: boolean = false;
+
+  isDeleteOpen: boolean = false;
+  public alertButtons = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+        console.log('Alert canceled');
+      },
+    },
+    {
+      text: 'Confirm',
+      role: 'destructive',
+      handler: () => {
+        console.log('Alert confirmed');
+        this.deleteAccount()
+      },
+    },
+  ];
 
   constructor() { }
 
@@ -45,6 +66,7 @@ export class ProfilePage implements OnInit {
 
   async ionViewWillEnter() {
     this.getCompanies();
+    this.getEmergencyRoles();
     await this.analytics.setCurrentScreen('Profile');
   }
 
@@ -59,6 +81,17 @@ export class ProfilePage implements OnInit {
       },
     })
   }
+
+  getEmergencyRoles() {
+    this.http.get2('GetEmergencyRoles', false).subscribe({
+      next: (res: any) => {
+        this.emergencyRoles = res.data.roles;
+      },
+      error: (err) => {
+        console.log(err)
+      },
+    })
+  } 
 
   initForm() {
     this.profileForm = this.formBuilder.group({
@@ -195,6 +228,24 @@ export class ProfilePage implements OnInit {
       },
       error: async (err) => {
         await this.general.stopLoading()
+
+      },
+    })
+  }
+
+  deleteAccount() {
+    this.http.get('DeleteUser', true).subscribe({
+      next: async (res: any) => {
+        if (res.status == true) {
+          GlobaldataService.clearGobal();
+          await this.storage.clear();
+          await this.general.stopLoading();
+          this.general.presentToast(res.message);
+          this.general.goToPage('login')
+        }
+      },
+      error: async (err) => {
+        await this.general.stopLoading();
 
       },
     })

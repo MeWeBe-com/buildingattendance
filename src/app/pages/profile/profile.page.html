@@ -1,8 +1,10 @@
+<app-header [title]="''" [showMenu]="true"></app-header>
+
 <ion-content [fullscreen]="true">
   <div class="ion-padding">
 
-    <div class="faceid ion-text-center ion-margin" (click)="selectPhoto()">
-      <p class="roboto-font">
+    <div class="faceid ion-text-center" (click)="selectPhoto()">
+      <p class="roboto-font head">
         Profile
       </p>
 
@@ -59,10 +61,19 @@
 
         </ion-select>
 
-        <ion-input label-placement="floating" fill="outline" type="text" class="ion-margin-bottom" mode="md"
+        <!-- <ion-input label-placement="floating" fill="outline" type="text" class="ion-margin-bottom" mode="md"
           formControlName="emergency_role">
           <div slot="label">Emergency Role (if any)</div>
-        </ion-input>
+        </ion-input> -->
+
+        <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="emergency_role"
+          mode="md" interface="popover">
+          <div slot="label">Emergency Role (if any)</div>
+          <ion-select-option value="" selected>Select Role</ion-select-option>
+          @for(r of emergencyRoles; track r?.id){
+          <ion-select-option [value]="r?.id">{{r?.name}}</ion-select-option>
+          }
+        </ion-select>
 
         <ion-input label-placement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md"
           formControlName="email_address" readonly>
@@ -195,7 +206,33 @@
         </form>
       </div>
     </div>
+
+    <div class="faceid">
+      <p class="roboto-font ion-text-center">
+        Delete Account
+      </p>
+
+      <div class="form ion-margin-top">
+        <div class="ion-margin-vertical ion-text-left">
+          <ion-note color="danger">
+            Are you sure you want to delete your account? This action is permanent and will remove all your data,
+            including personal information, saved content, and activity history. This cannot be undone.
+          </ion-note>
+        </div>
+
+        <div class="login-btn">
+          <ion-button expand="block" mode="ios" class="inter-font" color="danger" (click)="isDeleteOpen = true">
+            Confirm Delete
+          </ion-button>
+        </div>
+
+      </div>
+    </div>
   </div>
+
+  <ion-alert [isOpen]="isDeleteOpen" header="Warning!" subHeader="This action is irreversible!"
+    message="Are you sure you want to delete your account?" [buttons]="alertButtons"
+    (didDismiss)="isDeleteOpen = false"></ion-alert>
 
   <input type="file" #selfieInput (change)="uploadSelfie($event)" hidden="true" accept="image/*"
     style="visibility: hidden;" />

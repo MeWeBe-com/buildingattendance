@@ -59,10 +59,18 @@
 
         </ion-select>
 
-        <ion-input label-placement="floating" fill="outline" type="text" class="ion-margin-bottom" mode="md"
+        <!-- <ion-input label-placement="floating" fill="outline" type="text" class="ion-margin-bottom" mode="md"
           formControlName="emergency_role">
           <div slot="label">Emergency Role (if any)</div>
-        </ion-input>
+        </ion-input> -->
+        <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="emergency_role"
+          mode="md" interface="popover">
+          <div slot="label">Emergency Role (if any)</div>
+          <ion-select-option value="" selected>Select Role</ion-select-option>
+          @for(r of emergencyRoles; track r?.id){
+          <ion-select-option [value]="r?.id">{{r?.name}}</ion-select-option>
+          }
+        </ion-select>
 
         <ion-input label-placement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md"
           formControlName="email_address">

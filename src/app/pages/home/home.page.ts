@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonToggle, IonIcon, IonCheckbox, IonButton } from '@ionic/angular/standalone';
+import { HeaderComponent } from 'src/app/components/header/header.component';
 import { RouterLink } from '@angular/router';
 
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
@@ -16,7 +17,7 @@ import { StorageService } from 'src/app/providers/storage.service';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [CommonModule, FormsModule, RouterLink, IonContent, IonToggle, IonIcon, IonCheckbox, IonButton],
+  imports: [CommonModule, FormsModule, RouterLink, HeaderComponent, IonContent, IonToggle, IonIcon, IonCheckbox, IonButton],
 })
 export class HomePage {
   general = inject(GeneralService);
@@ -35,8 +36,11 @@ export class HomePage {
   async ionViewDidEnter() {
     this.user = GlobaldataService.userObject;
     await this.analytics.setCurrentScreen('Home');
-    console.log(this.user.user_id)
-    Radar.setUserId({ userId: (this.user.user_id).toString() });
+    this.setupRadar(this.user.user_id);
+  }
+
+  setupRadar(id: any) {
+    Radar.setUserId({ userId: (id).toString() });
     Radar.requestLocationPermissions({ background: true });
 
     Radar.getLocationPermissionsStatus().then((result) => {
@@ -46,7 +50,6 @@ export class HomePage {
         this.startTracking();
       }
     });
-
   }
 
   startTracking() {
@@ -60,12 +63,11 @@ export class HomePage {
         await this.storage.setObject('CBREuserObject', GlobaldataService.userObject);
         await this.general.stopLoading();
         await this.general.presentToast(res.message);
-        await this.analytics.logEvent('auto_check_in', { status: res.data.auto_checkin, user_id: this.user.user_id })
+        await this.analytics.logEvent('auto_check_in', { status: res.data.auto_checkin, user_id: this.user.user_id });
       },
       error: async (err) => {
-        await this.general.stopLoading()
-        console.log(err)
-
+        await this.general.stopLoading();
+        console.log(err);
       },
     })
   }
