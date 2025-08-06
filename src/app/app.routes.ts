@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './providers/authguard.service';
+import { CheckGuard } from './providers/checkinguard.service';
 
 export const routes: Routes = [
   {
@@ -46,7 +47,7 @@ export const routes: Routes = [
   {
     path: 'checkout',
     loadComponent: () => import('./pages/checkout/checkout.page').then(m => m.CheckoutPage),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, CheckGuard]
   }
 
 ];

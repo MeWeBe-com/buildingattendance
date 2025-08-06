@@ -12,11 +12,28 @@
     <div class="inter-font myp">{{user?.email_address}}</div>
   </div>
 
+  @if(!user?.show_toggle){
   <div class="ion-text-center arrow-icon" (click)="checkOut()">
     <div class="arrow-bg d-flex align-items-center justify-content-center arrow-green">
       <ion-icon name="arrow-back-circle-outline"></ion-icon>
     </div>
   </div>
+  }@else{
+  <div class="ion-text-center">
+    <div class="d-flex align-items-center justify-content-evenly ion-margin-vertical ion-padding toggle inter-font">
+      <div>
+        Check Out
+      </div>
+      <div>
+        <ion-toggle mode="ios" [(ngModel)]="user.is_checked_in" (ionChange)="onChange($event)"
+          [ngStyle]="{'--track-background-checked': user?.company_id == '1' ? 'var(--theme-green)' : 'var(--theme-darkblue)' }"></ion-toggle>
+      </div>
+      <div class="enable">
+        Check In
+      </div>
+    </div>
+  </div>
+  }
 
   <div class="ion-text-center check-icon">
     <img src="assets/imgs/checkin.svg">

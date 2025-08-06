@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonIcon, IonAlert } from '@ionic/angular/standalone';
+import { IonContent, IonIcon, IonAlert, IonToggle } from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
 import { Geolocation } from '@capacitor/geolocation'
@@ -17,7 +17,7 @@ import { AnalyticsService } from 'src/app/providers/analytics.service';
   styleUrls: ['./selectlocation.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, NgSelectComponent, NgOptionComponent, HeaderComponent,
-    IonContent, IonIcon, IonAlert
+    IonContent, IonIcon, IonAlert, IonToggle
   ]
 })
 export class SelectlocationPage implements OnInit {
@@ -121,8 +121,8 @@ export class SelectlocationPage implements OnInit {
         await this.general.stopLoading();
         if (res.status == true) {
           this.general.presentToast(res.message);
-          this.general.goToRoot('checkout');
           await this.analytics.logEvent('Check-In', { ...data, user_id: this.user.user_id })
+          this.general.goToRoot('checkout');
         } else {
           this.general.presentToast(res.message)
           await this.analytics.logEvent('Check-In Failed', { ...data, user_id: this.user.user_id })
@@ -133,7 +133,21 @@ export class SelectlocationPage implements OnInit {
         console.log(err)
       },
     })
+  }
 
+  onChange(e: any) {
+    this.http.post('CheckInManual', { property_id: this.selectedProperty.property_id }, true).subscribe({
+      next: async (res: any) => {
+        await this.general.stopLoading();
+        await this.general.presentToast(res.message);
+        await this.analytics.logEvent('manual_check_in', { user_id: this.user.user_id, propert_id: this.selectedProperty.propert_id });
+        this.general.goToRoot('checkout');
+      },
+      error: async (err) => {
+        await this.general.stopLoading();
+        console.log(err);
+      },
+    })
   }
 
 }
