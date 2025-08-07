@@ -48,6 +48,10 @@ export const routes: Routes = [
     path: 'checkout',
     loadComponent: () => import('./pages/checkout/checkout.page').then(m => m.CheckoutPage),
     canActivate: [AuthGuard, CheckGuard]
+  },
+  {
+    path: 'emergency',
+    loadComponent: () => import('./pages/emergency/emergency.page').then(m => m.EmergencyPage)
   }
 
 ];

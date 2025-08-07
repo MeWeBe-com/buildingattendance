@@ -4,6 +4,12 @@ import { IonHeader, IonTitle, IonToolbar, IonIcon, IonButtons, IonButton, IonPop
 
 import { GeneralService } from 'src/app/providers/general.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
+import { StorageService } from 'src/app/providers/storage.service';
+import { AnalyticsService } from 'src/app/providers/analytics.service';
+
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-header',
@@ -17,19 +23,27 @@ import { GlobaldataService } from 'src/app/providers/globaldata.service';
 export class HeaderComponent implements OnInit {
   @ViewChild('popover') popover!: HTMLIonPopoverElement;
 
+  router = inject(Router);
   general = inject(GeneralService);
+  storage = inject(StorageService);
+  analytics = inject(AnalyticsService);
 
+  selectedPage: any = '';
 
   @Input() title: string = '';
   @Input() selected: any = undefined;
   @Input() showMenu: boolean = false;
   isPopoverOpen: boolean = false;
-  user:any;
+  user: any;
 
   constructor() { }
 
-  ngOnInit() { 
-    this.user = GlobaldataService.userObject;   
+  ngOnInit() {
+    this.user = GlobaldataService.userObject;
+    this.router.events.pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
+      console.log('New URL:', event.urlAfterRedirects);
+      this.selectedPage = event.urlAfterRedirects;
+    });
   }
 
   presentPopover(e: Event) {
@@ -41,6 +55,16 @@ export class HeaderComponent implements OnInit {
     this.isPopoverOpen = false;
     setTimeout(() => {
       this.general.goToPage(page);
+    }, 50)
+  }
+
+  async signOut() {
+    this.isPopoverOpen = false;
+    GlobaldataService.clearGobal();
+    await this.storage.clear();
+    await this.analytics.logEvent('logout', null);
+    setTimeout(() => {
+      this.general.goToRoot('login');
     }, 50)
   }
 

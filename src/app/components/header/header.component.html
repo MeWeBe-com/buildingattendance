@@ -24,13 +24,13 @@
       <ion-list lines="none">
 
         <!-- Home -->
-        <ion-item button>
+        <ion-item button [ngClass]="{'highlighted' : selectedPage == '/home' }" (click)="goTo('home')">
           <ion-icon name="home-outline" slot="start"></ion-icon>
           <ion-label>Home</ion-label>
         </ion-item>
 
         <!-- Profile -->
-        <ion-item button (click)="goTo('profile')">
+        <ion-item button [ngClass]="{'highlighted' : selectedPage == '/profile' }" (click)="goTo('profile')">
           <ion-icon name="settings-outline" slot="start"></ion-icon>
           <ion-label>Profile</ion-label>
         </ion-item>
@@ -43,7 +43,7 @@
         </ion-item>
 
         <!-- Sign Out -->
-        <ion-item button>
+        <ion-item button (click)="signOut()">
           <ion-icon name="log-out-outline" slot="start"></ion-icon>
           <ion-label>Sign Out</ion-label>
         </ion-item>
@@ -56,14 +56,14 @@
         </ion-item>
 
         <!-- History (Highlighted) -->
-        <ion-item button class="highlighted" (click)="goTo('history')">
+        <ion-item button [ngClass]="{'highlighted' : selectedPage == '/history' }" (click)="goTo('history')">
           <ion-icon name="folder-outline" slot="start"></ion-icon>
           <ion-label>History</ion-label>
           <ion-badge slot="end" color="light">8</ion-badge>
         </ion-item>
 
         <!-- Directory -->
-        <ion-item button>
+        <ion-item button [ngClass]="{'highlighted' : selectedPage == '/directory' }">
           <ion-icon name="folder-outline" slot="start"></ion-icon>
           <ion-label>Directory</ion-label>
         </ion-item>
@@ -76,7 +76,7 @@
         </ion-item>
 
         <!-- Emergency Procedures -->
-        <ion-item button>
+        <ion-item button [ngClass]="{'highlighted' : selectedPage == '/emergency' }" (click)="goTo('emergency')">
           <ion-icon name="warning-outline" slot="start"></ion-icon>
           <ion-label>Emergency Procedures</ion-label>
         </ion-item>
