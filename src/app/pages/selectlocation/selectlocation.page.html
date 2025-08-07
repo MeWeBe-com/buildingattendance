@@ -61,9 +61,9 @@
     </div>
   </div>
   }
-  @else if(selectedProperty == undefined){
+  @else if(selectedProperty == undefined && user?.show_company_branding){
   <div class="logo-box">
-    <img [src]="user?.company_id == '1' ? 'assets/imgs/home/cbre.svg':'assets/imgs/home/morgan_stanley.svg'">
+    <img [src]="user?.company_logo">
   </div>
   }
 

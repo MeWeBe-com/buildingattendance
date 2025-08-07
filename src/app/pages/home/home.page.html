@@ -12,8 +12,9 @@
       Disabled
     </div>
     <div>
-      <ion-toggle mode="ios" [(ngModel)]="user.auto_checkin" (ionChange)="onChange($event)"
-        [ngStyle]="{'--track-background-checked': user?.company_id == '1' ? 'var(--theme-green)' : 'var(--theme-darkblue)' }"></ion-toggle>
+      <ion-toggle mode="ios" [(ngModel)]="user.auto_checkin" (ionChange)="onChange($event)" [ngStyle]="{
+          '--track-background-checked': user?.show_company_branding ? user?.company_color : 'var(--ion-color-dark)'
+        }"></ion-toggle>
     </div>
     <div class="enable">
       Enabled
@@ -28,7 +29,7 @@
   @if(!user?.auto_checkin){
   <div class="selection">
     <ion-button expand="block" mode="ios" [routerLink]="['/selectlocation']"
-      [ngStyle]="{'--background': user?.company_id == '1' ? 'var(--theme-green)' : 'var(--theme-darkblue)' }">
+      [ngStyle]="{'--background': user?.show_company_branding ? user?.company_color : 'var(--ion-color-dark)' }">
       Select Location
     </ion-button>
   </div>
@@ -60,9 +61,11 @@
   </div>
   }
 
-  <div class="logo-box">
-    <img [src]="user?.company_id == '1' ? 'assets/imgs/home/cbre.svg':'assets/imgs/home/morgan_stanley.svg'">
-  </div>
+  @if(user?.show_company_branding){
+    <div class="logo-box">
+      <img [src]="user?.company_logo">
+    </div>
+  }
 
 
   <div class="status-box inter-font ion-text-center d-flex justify-content-center ion-margin-bottom">

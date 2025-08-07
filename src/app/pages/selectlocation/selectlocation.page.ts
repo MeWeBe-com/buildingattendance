@@ -49,7 +49,7 @@ export class SelectlocationPage implements OnInit {
   async ionViewDidEnter() {
     await this.analytics.setCurrentScreen('Select Location')
     if (Capacitor.isNativePlatform()) {
-      this.getLocation()
+      await this.getLocation()
     }
   }
 
@@ -58,7 +58,6 @@ export class SelectlocationPage implements OnInit {
       let per = await Geolocation.requestPermissions();
       if (per.location == 'granted') {
         let position = await Geolocation.getCurrentPosition({ enableHighAccuracy: true });
-        console.log(position)
         if (position) {
           this.userPosition = position;
         }
@@ -88,7 +87,7 @@ export class SelectlocationPage implements OnInit {
     this.selectedProperty = e;
     await this.analytics.logEvent('Selected Location', e)
 
-    if (this.selectedProperty.status != '0') {
+    if (this.selectedProperty && this.selectedProperty.status != '0') {
       if (this.selectedProperty.status == '1') {
         this.alertHeader = 'Emergency – Do Not Enter';
         this.alertMessage = 'Contact Security for Assistance';

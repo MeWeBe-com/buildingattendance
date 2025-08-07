@@ -41,7 +41,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.user = GlobaldataService.userObject;
     this.router.events.pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
-      console.log('New URL:', event.urlAfterRedirects);
       this.selectedPage = event.urlAfterRedirects;
     });
   }
