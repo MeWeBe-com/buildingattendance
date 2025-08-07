@@ -2,6 +2,7 @@ import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core'
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOption, IonNote } from '@ionic/angular/standalone';
+import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
 
 import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
@@ -13,7 +14,7 @@ import { AnalyticsService } from 'src/app/providers/analytics.service';
   templateUrl: './signup.page.html',
   styleUrls: ['./signup.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule,  NgSelectComponent, NgOptionComponent,
     IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOption, IonNote
   ]
 })
@@ -71,7 +72,7 @@ export class SignupPage implements OnInit {
       full_name: new FormControl('', Validators.required),
       position: new FormControl('', Validators.required),
       company_id: new FormControl('', Validators.required),
-      emergency_role: new FormControl(''),
+      emergency_role: new FormControl(null),
       email_address: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       mobile_number: new FormControl('', Validators.required),
       //biometric_login: new FormControl(false, Validators.requiredTrue),

@@ -1,12 +1,12 @@
 <ion-content [fullscreen]="true">
   <div class="ion-padding">
 
-    <div class="faceid ion-text-center ion-margin" (click)="selectPhoto()">
+    <div class="faceid ion-text-center ion-margin">
       <p class="roboto-font">
         Register
       </p>
 
-      <img [src]="getControl['profile_pic_url'].value || 'assets/imgs/signin/signin.png'" />
+      <img [src]="getControl['profile_pic_url'].value || 'assets/imgs/signin/signin.png'" (click)="selectPhoto()"/>
 
       <div class="cap inter-font">
         Tap to upload profile photo
@@ -63,14 +63,35 @@
           formControlName="emergency_role">
           <div slot="label">Emergency Role (if any)</div>
         </ion-input> -->
-        <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="emergency_role"
+
+        <div class="ion-margin-vertical">
+          <ng-select placeholder="Emergency Role (if any)" formControlName="emergency_role">
+            @for(r of emergencyRoles; track r?.id){
+            <ng-option [value]="r?.id">
+              <div class="d-flex align-items-center" style="gap: 20px">
+                <div>
+                  <img [src]="r?.emergency_logo" style="width: 25px; height: 25px; object-fit: contain;"/>
+                </div>
+                <div>
+                  {{r?.name}}
+                </div>
+              </div>
+            </ng-option>
+            }
+          </ng-select>
+        </div>
+
+        <!-- <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="emergency_role"
           mode="md" interface="popover">
           <div slot="label">Emergency Role (if any)</div>
           <ion-select-option value="" selected>Select Role</ion-select-option>
           @for(r of emergencyRoles; track r?.id){
-          <ion-select-option [value]="r?.id">{{r?.name}}</ion-select-option>
+          <ion-select-option [value]="r?.id">
+            <img [src]="r?.emergency_logo" />
+            {{r?.name}}
+          </ion-select-option>
           }
-        </ion-select>
+        </ion-select> -->
 
         <ion-input label-placement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md"
           formControlName="email_address">
