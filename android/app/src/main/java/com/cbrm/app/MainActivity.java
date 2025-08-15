@@ -9,7 +9,7 @@ import io.radar.sdk.Radar;
 public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Radar.initialize(this, "prj_test_pk_7e81b4d30093ee9b0f8d347be3e454fd8069acc2");
+        Radar.initialize(this, "prj_test_pk_9dd735029a99e7a85cffbe7320c82276f56cfc27");
 
         super.onCreate(savedInstanceState);
     }
