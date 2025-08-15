@@ -2,6 +2,6 @@
 <resources>
     <string name="app_name">CBRM</string>
     <string name="title_activity_main">CBRM</string>
-    <string name="package_name">com.cbrm.app</string>
-    <string name="custom_url_scheme">com.cbrm.app</string>
+    <string name="package_name">com.qtcbre.app</string>
+    <string name="custom_url_scheme">com.qtcbre.app</string>
 </resources>

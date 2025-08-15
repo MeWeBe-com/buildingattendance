@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.cbrm.app',
+  appId: 'com.qtcbre.app',
   appName: 'CBRM',
   webDir: 'www',
   plugins: {
