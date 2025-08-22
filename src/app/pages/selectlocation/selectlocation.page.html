@@ -3,8 +3,8 @@
 
 <ion-content [ngClass]="{
 'green': selectedProperty?.status == '0',
-'red': selectedProperty?.status === '1',
-'orange': selectedProperty?.status === '2'
+'orange': selectedProperty?.status === '1',
+'red': selectedProperty?.status === '2'
 }" class="ion-padding">
 
   <div>
@@ -13,8 +13,8 @@
       <ng-option [value]="p">
         <span class="select-status" [ngClass]="{
           'green': p?.status == '0',
-          'red': p?.status === '1',
-          'orange': p?.status === '2'
+          'orange': p?.status === '1',
+          'red': p?.status === '2'
         }"></span>
         {{p?.property_name}}
       </ng-option>

@@ -88,23 +88,9 @@ export class SelectlocationPage implements OnInit {
     await this.analytics.logEvent('Selected Location', e)
 
     if (this.selectedProperty && this.selectedProperty.status != '0') {
-      if (this.selectedProperty.status == '1') {
-        this.alertHeader = 'Emergency – Do Not Enter';
-        this.alertMessage = 'Contact Security for Assistance';
-        this.alertButtons = ['Dismiss']
-      } else {
-        this.alertHeader = 'Status: Temporarily Closed';
-        this.alertMessage = 'Tap below for more information';
-        this.alertButtons = [
-          {
-            text: 'Building Info',
-            role: 'confirm',
-            handler: () => {
-              console.log('Info confirmed');
-            },
-          },
-        ]
-      }
+      this.alertHeader = this.selectedProperty.header_message;
+      this.alertMessage = this.selectedProperty.message;
+      this.alertButtons = ['Dismiss']
       this.isAlertOpen = true;
     }
   }
