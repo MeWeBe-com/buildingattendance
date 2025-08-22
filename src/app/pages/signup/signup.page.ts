@@ -14,7 +14,7 @@ import { AnalyticsService } from 'src/app/providers/analytics.service';
   templateUrl: './signup.page.html',
   styleUrls: ['./signup.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule,  NgSelectComponent, NgOptionComponent,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgSelectComponent, NgOptionComponent,
     IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOption, IonNote
   ]
 })
@@ -31,6 +31,28 @@ export class SignupPage implements OnInit {
 
   companies: any = [];
   emergencyRoles: any = [];
+  positions: any = [
+    {
+      name: 'ICT Technician', value: 'ict_technician'
+    },
+    {
+      name: 'Managed Services', value: 'managed_services'
+    }
+  ];
+  shifts: any = [
+    {
+      name: 'Yellow', value: 'yellow'
+    },
+    {
+      name: 'Blue', value: 'blue'
+    },
+    {
+      name: 'Green', value: 'green'
+    },
+    {
+      name: 'Red', value: 'red'
+    }
+  ];
 
   constructor() { }
 
@@ -78,10 +100,13 @@ export class SignupPage implements OnInit {
       //biometric_login: new FormControl(false, Validators.requiredTrue),
       terms: new FormControl(false, Validators.requiredTrue),
       profile_pic: new FormControl('', Validators.required),
+      user_shift: new FormControl('', Validators.required),
 
       company_name: new FormControl(''),
       emergency_name: new FormControl(''),
-      profile_pic_url: new FormControl('')
+      profile_pic_url: new FormControl(''),
+      shift_name: new FormControl(''),
+      position_name: new FormControl('')
     })
   }
 
@@ -97,11 +122,17 @@ export class SignupPage implements OnInit {
     }
     let company = this.companies.find((com: any) => com.company_id == this.signupForm.value.company_id);
     let emergencyRole = this.emergencyRoles.find((r: any) => r.id == this.signupForm.value.emergency_role);
+    let position_name = this.positions.find((p: any) => p.value == this.signupForm.value.position);
+    let shift_name = this.shifts.find((s: any) => s.value == this.signupForm.value.user_shift);
 
     this.signupForm.patchValue({
       company_name: company.company_name,
-      emergency_name: emergencyRole ? emergencyRole.name : ''
+      emergency_name: emergencyRole ? emergencyRole.name : '',
+      shift_name: shift_name.name,
+      position_name: position_name.name
     });
+
+    console.log(this.signupForm.value);
 
     GlobaldataService.signupData = this.signupForm.value;
     setTimeout(() => {
