@@ -34,8 +34,8 @@
           </div>
         </ion-input>
 
-        <ion-input label-placement="floating" fill="outline" type="text" class="ion-margin-bottom" mode="md"
-          formControlName="position">
+        <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="position"
+          mode="md" interface="popover">
           <div slot="label">Position
             @if(isSubmitted && getControl['position'].errors){
             @if(getControl['position'].errors['required']){
@@ -43,7 +43,11 @@
             }
             }
           </div>
-        </ion-input>
+          <ion-select-option value="" selected>Select Position</ion-select-option>
+          @for(p of positions; track p?.name){
+          <ion-select-option [value]="p?.value">{{p?.name}}</ion-select-option>
+          }
+        </ion-select>
 
         <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="company_id"
           mode="md" interface="popover">
@@ -61,10 +65,20 @@
 
         </ion-select>
 
-        <!-- <ion-input label-placement="floating" fill="outline" type="text" class="ion-margin-bottom" mode="md"
-          formControlName="emergency_role">
-          <div slot="label">Emergency Role (if any)</div>
-        </ion-input> -->
+        <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="user_shift"
+          mode="md" interface="popover">
+          <div slot="label">User Shift
+            @if(isSubmitted && getControl['user_shift'].errors){
+            @if(getControl['user_shift'].errors['required']){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            }
+          </div>
+          <ion-select-option value="" selected>Select Shift</ion-select-option>
+          @for(s of shifts; track s?.name){
+          <ion-select-option [value]="s?.value">{{s?.name}}</ion-select-option>
+          }
+        </ion-select>
 
         <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="emergency_role"
           mode="md" interface="popover">

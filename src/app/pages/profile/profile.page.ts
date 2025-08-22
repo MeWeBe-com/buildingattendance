@@ -31,6 +31,29 @@ export class ProfilePage implements OnInit {
   profileForm!: FormGroup;
   isSubmitted: boolean = false;
 
+  positions: any = [
+    {
+      name: 'ICT Technician', value: 'ict_technician'
+    },
+    {
+      name: 'Managed Services', value: 'managed_services'
+    }
+  ];
+  shifts: any = [
+    {
+      name: 'Yellow', value: 'yellow'
+    },
+    {
+      name: 'Blue', value: 'blue'
+    },
+    {
+      name: 'Green', value: 'green'
+    },
+    {
+      name: 'Red', value: 'red'
+    }
+  ];
+
   companies: any = [];
   emergencyRoles:any = [];
 
@@ -101,9 +124,9 @@ export class ProfilePage implements OnInit {
       emergency_role: new FormControl(''),
       email_address: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       mobile_number: new FormControl('', Validators.required),
-      //biometric_login: new FormControl(false, Validators.requiredTrue),
       terms: new FormControl(false, Validators.requiredTrue),
       profile_pic: new FormControl('', Validators.required),
+      user_shift: new FormControl('', Validators.required),
 
       company_name: new FormControl(''),
       profile_pic_url: new FormControl('')
