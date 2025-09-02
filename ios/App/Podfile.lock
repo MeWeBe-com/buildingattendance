@@ -1,12 +1,12 @@
 PODS:
-  - Capacitor (7.4.2):
+  - Capacitor (7.4.3):
     - CapacitorCordova
   - CapacitorApp (7.0.1):
     - Capacitor
   - CapacitorCommunityFcm (7.1.3):
     - Capacitor
     - FirebaseMessaging
-  - CapacitorCordova (7.4.2)
+  - CapacitorCordova (7.4.3)
   - CapacitorFirebaseAnalytics (7.3.0):
     - Capacitor
     - CapacitorFirebaseAnalytics/Lite (= 7.3.0)
@@ -193,10 +193,10 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capgo/capacitor-native-biometric"
 
 SPEC CHECKSUMS:
-  Capacitor: 156d98aba46ec01dde72c4bbb92fa626837cad29
+  Capacitor: b4741ca7affb32c1b70debd03df92cbf522d8a80
   CapacitorApp: d63334c052278caf5d81585d80b21905c6f93f39
   CapacitorCommunityFcm: 8b6bd4c26c95643dd954aa886d18b0693280c29f
-  CapacitorCordova: 5e58d04631bc5094894ac106e2bf1da18a9e6151
+  CapacitorCordova: 435121e81a2df4d0034f0fb11fcefab5104cfdb5
   CapacitorFirebaseAnalytics: bb72826e3d44961667a55153e0df3adbcbc004b2
   CapacitorGeolocation: 5583eb25815522c4b4cb38936ac7fea8a34996d9
   CapacitorHaptics: 70e47470fa1a6bd6338cd102552e3846b7f9a1b3

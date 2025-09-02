@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">CBRM</string>
-    <string name="title_activity_main">CBRM</string>
-    <string name="package_name">com.qtcbre.app</string>
-    <string name="custom_url_scheme">com.qtcbre.app</string>
+    <string name="app_name">Sentry</string>
+    <string name="title_activity_main">Sentry</string>
+    <string name="package_name">com.qtcbresentry.app</string>
+    <string name="custom_url_scheme">com.qtcbresentry.app</string>
 </resources>

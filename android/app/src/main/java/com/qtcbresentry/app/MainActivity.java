@@ -1,4 +1,4 @@
-package com.qtcbre.app;
+package com.qtcbresentry.app;
 
 import android.os.Bundle;
 

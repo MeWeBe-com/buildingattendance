@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.qtcbre.app',
-  appName: 'CBRM',
+  appId: 'com.qtcbresentry.app',
+  appName: 'Sentry',
   webDir: 'www',
   plugins: {
     Keyboard: {

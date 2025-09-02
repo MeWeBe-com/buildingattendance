@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "88611789809",
-    "project_id": "cbre-a8477",
-    "storage_bucket": "cbre-a8477.firebasestorage.app"
+    "project_number": "331181891382",
+    "project_id": "cbre-sentry-4a111",
+    "storage_bucket": "cbre-sentry-4a111.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:88611789809:android:eb5fafcc2cb20690ae0250",
+        "mobilesdk_app_id": "1:331181891382:android:25be1a7ac5a58bbcd65d97",
         "android_client_info": {
-          "package_name": "com.qtcbre.app"
+          "package_name": "com.qtcbresentry.app"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAKQ78S-rDoie4SzHyMaN33OTESE-1gj_o"
+          "current_key": "AIzaSyCsd0tUL5VvFxPe8jzQuvyT-yL_KmlOIRE"
         }
       ],
       "services": {
