@@ -53,7 +53,38 @@ export class HomePage {
   }
 
   startTracking() {
-    Radar.startTrackingContinuous(); // start
+    //Radar.startTrackingContinuous(); // start
+    Radar.setForegroundServiceOptions({
+      options: {
+        text: "Text", 
+        title: "Title",
+        iconString: 'your_icon_name', 
+        updatesOnly: true,
+      }
+    })
+    Radar.startTrackingCustom({
+      options: {
+        desiredStoppedUpdateInterval: 30,
+        fastestStoppedUpdateInterval: 0,
+        desiredMovingUpdateInterval: 30,
+        fastestMovingUpdateInterval: 0,
+        desiredSyncInterval: 0,
+        desiredAccuracy: 'high',
+        stopDuration: 0,
+        stopDistance: 0,
+        replay: 'none',
+        sync: 'none',
+        showBlueBar: true,
+        useStoppedGeofence: false,
+        stoppedGeofenceRadius: 0,
+        useMovingGeofence: false,
+        movingGeofenceRadius: 0,
+        syncGeofences: false,
+        syncGeofencesLimit: 0,
+        foregroundServiceEnabled: false,
+        beacons: true
+      }
+    })
   }
 
   onChange(e: any) {

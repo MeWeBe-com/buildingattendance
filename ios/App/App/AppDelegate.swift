@@ -1,5 +1,6 @@
 import UIKit
 import Capacitor
+import RadarSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -8,6 +9,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        Radar.initialize(publishableKey: "prj_test_pk_9dd735029a99e7a85cffbe7320c82276f56cfc27")
         return true
     }
 
