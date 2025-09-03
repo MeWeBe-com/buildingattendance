@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.qtcbresentry.app',
-  appName: 'Sentry',
+  appName: 'Sentry QT',
   webDir: 'www',
   plugins: {
     Keyboard: {
