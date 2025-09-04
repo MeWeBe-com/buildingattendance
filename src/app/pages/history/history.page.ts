@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonListHeader, IonNote, IonSearchbar, IonPopover } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonButtons, IonContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonListHeader, IonNote, IonSearchbar, IonPopover } from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { CalendarComponentOptions, IonRangeCalendarComponent } from '@googlproxer/ion-range-calendar';
 
@@ -16,7 +16,7 @@ import { AnalyticsService } from 'src/app/providers/analytics.service';
   styleUrls: ['./history.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, HeaderComponent, IonRangeCalendarComponent,
-    IonContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonListHeader, IonNote, IonSearchbar, IonPopover
+    IonHeader, IonToolbar, IonTitle, IonButtons, IonContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonListHeader, IonNote, IonSearchbar, IonPopover
   ]
 })
 export class HistoryPage implements OnInit {
@@ -45,7 +45,7 @@ export class HistoryPage implements OnInit {
   }
 
   async ionViewWillEnter() {
-    this.user = GlobaldataService.userObject
+    this.user = GlobaldataService.userObject;
     this.getUserHistory();
     await this.analytics.setCurrentScreen('History')
   }

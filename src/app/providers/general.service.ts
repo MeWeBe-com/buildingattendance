@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import { StorageService } from './storage.service';
 import { GlobaldataService } from './globaldata.service';
+import { EventsService } from './events.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class GeneralService {
   sanitizer = inject(DomSanitizer);
   _location = inject(Location);
   storage = inject(StorageService);
+  events = inject(EventsService);
 
   validateEmail(mail: string) {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
@@ -92,6 +94,10 @@ export class GeneralService {
 
   toggleMenu() {
     this.menu.toggle();
+  }
+
+  openPopover(e:any){
+    this.events.publishPopover(e)
   }
 
   sideMenuEnable(bool: boolean) {

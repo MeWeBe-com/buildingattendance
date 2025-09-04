@@ -1,80 +1,91 @@
-<app-header [title]="''" [showMenu]="true"></app-header>
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-title></ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="general.openPopover($event)">
+        <ion-icon name="menu-outline" class="menu-icon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-<ion-content class="ion-padding">
+<ion-content>
+  <div class="ion-padding">
 
-  <div class="check ion-text-center">
-    <h2 class="inter-font">Auto Check-in with <br /> Geo-Fencing</h2>
-  </div>
-
-
-  <div class="d-flex align-items-center justify-content-evenly ion-margin-vertical ion-padding toggle inter-font">
-    <div>
-      Disabled
+    <div class="check ion-text-center">
+      <h2 class="inter-font">Auto Check-in with <br /> Geo-Fencing</h2>
     </div>
-    <div>
-      <ion-toggle mode="ios" [(ngModel)]="user.auto_checkin" (ionChange)="onChange($event)" [ngStyle]="{
+
+
+    <div class="d-flex align-items-center justify-content-evenly ion-margin-vertical ion-padding toggle inter-font">
+      <div>
+        Disabled
+      </div>
+      <div>
+        <ion-toggle mode="ios" [(ngModel)]="user.auto_checkin" (ionChange)="onChange($event)" [ngStyle]="{
           '--track-background-checked': user?.show_company_branding ? user?.company_color : 'var(--ion-color-dark)'
         }"></ion-toggle>
-    </div>
-    <div class="enable">
-      Enabled
-    </div>
-  </div>
-
-
-  <div class="inter-font check2 ion-text-center">
-    Automatically logs you in and out based on location.
-  </div>
-
-  @if(!user?.auto_checkin){
-  <div class="selection">
-    <ion-button expand="block" mode="ios" [routerLink]="['/selectlocation']"
-      [ngStyle]="{'--background': user?.show_company_branding ? user?.company_color : 'var(--ion-color-dark)' }">
-      Select Location
-    </ion-button>
-  </div>
-  }
-
-  @if(!user?.auto_checkin && showAutoChekin){
-  <div class="box ion-padding">
-    <div class="cls-btn" (click)="showAutoChekin = false">
-      <ion-icon name="close"></ion-icon>
+      </div>
+      <div class="enable">
+        Enabled
+      </div>
     </div>
 
-    <div class="d-flex">
-      <div class="icon">
-        <ion-icon src="assets/imgs/home/info.svg"></ion-icon>
+
+    <div class="inter-font check2 ion-text-center">
+      Automatically logs you in and out based on location.
+    </div>
+
+    @if(!user?.auto_checkin){
+    <div class="selection">
+      <ion-button expand="block" mode="ios" [routerLink]="['/selectlocation']"
+        [ngStyle]="{'--background': user?.show_company_branding ? user?.company_color : 'var(--ion-color-dark)' }">
+        Select Location
+      </ion-button>
+    </div>
+    }
+
+    @if(!user?.auto_checkin && showAutoChekin){
+    <div class="box ion-padding">
+      <div class="cls-btn" (click)="showAutoChekin = false">
+        <ion-icon name="close"></ion-icon>
       </div>
 
-      <div class="inter-font">
-        <p>
-          Auto Check-in with Geo-Fencing
-        </p>
-
-        <div class="text">
-          Geo-fencing will track your location in the background to detect entry and exit from the building.
+      <div class="d-flex">
+        <div class="icon">
+          <ion-icon src="assets/imgs/home/info.svg"></ion-icon>
         </div>
 
+        <div class="inter-font">
+          <p>
+            Auto Check-in with Geo-Fencing
+          </p>
+
+          <div class="text">
+            Geo-fencing will track your location in the background to detect entry and exit from the building.
+          </div>
+
+        </div>
       </div>
+
     </div>
+    }
 
-  </div>
-  }
-
-  @if(user?.show_company_branding){
+    @if(user?.show_company_branding){
     <div class="logo-box">
       <img [src]="user?.company_logo">
     </div>
-  }
+    }
 
 
-  <div class="status-box inter-font ion-text-center d-flex justify-content-center ion-margin-bottom">
-    <div>
-      Status:
-    </div>
+    <div class="status-box inter-font ion-text-center d-flex justify-content-center ion-margin-bottom">
+      <div>
+        Status:
+      </div>
 
-    <div>
-      <ion-checkbox mode="md" labelPlacement="end" [checked]="user?.is_checked_in"><b>Checked Out</b></ion-checkbox>
+      <div>
+        <ion-checkbox mode="md" labelPlacement="end" [checked]="user?.is_checked_in"><b>Checked Out</b></ion-checkbox>
+      </div>
     </div>
   </div>
 </ion-content>

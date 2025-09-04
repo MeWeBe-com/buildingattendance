@@ -1,4 +1,16 @@
-<app-header [title]="'history'" [showMenu]="true"></app-header>
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios" [ngClass]="{
+    'green-bg': (user?.company_id === '1'),
+    'blue-bg': (user?.company_id === '2'),
+  }">
+    <ion-title></ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="general.openPopover($event)">
+        <ion-icon name="menu-outline" class="menu-icon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content [ngClass]="{
   'green-bg': user?.company_id === '1',

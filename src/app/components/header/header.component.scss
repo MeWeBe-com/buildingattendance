@@ -14,6 +14,10 @@ ion-toolbar {
     line-height: 30px;
 
   }
+
+  ion-icon{
+    font-size: 32px;
+  }
 }
 
 .blue-bg {
@@ -41,54 +45,4 @@ ion-toolbar {
 .orange {
   --background: #FDB022;
   --color: #fff;
-}
-
-.menu-popover {
-  --width: 90%;
-  --max-width: 600px;
-
-  ion-item {
-
-    --background: transparent;
-    color: #333;
-
-    ion-icon {
-      font-size: 20px;
-      color: #333;
-    }
-
-    ion-label {
-      font-size: 15px;
-      font-weight: 500;
-    }
-  }
-
-  .section-header {
-    font-size: 13px;
-    font-weight: 600;
-    color: #888;
-    margin-top: 10px;
-    margin-bottom: 5px;
-  }
-
-  ion-item-divider {
-    margin: 8px 0;
-    --background: transparent;
-    border-bottom: 1px solid #dcdcdc;
-  }
-
-  .highlighted {
-    background-color: #1D1B201A;
-    border-radius: 100px;
-
-
-    ion-badge {
-      background: transparent;
-      font-weight: bold;
-      border-radius: 10px;
-      min-width: 24px;
-      text-align: center;
-    }
-  }
-
 }

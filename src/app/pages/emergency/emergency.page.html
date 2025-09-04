@@ -1,4 +1,13 @@
-<app-header [title]="''" [showMenu]="true"></app-header>
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-title></ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="general.openPopover($event)">
+        <ion-icon name="menu-outline" class="menu-icon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content>
 
