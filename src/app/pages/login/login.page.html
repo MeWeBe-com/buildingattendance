@@ -44,7 +44,7 @@
         </ion-input>
 
         <ion-input label-placement="floating" fill="outline" type="password" mode="md" formControlName="password">
-          <div slot="label">Passowrd
+          <div slot="label">Password
             @if(isSubmitted && getControl['password'].errors){
             @if(getControl['password'].errors['required']){
             <ion-note color="danger">(is required*)</ion-note>
@@ -55,7 +55,7 @@
 
         <div class="ion-text-right forget">
           <ion-button fill="clear" size="small" mode="ios" class="inter-font">
-            Forgotten Passowrd?
+            Forgotton Password?
           </ion-button>
         </div>
 
@@ -63,9 +63,9 @@
           <ion-checkbox labelPlacement="end" class="inter-font">Remember me</ion-checkbox>
         </div>
 
-        <div class="d-flex align-items-center ion-margin-top justify-content-center no-account">
+        <div class="d-flex align-items-center ion-margin-top justify-content-center no-account inter-font">
           Dont have an account?
-          <ion-button fill="clear" mode="ios" [routerLink]="['/signup']" class="inter-font">
+          <ion-button fill="clear" mode="ios" [routerLink]="['/signup']">
             Sign Up
           </ion-button>
         </div>

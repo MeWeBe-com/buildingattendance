@@ -22,7 +22,7 @@ export class SplashPage implements OnInit {
   ionViewDidEnter() {
     setTimeout(() => {
       this.general.goToPage('home');
-    }, 2500)
+    }, 7000)
   }
 
 }

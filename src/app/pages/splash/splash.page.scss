@@ -1,10 +1,6 @@
-.main {
-    background: url('../../../assets/imgs/splash/splash.png');
-    height: 100%;
+video{
     width: 100%;
-    background-size: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
+    height: 100%;
     max-width: 600px;
-    margin: 0 auto;
+    object-fit: contain;
 }
