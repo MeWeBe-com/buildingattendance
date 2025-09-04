@@ -1,4 +1,5 @@
 import type { CapacitorConfig } from '@capacitor/cli';
+import { KeyboardResize } from '@capacitor/keyboard';
 
 const config: CapacitorConfig = {
   appId: 'com.qtcbresentry.app',
@@ -6,7 +7,8 @@ const config: CapacitorConfig = {
   webDir: 'www',
   plugins: {
     Keyboard: {
-      resizeOnFullScreen: false
+      resizeOnFullScreen: false,
+      resize: KeyboardResize.None
     },
     PushNotifications: {
       presentationOptions: ["badge", "sound", "alert"]

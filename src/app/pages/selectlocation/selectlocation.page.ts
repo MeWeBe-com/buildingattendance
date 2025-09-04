@@ -10,6 +10,7 @@ import { GeneralService } from 'src/app/providers/general.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
 import { Capacitor } from '@capacitor/core';
 import { AnalyticsService } from 'src/app/providers/analytics.service';
+import { Keyboard, KeyboardResize, KeyboardResizeOptions } from '@capacitor/keyboard';
 
 @Component({
   selector: 'app-selectlocation',
@@ -41,7 +42,14 @@ export class SelectlocationPage implements OnInit {
   ngOnInit() {
   }
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
+    if (Capacitor.getPlatform() == 'ios') {
+      let opt: KeyboardResizeOptions = {
+        mode: KeyboardResize.None
+      }
+      await Keyboard.setResizeMode(opt);
+    }
+
     this.user = GlobaldataService.userObject;
     this.getProperties();
   }

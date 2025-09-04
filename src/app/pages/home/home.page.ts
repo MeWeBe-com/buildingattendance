@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonHeader, IonTitle, IonToolbar, IonButtons, IonContent, IonToggle, IonIcon, IonCheckbox, IonButton } from '@ionic/angular/standalone';
-import { HeaderComponent } from 'src/app/components/header/header.component';
 import { RouterLink } from '@angular/router';
 
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
@@ -17,7 +16,7 @@ import { StorageService } from 'src/app/providers/storage.service';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [CommonModule, FormsModule, RouterLink, HeaderComponent,
+  imports: [CommonModule, FormsModule, RouterLink,
     IonHeader, IonTitle, IonToolbar, IonButtons, IonContent, IonToggle, IonIcon, IonCheckbox, IonButton],
 })
 export class HomePage {

@@ -10,7 +10,7 @@ ion-content {
     font-weight: 600;
     font-size: 24px;
     line-height: 32px;
-
+    margin: 0;
   }
 }
 
@@ -91,13 +91,13 @@ ion-content {
 }
 
 .logo-box {
-  margin-top: 80px;
+  margin-top: 60px;
   width: 131px;
   height: 131px;
 }
 
 .status-box {
-  margin-top: 100px;
+  margin-top: 50px;
   gap: 10px;
   font-style: normal;
   font-weight: 400;

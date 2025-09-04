@@ -3,16 +3,13 @@
 }
 
 ion-toolbar {
-  --min-height: 80px;
+  
   --background: #fff;
 
   ion-title {
-    margin-top: 20px;
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
-    line-height: 30px;
-
   }
 
   ion-icon{
