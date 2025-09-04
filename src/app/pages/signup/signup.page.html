@@ -120,13 +120,20 @@
           </div>
         </ion-input>
 
-        <!-- <div class="ion-margin-bottom">
-          <ion-checkbox labelPlacement="end">
+        <div class="ion-margin-bottom">
+          <ion-checkbox labelPlacement="end" formControlName="biometric_login">
             <span class="ion-text-wrap">
               Facial Recognition for faster login
             </span>
           </ion-checkbox>
-        </div> -->
+          <div>
+            @if(isSubmitted && getControl['biometric_login'].errors){
+            @if(getControl['biometric_login'].errors['required']){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            }
+          </div>
+        </div>
 
         <div class="ion-margin-bottom">
           <ion-checkbox labelPlacement="end" formControlName="terms">

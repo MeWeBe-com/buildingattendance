@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GeneralService } from 'src/app/providers/general.service';
-import { GlobaldataService } from 'src/app/providers/globaldata.service';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
-import { } from '@ionic/angular';
 import { HttpService } from 'src/app/providers/http.service';
-import { IonContent, IonHeader, IonFooter, IonToolbar, IonTitle, IonButton, IonLabel, IonButtons, IonIcon, IonInput, IonItem, IonText, IonNote, AlertController, IonPopover } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonFooter, IonToolbar, IonButton, IonButtons, IonIcon, IonInput, IonText, AlertController, IonPopover, IonTitle } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-forgetcode',
@@ -13,7 +11,7 @@ import { IonContent, IonHeader, IonFooter, IonToolbar, IonTitle, IonButton, IonL
   styleUrls: ['./forgetcode.component.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule,
-    IonContent, IonHeader, IonFooter, IonToolbar, IonTitle, IonButton, IonLabel, IonButtons, IonIcon, IonInput, IonItem, IonText, IonNote, IonPopover
+    IonContent, IonHeader, IonFooter, IonToolbar, IonButton, IonButtons, IonIcon, IonInput, IonText, IonPopover, IonTitle
   ]
 })
 export class ForgetcodeComponent implements OnInit {

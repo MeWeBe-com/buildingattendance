@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { IonContent, IonInput, IonButton, IonCheckbox, IonNote, IonAlert, ModalController, IonModal, IonText, IonItem, IonIcon, IonButtons, IonToolbar, IonTitle, IonHeader } from '@ionic/angular/standalone';
+import { IonContent, IonInput, IonButton, IonCheckbox, IonNote, IonAlert, ModalController, IonModal, IonText, IonIcon, IonButtons, IonToolbar, IonHeader } from '@ionic/angular/standalone';
 
 import { NativeBiometric, BiometryType } from "@capgo/capacitor-native-biometric";
 import { HttpService } from 'src/app/providers/http.service';
@@ -20,7 +20,7 @@ import { ForgetcodeComponent } from 'src/app/components/forgetcode/forgetcode.co
   styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink,
-    IonContent, IonInput, IonButton, IonCheckbox, IonNote, IonAlert, IonModal, IonText, IonItem, IonIcon, IonButtons,  IonToolbar, IonTitle, IonHeader
+    IonContent, IonInput, IonButton, IonCheckbox, IonNote, IonAlert, IonModal, IonText, IonIcon, IonButtons, IonToolbar, IonHeader
   ]
 })
 export class LoginPage implements OnInit {

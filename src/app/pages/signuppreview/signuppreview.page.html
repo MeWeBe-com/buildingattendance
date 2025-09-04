@@ -1,7 +1,7 @@
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar mode="ios">
-    <ion-buttons>
-      <ion-back-button></ion-back-button>
+    <ion-buttons slot="start">
+      <ion-back-button text="Edit" color="dark"></ion-back-button>
     </ion-buttons>
     <ion-title>Profile</ion-title>
   </ion-toolbar>
@@ -94,18 +94,22 @@
 
       <div class="form ion-margin-top">
         <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()" novalidate>
-          <ion-input label-placement="floating" fill="outline" type="password" class="ion-margin-bottom" mode="md"
-            formControlName="password">
-            <div slot="label">Create Password
-              @if(isSubmitted && getControl['password'].errors){
-              @if(getControl['password'].errors['required']){
-              <ion-note color="danger">
-                is required*
-              </ion-note>
-              }
-              }
-            </div>
-          </ion-input>
+          <div class="ion-margin-bottom">
+            <ion-input label-placement="floating" fill="outline" type="password" mode="md" formControlName="password">
+              <div slot="label">Create Password
+                @if(isSubmitted && getControl['password'].errors){
+                @if(getControl['password'].errors['required']){
+                <ion-note color="danger">
+                  is required*
+                </ion-note>
+                }
+                }
+              </div>
+            </ion-input>
+            <ion-note style="margin-left: 10px">
+              Minimum 10 characters
+            </ion-note>
+          </div>
 
           <ion-input label-placement="floating" fill="outline" type="password" class="ion-margin-bottom" mode="md"
             formControlName="confirm_password">

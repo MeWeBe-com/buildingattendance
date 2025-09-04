@@ -97,7 +97,7 @@ export class SignupPage implements OnInit {
       emergency_role: new FormControl(null),
       email_address: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       mobile_number: new FormControl('', Validators.required),
-      //biometric_login: new FormControl(false, Validators.requiredTrue),
+      biometric_login: new FormControl(false, Validators.requiredTrue),
       terms: new FormControl(false, Validators.requiredTrue),
       profile_pic: new FormControl('', Validators.required),
       user_shift: new FormControl('', Validators.required),
