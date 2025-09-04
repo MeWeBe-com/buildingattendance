@@ -97,13 +97,37 @@
         }
     }
 
-    .login-btn {
-        ion-button {
-            font-style: normal;
-            font-weight: 600;
+}
+
+.login-btn {
+    ion-button {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        --background: var(--theme-light-green);
+    }
+}
+
+.forgetPasswordModal {
+    .heading {
+
+        font-size: 22px;
+
+        .sub-heading {
+            margin-top: 10px;
             font-size: 16px;
-            line-height: 24px;
-            --background: var(--theme-light-green);
+            color: #6F6F6F;
         }
+    }
+
+    .send-btn {
+        position: absolute;
+        bottom: 50px;
+        left: 0;
+        right: 0;
+        width: 90%;
+        margin: 0 auto;
+
     }
 }

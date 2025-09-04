@@ -31,7 +31,7 @@
 
     <div class="form">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
-        <ion-input label-placement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md"
+        <ion-input labelPlacement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md"
           formControlName="email_address">
           <div slot="label">Email
             @if(isSubmitted && getControl['email_address'].errors){
@@ -45,7 +45,7 @@
           </div>
         </ion-input>
 
-        <ion-input label-placement="floating" fill="outline" type="password" mode="md" formControlName="password">
+        <ion-input labelPlacement="floating" fill="outline" type="password" mode="md" formControlName="password">
           <div slot="label">Password
             @if(isSubmitted && getControl['password'].errors){
             @if(getControl['password'].errors['required']){
@@ -56,7 +56,7 @@
         </ion-input>
 
         <div class="ion-text-right forget">
-          <ion-button fill="clear" size="small" mode="ios" class="inter-font">
+          <ion-button fill="clear" size="small" mode="ios" class="inter-font" (click)="forgetPasswordModal = true">
             Forgotton Password?
           </ion-button>
         </div>
@@ -87,5 +87,55 @@
   <ion-alert [isOpen]="isBiometricSaveOpen" header="Biometric Authentication" subHeader="Enable Quick Login"
     message="Would you like to save your login details and enable biometric authentication for faster and more secure access next time?"
     [buttons]="alertButtons" (didDismiss)="isBiometricSaveOpen = false"></ion-alert>
+
+  <ion-modal class="forgetPasswordModal" [isOpen]="forgetPasswordModal" (willDismiss)="forgetPasswordModal = false">
+    <ng-template>
+      <ion-header class="ion-no-border">
+        <ion-toolbar>
+          <ion-buttons slot="start" (click)="forgetPasswordModal = false">
+            <ion-icon color="dark" slot="icon-only" name="chevron-back-outline"></ion-icon>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="ion-padding">
+
+        <div class="heading">
+          Forgot password
+          <div class="sub-heading">
+            We will send you an email for your password
+          </div>
+        </div>
+        <form [formGroup]="forgetPasswordForm" (ngSubmit)="onSibmitForgetForm()" novalidate>
+          <div class="ion-margin-vertical ion-padding-top">
+            <ion-input labelPlacement="floating" mode="md" fill="outline" type="email" placeholder="Enter email" formControlName="email_address">
+              <div slot="label">Email
+                @if(forgetPasswordSubmitted && forgetPasswordControls['email_address'].errors){
+                @if(forgetPasswordControls['email_address'].errors['required']){
+                <ion-text color="danger">
+                  (is required*)
+                </ion-text>
+                }
+                @if(forgetPasswordControls['email_address'].invalid && !forgetPasswordControls['email_address'].errors['required']){
+                <ion-text color="danger">
+                  (is invalid*)
+                </ion-text>
+                }
+                }
+
+              </div>
+            </ion-input>            
+          </div>
+
+          <div class="login-btn">
+            <ion-button mode="ios" expand="block" type="submit" class="inter-font">
+              Send code
+            </ion-button>
+          </div>
+
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 
 </ion-content>

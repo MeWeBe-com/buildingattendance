@@ -1,0 +1,77 @@
+.content {
+
+    .para {
+        width: 85%;
+        font-size: 18px;
+        font-weight: 600;
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    .in {
+        text-align: center;
+
+        p {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .inputs {
+            display: flex;
+
+            .inpt {
+                border: 2px solid var(--theme-purple);
+                border-radius: 10px;
+                height: 50px;
+                margin: 10px;
+                text-align: center;
+                font-size: 25px
+            }
+        }
+
+    }
+
+}
+
+.login-btn {
+    ion-button {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        --background: var(--theme-light-green);
+    }
+}
+
+.passwordPopover {
+    --width: 80%;
+    --max-width: 350px;
+    --border-radius: 8px;
+    --height: fit-content;
+
+
+    .cls-btn {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    ion-icon {
+        font-size: 50px;
+    }
+
+    p {
+        line-height: 25px;
+        font-size: 17px;
+    }
+
+    .send-again {
+        color: #6F6F6F;
+        text-decoration: underline;
+        font-size: 16px;
+
+        &:first-letter {
+            text-transform: uppercase !important;
+        }
+    }
+}

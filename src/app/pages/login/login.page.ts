@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { IonContent, IonInput, IonButton, IonCheckbox, IonNote, IonAlert } from '@ionic/angular/standalone';
+import { IonContent, IonInput, IonButton, IonCheckbox, IonNote, IonAlert, ModalController, IonModal, IonText, IonItem, IonIcon, IonButtons, IonToolbar, IonTitle, IonHeader } from '@ionic/angular/standalone';
 
 import { NativeBiometric, BiometryType } from "@capgo/capacitor-native-biometric";
 import { HttpService } from 'src/app/providers/http.service';
@@ -11,13 +11,16 @@ import { StorageService } from 'src/app/providers/storage.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
 import { AnalyticsService } from 'src/app/providers/analytics.service';
 
+import { ForgetcodeComponent } from 'src/app/components/forgetcode/forgetcode.component';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink,
-    IonContent, IonInput, IonButton, IonCheckbox, IonNote, IonAlert
+    IonContent, IonInput, IonButton, IonCheckbox, IonNote, IonAlert, IonModal, IonText, IonItem, IonIcon, IonButtons,  IonToolbar, IonTitle, IonHeader
   ]
 })
 export class LoginPage implements OnInit {
@@ -27,6 +30,7 @@ export class LoginPage implements OnInit {
   storage = inject(StorageService);
   formBuilder = inject(FormBuilder);
   analytics = inject(AnalyticsService);
+  modalController = inject(ModalController);
 
   loginForm!: FormGroup;
   isSubmitted: boolean = false;
@@ -49,10 +53,15 @@ export class LoginPage implements OnInit {
     },
   ];
 
+  forgetPasswordModal: boolean = false;
+  forgetPasswordForm!: FormGroup;
+  forgetPasswordSubmitted: boolean = false
+
   constructor() { }
 
   ngOnInit() {
-    this.initForm()
+    this.initForm();
+    this.inItForgetPasswordForm();
   }
 
   async ionViewWilLEnter() {
@@ -156,6 +165,51 @@ export class LoginPage implements OnInit {
     NativeBiometric.deleteCredentials({
       server: "www.testingexample.com",
     }).then((cres: any) => { });
+  }
+
+  inItForgetPasswordForm() {
+    this.forgetPasswordForm = this.formBuilder.group({
+      email_address: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
+    })
+  }
+
+  get forgetPasswordControls() {
+    return this.forgetPasswordForm.controls;
+  }
+
+  onSibmitForgetForm() {
+    this.forgetPasswordSubmitted = true;
+    if (this.forgetPasswordForm.invalid) {
+      this.general.presentToast('Please fill form correctly!');
+      return
+    }
+
+    this.http.post2('ForgetPassword', this.forgetPasswordForm.value, true).subscribe({
+      next: (res: any) => {
+        this.general.stopLoading()
+        if (res.status == true) {
+          this.general.presentToast(res.message);
+          this.forgetPasswordModal = false;
+          setTimeout(() => {
+            this.presentForgetCodeModal()
+          }, 250)
+        } else {
+          this.general.presentToast(res.data.message);
+        }
+      },
+      error: (err) => {
+        this.general.stopLoading()
+
+      },
+    })
+
+  }
+
+  async presentForgetCodeModal() {
+    const modal = await this.modalController.create({
+      component: ForgetcodeComponent,
+    });
+    return await modal.present();
   }
 
 }

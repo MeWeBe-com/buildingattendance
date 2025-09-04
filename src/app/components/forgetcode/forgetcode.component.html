@@ -1,0 +1,127 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start" (click)="general.closeModal()">
+      <ion-icon color="dark" slot="icon-only" name="chevron-back-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <div class="content" *ngIf="!showForm">
+    <p class="para">
+      We have sent you a code via Email
+    </p>
+
+    <div class="in">
+      <div class="inputs">
+        <ion-input mode="ios" class="inpt" maxlength="1" min="1" inputmode="numeric" required
+          (input)="change($event, 1)" #inputOne></ion-input>
+        <ion-input mode="ios" class="inpt" maxlength="1" min="1" inputmode="numeric" required
+          (input)="change($event, 2)" #inputTwo></ion-input>
+        <ion-input mode="ios" class="inpt" maxlength="1" min="1" inputmode="numeric" required
+          (input)="change($event, 3)" #inputThree></ion-input>
+        <ion-input mode="ios" class="inpt" maxlength="1" min="1" inputmode="numeric" required
+          (input)="change($event, 4)" #inputFour></ion-input>
+
+      </div>
+
+    </div>
+
+    <div class="login-btn ion-margin-vertical">
+      <ion-button expand="block" mode="ios" (click)="submit()">
+        Submit
+      </ion-button>
+    </div>
+
+  </div>
+
+  <div class="content" *ngIf="showForm">
+    <p class="para ion-margin-bottom">
+      Enter New Password to continue using your Account
+    </p>
+
+    <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()" novalidate>
+
+      <ion-input labelPlacement="floating" mode="md" fill="outline" type="{{showPass ? 'text' : 'password'}}"
+        placeholder="Enter password" formControlName="password" class="ion-margin-vertical">
+        <div slot="label">Enter New Password
+          <ng-container *ngIf="getControl['password'].errors">
+            <ion-text color="danger" *ngIf="getControl['password'].errors['required']">
+              (is required*)
+            </ion-text>
+            <ion-text color="danger"
+              *ngIf="getControl['password'].invalid && !getControl['password'].errors['required']">
+              (is invalid*)
+            </ion-text>
+          </ng-container>
+        </div>
+      </ion-input>
+
+      <ion-input labelPlacement="floating" mode="md" fill="outline" type="{{showPass ? 'text' : 'password'}}"
+        placeholder="Enter confirm password" formControlName="confirmPassword" class="ion-margin-vertical">
+        <div slot="label">Enter Confirm Password
+          <ng-container *ngIf="getControl['confirmPassword'].errors">
+            <ion-text color="danger" *ngIf="getControl['confirmPassword'].errors['required']">
+              (is required*)
+            </ion-text>
+            <ion-text color="danger"
+              *ngIf="getControl['confirmPassword'].invalid && !getControl['confirmPassword'].errors['required']">
+              (is invalid*)
+            </ion-text>
+          </ng-container>
+        </div>
+      </ion-input>
+
+
+      <div style="font-size: 12px;"
+        *ngIf="(passwordForm.value.password != '' && passwordForm.value.confirmPassword != '') && (passwordForm.value.password != passwordForm.value.confirmPassword)">
+        <ion-text color="danger">
+          Password not Matched!
+        </ion-text>
+      </div>
+
+      <div class="login-btn ion-margin-top">
+        <ion-button expand="block" mode="ios" type="submit"
+          [disabled]="passwordForm.invalid || (passwordForm.value.password != passwordForm.value.confirmPassword)">
+          Update Password
+        </ion-button>
+      </div>
+
+    </form>
+  </div>
+
+
+  <ion-popover class="passwordPopover" [isOpen]="isForgetPassPop" (willDismiss)="isForgetPassPop = false">
+    <ng-template>
+      <div class="ion-padding ion-margin-top">
+
+        <div class="cls-btn">
+          <ion-button fill="clear" color="dark" (click)="isForgetPassPop = false">
+            <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+          </ion-button>
+        </div>
+
+        <div class="ion-text-center">
+          <ion-icon name="mail-outline"></ion-icon>
+        </div>
+
+        <div>
+          <p class="ion-text-center">
+            Check your email inbox or junk folder
+          </p>
+        </div>
+      </div>
+    </ng-template>
+  </ion-popover>
+</ion-content>
+
+<ion-footer collapse="fade" class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-title>
+      <ion-button fill="clear" color="dark" size="small" (click)="presentAlertPrompt()">
+        Didn't Receive? Resend Code
+      </ion-button>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>
