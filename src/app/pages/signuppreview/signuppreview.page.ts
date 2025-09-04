@@ -88,7 +88,7 @@ export class SignuppreviewPage implements OnInit {
           this.general.presentToast(res.message);
           this.general.goToPage('login')
         } else {
-          this.general.presentToast(res.error);
+          this.general.presentToast(res.message);
           await this.analytics.logEvent('Signup Failed', res)
         }
       },
