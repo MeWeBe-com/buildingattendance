@@ -153,8 +153,11 @@
     justify-content: space-evenly;
 }
 
-ion-input, ion-select {
-    --highlight-color-focused: var(--theme-purple) !important;
+ion-input,
+ion-select {
+    --border-color: var(--theme-grey) !important;
+    --highlight-color-focused: var(--theme-grey) !important;
+    --highlight-color-invalid: var(--theme-grey) !important;
     font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: 400;
