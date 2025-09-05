@@ -31,6 +31,7 @@ export class SignupPage implements OnInit {
 
   companies: any = [];
   emergencyRoles: any = [];
+  employmentRoles: any = [];
   positions: any = [
     {
       name: 'ICT Technician', value: 'ict_technician'
@@ -63,6 +64,7 @@ export class SignupPage implements OnInit {
   async ionViewWillEnter() {
     this.getCompanies();
     this.getEmergencyRoles();
+    this.getEmploymentRoles();
     await this.analytics.setCurrentScreen('SignUp')
   }
 
@@ -89,12 +91,24 @@ export class SignupPage implements OnInit {
     })
   }
 
+  getEmploymentRoles() {
+    this.http.get2('GetEmploymentRoles', false).subscribe({
+      next: (res: any) => {
+        this.employmentRoles = res.data.roles;
+      },
+      error: (err) => {
+        console.log(err)
+      },
+    })
+  }
+
   initForm() {
     this.signupForm = this.formBuilder.group({
       full_name: new FormControl('', Validators.required),
       position: new FormControl('', Validators.required),
       company_id: new FormControl('', Validators.required),
       emergency_role: new FormControl(null),
+      employment_role: new FormControl('', Validators.required),
       email_address: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       mobile_number: new FormControl('', Validators.required),
       biometric_login: new FormControl(false, Validators.requiredTrue),
@@ -106,7 +120,8 @@ export class SignupPage implements OnInit {
       emergency_name: new FormControl(''),
       profile_pic_url: new FormControl(''),
       shift_name: new FormControl(''),
-      position_name: new FormControl('')
+      position_name: new FormControl(''),
+      employment_name: new FormControl(''),
     })
   }
 
@@ -124,12 +139,14 @@ export class SignupPage implements OnInit {
     let emergencyRole = this.emergencyRoles.find((r: any) => r.id == this.signupForm.value.emergency_role);
     let position_name = this.positions.find((p: any) => p.value == this.signupForm.value.position);
     let shift_name = this.shifts.find((s: any) => s.value == this.signupForm.value.user_shift);
+    let employment_role = this.employmentRoles.find((e: any) => e.id == this.signupForm.value.employment_role);
 
     this.signupForm.patchValue({
       company_name: company.company_name,
       emergency_name: emergencyRole ? emergencyRole.name : '',
       shift_name: shift_name.name,
-      position_name: position_name.name
+      position_name: position_name.name,
+      employment_name: employment_role.name
     });
 
     console.log(this.signupForm.value);

@@ -57,7 +57,8 @@ export class ProfilePage implements OnInit {
   ];
 
   companies: any = [];
-  emergencyRoles:any = [];
+  emergencyRoles: any = [];
+  employmentRoles: any = [];
 
   passwordForm!: FormGroup;
   isPSubmitted: boolean = false;
@@ -83,8 +84,8 @@ export class ProfilePage implements OnInit {
 
   isOpen: boolean = false;
 
-  constructor() { 
-    this.events.receiveOnPopover().subscribe((res:any)=>{
+  constructor() {
+    this.events.receiveOnPopover().subscribe((res: any) => {
       this.isOpen = res;
     })
   }
@@ -98,6 +99,7 @@ export class ProfilePage implements OnInit {
   async ionViewWillEnter() {
     this.getCompanies();
     this.getEmergencyRoles();
+    this.getEmploymentRoles();
     await this.analytics.setCurrentScreen('Profile');
   }
 
@@ -122,7 +124,18 @@ export class ProfilePage implements OnInit {
         console.log(err)
       },
     })
-  } 
+  }
+
+  getEmploymentRoles() {
+    this.http.get2('GetEmploymentRoles', false).subscribe({
+      next: (res: any) => {
+        this.employmentRoles = res.data.roles;
+      },
+      error: (err) => {
+        console.log(err)
+      },
+    })
+  }
 
   initForm() {
     this.profileForm = this.formBuilder.group({
@@ -130,6 +143,7 @@ export class ProfilePage implements OnInit {
       position: new FormControl('', Validators.required),
       company_id: new FormControl('', Validators.required),
       emergency_role: new FormControl(''),
+      employment_role: new FormControl('', Validators.required),
       email_address: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       mobile_number: new FormControl('', Validators.required),
       terms: new FormControl(false, Validators.requiredTrue),

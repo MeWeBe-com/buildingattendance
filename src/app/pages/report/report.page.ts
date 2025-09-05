@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { IonHeader, IonTitle, IonToolbar, IonButtons, IonContent, IonToggle, IonIcon, IonCheckbox, IonButton, IonTextarea, IonNote, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
+import { IonHeader, IonTitle, IonToolbar, IonButtons, IonContent, IonIcon, IonButton, IonTextarea, IonNote, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { GeneralService } from 'src/app/providers/general.service';
 import { HttpService } from 'src/app/providers/http.service';
 import { StorageService } from 'src/app/providers/storage.service';
@@ -14,7 +14,7 @@ import { EventsService } from 'src/app/providers/events.service';
   styleUrls: ['./report.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule,
-    IonHeader, IonTitle, IonToolbar, IonButtons, IonContent, IonToggle, IonIcon, IonCheckbox, IonButton, IonTextarea, IonNote, IonSelect, IonSelectOption
+    IonHeader, IonTitle, IonToolbar, IonButtons, IonContent, IonIcon, IonButton, IonTextarea, IonNote, IonSelect, IonSelectOption
   ]
 })
 export class ReportPage implements OnInit {

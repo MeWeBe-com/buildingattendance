@@ -32,6 +32,22 @@
           </div>
         </ion-input>
 
+        <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="company_id"
+          mode="md" interface="popover">
+          <div slot="label">Company
+            @if(isSubmitted && getControl['company_id'].errors){
+            @if(getControl['company_id'].errors['required']){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            }
+          </div>
+          <ion-select-option value="" selected>Select Comapny</ion-select-option>
+          @for(c of companies; track c?.company_id){
+          <ion-select-option [value]="c?.company_id">{{c?.company_name}}</ion-select-option>
+          }
+
+        </ion-select>
+
         <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="position"
           mode="md" interface="popover">
           <div slot="label">Position
@@ -47,20 +63,19 @@
           }
         </ion-select>
 
-        <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="company_id"
+        <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="employment_role"
           mode="md" interface="popover">
-          <div slot="label">Company
-            @if(isSubmitted && getControl['company_id'].errors){
-            @if(getControl['company_id'].errors['required']){
+          <div slot="label">Employment Role
+            @if(isSubmitted && getControl['employment_role'].errors){
+            @if(getControl['employment_role'].errors['required']){
             <ion-note color="danger">(is required*)</ion-note>
             }
             }
           </div>
-          <ion-select-option value="" selected>Select Comapny</ion-select-option>
-          @for(c of companies; track c?.company_id){
-          <ion-select-option [value]="c?.company_id">{{c?.company_name}}</ion-select-option>
+          <ion-select-option value="" selected>Employment Role</ion-select-option>
+          @for(p of employmentRoles; track p?.id){
+          <ion-select-option [value]="p?.id">{{p?.name}}</ion-select-option>
           }
-
         </ion-select>
 
         <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="user_shift"
@@ -79,6 +94,7 @@
         </ion-select>
 
         <div class="ion-margin-vertical">
+          <!-- [multiple]="true" [closeOnSelect]="false"	 -->
           <ng-select placeholder="Emergency Role (if any)" formControlName="emergency_role">
             @for(r of emergencyRoles; track r?.id){
             <ng-option [value]="r?.id">
