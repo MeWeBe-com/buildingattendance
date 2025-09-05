@@ -72,7 +72,7 @@
         </ion-item>
 
         <!-- Report Incident -->
-        <ion-item button>
+        <ion-item button [ngClass]="{'highlighted' : selectedPage == '/report' }" (click)="goTo('report')">
           <ion-icon name="shield-outline" slot="start"></ion-icon>
           <ion-label>Report Incident</ion-label>
         </ion-item>
