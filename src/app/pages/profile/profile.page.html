@@ -110,7 +110,7 @@
         </ion-select> -->
 
         <div class="ion-margin-vertical">
-          <ng-select placeholder="Emergency Role (if any)" formControlName="emergency_role">
+          <ng-select placeholder="Emergency Role (if any)" formControlName="emergency_role"  [multiple]="true" [closeOnSelect]="false">
             @for(r of emergencyRoles; track r?.id){
             <ng-option [value]="r?.id">
               <div class="d-flex align-items-center" style="gap: 20px">

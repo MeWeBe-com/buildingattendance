@@ -136,20 +136,18 @@ export class SignupPage implements OnInit {
       return
     }
     let company = this.companies.find((com: any) => com.company_id == this.signupForm.value.company_id);
-    let emergencyRole = this.emergencyRoles.find((r: any) => r.id == this.signupForm.value.emergency_role);
+    let emergencyRole = this.emergencyRoles.filter((r: any) => this.signupForm.value.emergency_role.includes(r.id)).map((item: any) => item.name);
     let position_name = this.positions.find((p: any) => p.value == this.signupForm.value.position);
     let shift_name = this.shifts.find((s: any) => s.value == this.signupForm.value.user_shift);
     let employment_role = this.employmentRoles.find((e: any) => e.id == this.signupForm.value.employment_role);
 
     this.signupForm.patchValue({
       company_name: company.company_name,
-      emergency_name: emergencyRole ? emergencyRole.name : '',
+      emergency_name: emergencyRole ? emergencyRole.join(', ') : '',
       shift_name: shift_name.name,
       position_name: position_name.name,
       employment_name: employment_role.name
     });
-
-    console.log(this.signupForm.value);
 
     GlobaldataService.signupData = this.signupForm.value;
     setTimeout(() => {

@@ -29,9 +29,12 @@
     width: 85%;
     margin: 20px auto 0 auto;
 
-    ::ng-deep .ng-select.ng-select-single .ng-select-container {
-        height: 56px;
-        .ng-placeholder{
+    ::ng-deep .ng-select-container {
+        border: 1px solid var(--theme-grey);
+        border-radius: 4px;
+        line-height: 50px;
+
+        .ng-placeholder {
             color: #000;
             font-size: 12px;
         }
