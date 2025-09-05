@@ -2,7 +2,7 @@
   <ion-router-outlet [animated]="false"></ion-router-outlet>
 </ion-app>
 
-<ion-popover #popover class="menu-popover" [isOpen]="isPopoverOpen" (willDismiss)="isPopoverOpen = false">
+<ion-popover #popover class="menu-popover" [isOpen]="isPopoverOpen" (willDismiss)="onClose()">
   <ng-template>
     <div class="ion-padding popover-content">
       <ion-list lines="none">

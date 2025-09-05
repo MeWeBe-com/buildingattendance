@@ -9,6 +9,7 @@ import { GeneralService } from 'src/app/providers/general.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
 import { StorageService } from 'src/app/providers/storage.service';
 import { AnalyticsService } from 'src/app/providers/analytics.service';
+import { EventsService } from 'src/app/providers/events.service';
 
 @Component({
   selector: 'app-profile',
@@ -27,6 +28,7 @@ export class ProfilePage implements OnInit {
   formBuilder = inject(FormBuilder);
   storage = inject(StorageService);
   analytics = inject(AnalyticsService);
+  events = inject(EventsService)
 
   profileForm!: FormGroup;
   isSubmitted: boolean = false;
@@ -79,7 +81,13 @@ export class ProfilePage implements OnInit {
     },
   ];
 
-  constructor() { }
+  isOpen: boolean = false;
+
+  constructor() { 
+    this.events.receiveOnPopover().subscribe((res:any)=>{
+      this.isOpen = res;
+    })
+  }
 
   ngOnInit() {
     this.initForm();

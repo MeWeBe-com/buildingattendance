@@ -167,24 +167,30 @@ ion-select {
 }
 
 .menu-popover {
-    --width: 90%;
+    --width: 360px;
     --max-width: 600px;
+    --background: #FAFAFA;
 
-    ion-item {
+    ion-list {
+        background: #FAFAFA;
 
-        --background: transparent;
-        color: #333;
+        ion-item {
 
-        ion-icon {
-            font-size: 20px;
+            --background: transparent;
             color: #333;
-        }
 
-        ion-label {
-            font-size: 15px;
-            font-weight: 500;
+            ion-icon {
+                font-size: 20px;
+                color: #333;
+            }
+
+            ion-label {
+                font-size: 15px;
+                font-weight: 500;
+            }
         }
     }
+
 
     .section-header {
         font-size: 13px;

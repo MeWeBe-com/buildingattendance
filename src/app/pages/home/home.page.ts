@@ -11,6 +11,7 @@ import { AnalyticsService } from 'src/app/providers/analytics.service';
 import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { StorageService } from 'src/app/providers/storage.service';
+import { EventsService } from 'src/app/providers/events.service';
 
 @Component({
   selector: 'app-home',
@@ -24,14 +25,20 @@ export class HomePage {
   http = inject(HttpService);
   storage = inject(StorageService);
   analytics = inject(AnalyticsService);
+  events = inject(EventsService);
 
 
   showAutoChekin: boolean = true;
   user: any = {
     auto_checkin: false
   };
+  isOpen: boolean = false;
 
-  constructor() { }
+  constructor() { 
+    this.events.receiveOnPopover().subscribe((res:any)=>{
+      this.isOpen = res;
+    })
+  }
 
   async ionViewDidEnter() {
     this.user = GlobaldataService.userObject;

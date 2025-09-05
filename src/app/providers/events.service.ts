@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 })
 export class EventsService {
   private popover = new Subject<any>();
+  private isPopover = new Subject<boolean>();
 
   constructor() { }
 
@@ -15,5 +16,13 @@ export class EventsService {
 
   receivePopover(): Subject<any> {
     return this.popover
+  }
+
+  publishOnPopover(data: any) {
+    this.isPopover.next(data)
+  }
+
+  receiveOnPopover(): Subject<any> {
+    return this.isPopover
   }
 }

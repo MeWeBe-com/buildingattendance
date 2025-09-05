@@ -97,7 +97,8 @@ export class GeneralService {
   }
 
   openPopover(e:any){
-    this.events.publishPopover(e)
+    this.events.publishPopover(e);
+    this.events.publishOnPopover(true);
   }
 
   sideMenuEnable(bool: boolean) {

@@ -8,6 +8,7 @@ import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
 import { AnalyticsService } from 'src/app/providers/analytics.service';
+import { EventsService } from 'src/app/providers/events.service';
 
 @Component({
   selector: 'app-history',
@@ -24,6 +25,7 @@ export class HistoryPage implements OnInit {
   http = inject(HttpService);
   general = inject(GeneralService);
   analytics = inject(AnalyticsService);
+  events = inject(EventsService)
 
   isDatePopoverOpen: boolean = false;
   dateRange: any = { from: new Date(), to: new Date() };
@@ -38,7 +40,13 @@ export class HistoryPage implements OnInit {
 
   historyItems: any = [];
 
-  constructor() { }
+  isOpen: boolean = false;
+
+  constructor() {
+    this.events.receiveOnPopover().subscribe((res: any) => {
+      this.isOpen = res;
+    })
+  }
 
   ngOnInit() {
   }

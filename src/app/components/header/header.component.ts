@@ -4,6 +4,7 @@ import { IonHeader, IonTitle, IonToolbar, IonIcon, IonButtons, IonButton } from 
 
 import { GeneralService } from 'src/app/providers/general.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
+import { EventsService } from 'src/app/providers/events.service';
 
 @Component({
   selector: 'app-header',
@@ -16,15 +17,21 @@ import { GlobaldataService } from 'src/app/providers/globaldata.service';
 })
 export class HeaderComponent implements OnInit {
 
-
   general = inject(GeneralService);
+  events  = inject(EventsService)
 
   @Input() title: string = '';
   @Input() selected: any = undefined;
   @Input() showMenu: boolean = false;
   user: any;
 
-  constructor() { }
+  isOpen: boolean = false;
+
+  constructor() { 
+    this.events.receiveOnPopover().subscribe((res:any)=>{
+      this.isOpen = res;
+    })
+  }
 
   ngOnInit() {
     this.user = GlobaldataService.userObject;
