@@ -1,9 +1,7 @@
 ion-toolbar {
-    --min-height: 80px;
     --background: #fff;
 
     ion-title {
-        margin-top: 20px;
         --color: var(--theme-grey);
         font-style: normal;
         font-weight: 400;
@@ -65,6 +63,7 @@ ion-toolbar {
     box-sizing: border-box;
     border: 1px solid #E9EAEB;
     border-radius: 11px 11px 0px 0px;
+    background-color: #FAFAFA;
 
     p {
         font-style: normal;
@@ -77,9 +76,11 @@ ion-toolbar {
     }
 
     .details {
+        background-color: #FDFDFD;
+
         .item {
             border-bottom: 1px solid #E9EAEB;
-            height: 50px;
+            height: 40px;
 
             .key {
                 width: 50%;
@@ -102,13 +103,22 @@ ion-toolbar {
 
 }
 
-.form{
+.form {
     width: 85%;
     margin: 20px auto 0 auto;
 
+    ion-note {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.4px;
+    }
+
     .login-btn {
         margin-top: 30px;
-    
+
         ion-button {
             font-style: normal;
             font-weight: 600;
