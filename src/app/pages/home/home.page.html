@@ -10,9 +10,9 @@
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
+  <div>
 
-    <div class="check ion-text-center">
+    <div class="check ion-text-center ion-padding-horizontal">
       <h2 class="inter-font">Auto Check-in with <br /> Geo-Fencing</h2>
     </div>
 
@@ -37,7 +37,7 @@
     </div>
 
     @if(!user?.auto_checkin){
-    <div class="selection">
+    <div class="ion-padding-horizontal selection">
       <ion-button expand="block" mode="ios" [routerLink]="['/selectlocation']"
         [ngStyle]="{'--background': user?.show_company_branding ? user?.company_color : 'var(--ion-color-dark)' }">
         Select Location

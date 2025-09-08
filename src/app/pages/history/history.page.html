@@ -3,10 +3,13 @@
     'green-bg': (user?.company_id === '1'),
     'blue-bg': (user?.company_id === '2'),
   }">
+    <ion-buttons slot="start">
+      <ion-back-button color="light" mode="md"></ion-back-button>
+    </ion-buttons>
     <ion-title></ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="general.openPopover($event)">
-        <ion-icon [name]="!isOpen ? 'menu-outline' : 'close-outline'" class="menu-icon"></ion-icon>
+      <ion-button (click)="general.openPopover($event)" color="light">
+        <ion-icon [name]="!isOpen ? 'menu-outline' : 'close-outline'" class="menu-icon" color="light"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -17,13 +20,13 @@
    'blue-bg': user?.company_id === '2',
 }">
 
-  <div class="search-card ion-padding">
+  <div class="search-card ion-padding-horizontal">
     <ion-searchbar placeholder="Search History" mode="ios">
     </ion-searchbar>
 
     <div class="date-filter-row ">
       <ion-button expand="block" fill="clear" class="cal-btn inter-font" (click)="openDate($event)">
-        <ion-icon slot="start" name="calendar-outline"></ion-icon>
+        <ion-icon slot="start" name="calendar-clear-outline"></ion-icon>
         {{ (dateRange.from | date: 'MMM dd, yyyy') + ' - ' + (dateRange.to | date: 'MMM dd, yyyy') }}
       </ion-button>
 

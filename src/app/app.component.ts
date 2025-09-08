@@ -1,9 +1,9 @@
 import { Component, inject, ViewChild } from '@angular/core';
-import { IonApp, IonRouterOutlet, IonPopover, IonList, IonItem, IonItemDivider, IonLabel, IonNote, IonBadge, IonIcon } from '@ionic/angular/standalone';
+import { IonApp, IonRouterOutlet, IonPopover, IonList, IonItem, IonItemDivider, IonLabel, IonIcon } from '@ionic/angular/standalone';
 import { Platform } from '@ionic/angular';
 
 import { addIcons } from 'ionicons';
-import { fingerPrintOutline, addCircleOutline, alertCircle, close, lockOpenOutline, arrowForwardCircle, menuOutline, homeOutline, settingsOutline, locationOutline, logOutOutline, folderOutline, warningOutline, bookOutline, shieldOutline, arrowForwardCircleOutline, calendarOutline, filterOutline, lockClosedOutline, arrowBackCircleOutline, chevronBackOutline, mailOutline, closeOutline } from 'ionicons/icons';
+import { fingerPrintOutline, addCircleOutline, alertCircle, close, lockOpenOutline, arrowForwardCircle, menuOutline, homeOutline, settingsOutline, locationOutline, logOutOutline, folderOutline, warningOutline, bookOutline, shieldOutline, arrowForwardCircleOutline, calendarOutline, filterOutline, lockClosedOutline, arrowBackCircleOutline, chevronBackOutline, mailOutline, closeOutline, calendarClearOutline } from 'ionicons/icons';
 import { FcmService } from './providers/fcm.service';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
@@ -20,7 +20,7 @@ import { EventsService } from './providers/events.service';
   selector: 'app-root',
   templateUrl: 'app.component.html',
   imports: [CommonModule,
-    IonApp, IonRouterOutlet, IonPopover, IonList, IonItem, IonItemDivider, IonLabel, IonNote, IonBadge, IonIcon],
+    IonApp, IonRouterOutlet, IonPopover, IonList, IonItem, IonItemDivider, IonLabel, IonIcon],
 })
 export class AppComponent {
   @ViewChild('popover') popover!: HTMLIonPopoverElement;
@@ -37,7 +37,7 @@ export class AppComponent {
   selectedPage: any = '';
 
   constructor() {
-    addIcons({ fingerPrintOutline, addCircleOutline, alertCircle, close, lockOpenOutline, arrowForwardCircle, menuOutline, homeOutline, settingsOutline, locationOutline, logOutOutline, folderOutline, warningOutline, bookOutline, shieldOutline, arrowForwardCircleOutline, calendarOutline, filterOutline, lockClosedOutline, arrowBackCircleOutline, chevronBackOutline, mailOutline, closeOutline });
+    addIcons({ fingerPrintOutline, addCircleOutline, alertCircle, close, lockOpenOutline, arrowForwardCircle, menuOutline, homeOutline, settingsOutline, locationOutline, logOutOutline, folderOutline, warningOutline, bookOutline, shieldOutline, arrowForwardCircleOutline, calendarOutline, filterOutline, lockClosedOutline, arrowBackCircleOutline, chevronBackOutline, mailOutline, closeOutline, calendarClearOutline });
     this.initApp()
   }
 

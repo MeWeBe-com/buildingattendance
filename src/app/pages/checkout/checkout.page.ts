@@ -1,19 +1,21 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonIcon, IonToggle } from '@ionic/angular/standalone';
-import { HeaderComponent } from 'src/app/components/header/header.component';
+import { IonHeader, IonTitle, IonToolbar, IonButtons, IonContent, IonIcon, IonButton } from '@ionic/angular/standalone';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { HttpService } from 'src/app/providers/http.service';
 import { AnalyticsService } from 'src/app/providers/analytics.service';
+import { EventsService } from 'src/app/providers/events.service';
 
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.page.html',
   styleUrls: ['./checkout.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, HeaderComponent, IonContent, IonIcon, IonToggle]
+  imports: [CommonModule, FormsModule,
+    IonHeader, IonTitle, IonToolbar, IonButtons, IonContent, IonIcon, IonButton
+  ]
 })
 export class CheckoutPage implements OnInit {
 
@@ -21,30 +23,86 @@ export class CheckoutPage implements OnInit {
   http = inject(HttpService);
   general = inject(GeneralService);
   analytics = inject(AnalyticsService);
+  events = inject(EventsService);
 
   user: any;
+  isCheckedIn: boolean = false;
+  isCheckingOut: boolean = false;
+  showCheckInArrow: boolean = true;
+  showIconAnimation: boolean = false;
+  building: any = null;
 
-  constructor() { }
+  isOpen: boolean = false;
+  constructor() {
+    this.events.receiveOnPopover().subscribe((res: any) => {
+      this.isOpen = res;
+    })
+  }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
+    if (GlobaldataService.selectedProperty) {
+      this.building = GlobaldataService.selectedProperty.building;
+    }
     this.user = GlobaldataService.userObject;
+    this.isCheckedIn = this.user.is_checked_in;
+    this.showCheckInArrow = true;
   }
 
   async ionViewDidEnter() {
     await this.analytics.setCurrentScreen('Checkout Page');
   }
 
+  checkIn() {
+    if (!GlobaldataService.selectedProperty) {
+      this.general.goBack();
+      return;
+    }
+    let data = GlobaldataService.selectedProperty;
+
+    this.http.post('CheckIn', data, true).subscribe({
+      next: async (res: any) => {
+        await this.general.stopLoading();
+        if (res.status == true) {
+          this.showIconAnimation = true;
+          setTimeout(() => {
+            this.showIconAnimation = false;
+          }, 500)
+          this.isCheckedIn = true;
+          this.general.presentToast(res.message);
+          await this.analytics.logEvent('Check-In', { ...data, user_id: this.user.user_id })
+          this.general.goToRoot('checkout');
+        } else {
+          this.general.presentToast(res.message)
+          await this.analytics.logEvent('Check-In Failed', { ...data, user_id: this.user.user_id })
+        }
+      },
+      error: async (err) => {
+        await this.general.stopLoading()
+        console.log(err)
+      },
+    })
+  }
+
   checkOut() {
+    if (this.showCheckInArrow == false) {
+      this.general.goBack();
+      return
+    }
     this.http.get('CheckOut', true).subscribe({
       next: async (res: any) => {
         await this.general.stopLoading();
         if (res.status == true) {
+          this.showIconAnimation = true;
+          setTimeout(() => {
+            this.showIconAnimation = false;
+          }, 500)
+          this.isCheckingOut = true;
+          this.showCheckInArrow = false;
           await this.analytics.logEvent('Check-Out', { user_id: this.user.user_id })
           this.general.presentToast(res.message)
-          this.general.goToRoot('home');
         } else {
           this.general.presentToast(res.message)
         }

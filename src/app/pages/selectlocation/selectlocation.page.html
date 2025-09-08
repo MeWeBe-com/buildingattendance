@@ -5,9 +5,9 @@
 'green': selectedProperty?.status == '0',
 'orange': selectedProperty?.status === '1',
 'red': selectedProperty?.status === '2'
-}" class="ion-padding">
+}">
 
-  <div>
+  <div class="ion-padding">
     <ng-select (change)="changeLocation($event)" placeholder="Start typing to search...">
       @for (p of properties; track p?.property_id) {
       <ng-option [value]="p">
@@ -30,8 +30,7 @@
   </div>
   }
 
-
-  @if(selectedProperty && selectedProperty.status == '0' && !selectedProperty?.show_toggle){
+  @if(selectedProperty && selectedProperty.status == '0'){
   <div class="ion-text-center arrow-icon" (click)="checkIn()">
     <div class="arrow-bg d-flex align-items-center justify-content-center" [ngClass]="{
       'arrow-green': selectedProperty?.status == '0',
@@ -45,23 +44,7 @@
       All systems operational.
     </div>
   </div>
-  } @else if(selectedProperty && selectedProperty.status == '0' && selectedProperty?.show_toggle){
-  <div class="ion-text-center">
-    <div class="d-flex align-items-center justify-content-evenly ion-margin-vertical ion-padding toggle inter-font">
-      <div>
-        Check Out
-      </div>
-      <div>
-        <ion-toggle mode="ios" [(ngModel)]="user.is_checked_in" (ionChange)="onChange($event)"
-          [ngStyle]="{'--track-background-checked': user?.company_id == '1' ? 'var(--theme-green)' : 'var(--theme-darkblue)' }"></ion-toggle>
-      </div>
-      <div class="enable">
-        Check In
-      </div>
-    </div>
-  </div>
-  }
-  @else if(selectedProperty == undefined && user?.show_company_branding){
+  } @else if(selectedProperty == undefined && user?.show_company_branding){
   <div class="logo-box">
     <img [src]="user?.company_logo">
   </div>

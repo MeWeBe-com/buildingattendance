@@ -12,6 +12,7 @@ export class GlobaldataService {
   public static loginToken: any = '';
   public static signupData: any = null;
   public static companies: any = [];
+  public static selectedProperty:any = null;
 
   static clearGobal() {
     this.signupData = null

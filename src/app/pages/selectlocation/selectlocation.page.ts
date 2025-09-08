@@ -1,10 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonIcon, IonAlert, IonToggle } from '@ionic/angular/standalone';
+import { IonContent, IonIcon, IonAlert } from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
-import { Geolocation } from '@capacitor/geolocation'
+
+import { Geolocation } from '@capacitor/geolocation';
 import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
@@ -18,7 +19,7 @@ import { Keyboard, KeyboardResize, KeyboardResizeOptions } from '@capacitor/keyb
   styleUrls: ['./selectlocation.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, NgSelectComponent, NgOptionComponent, HeaderComponent,
-    IonContent, IonIcon, IonAlert, IonToggle
+    IonContent, IonIcon, IonAlert
   ]
 })
 export class SelectlocationPage implements OnInit {
@@ -58,6 +59,20 @@ export class SelectlocationPage implements OnInit {
     await this.analytics.setCurrentScreen('Select Location')
     if (Capacitor.isNativePlatform()) {
       await this.getLocation()
+    }else{
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((succ) => {
+          this.userPosition = {
+            coords: {
+              latitude: succ.coords.latitude,
+              longitude: succ.coords.longitude
+            }
+          }
+          console.log(this.userPosition)
+        }, (err) => {
+          console.log(err)
+        });
+      }
     }
   }
 
@@ -105,31 +120,37 @@ export class SelectlocationPage implements OnInit {
 
   checkIn() {
     let data = {
+      building: this.selectedProperty,
       property_id: this.selectedProperty.property_id,
       lat: this.userPosition.coords.latitude,
       lng: this.userPosition.coords.longitude
     }
-    this.http.post('CheckIn', data, true).subscribe({
-      next: async (res: any) => {
-        await this.general.stopLoading();
-        if (res.status == true) {
-          this.general.presentToast(res.message);
-          await this.analytics.logEvent('Check-In', { ...data, user_id: this.user.user_id })
-          this.general.goToRoot('checkout');
-        } else {
-          this.general.presentToast(res.message)
-          await this.analytics.logEvent('Check-In Failed', { ...data, user_id: this.user.user_id })
-        }
-      },
-      error: async (err) => {
-        await this.general.stopLoading()
-        console.log(err)
-      },
+    GlobaldataService.selectedProperty = data;
+
+    setTimeout(() => {
+      this.general.goToPage('checkout');
     })
+    // this.http.post('CheckIn', data, true).subscribe({
+    //   next: async (res: any) => {
+    //     await this.general.stopLoading();
+    //     if (res.status == true) {
+    //       this.general.presentToast(res.message);
+    //       await this.analytics.logEvent('Check-In', { ...data, user_id: this.user.user_id })
+    //       this.general.goToRoot('checkout');
+    //     } else {
+    //       this.general.presentToast(res.message)
+    //       await this.analytics.logEvent('Check-In Failed', { ...data, user_id: this.user.user_id })
+    //     }
+    //   },
+    //   error: async (err) => {
+    //     await this.general.stopLoading()
+    //     console.log(err)
+    //   },
+    // })
   }
 
   onChange(e: any) {
-    this.http.post('CheckInManual', { property_id: this.selectedProperty.property_id }, true).subscribe({
+    this.http.post('CheckIn', { property_id: this.selectedProperty.property_id }, true).subscribe({
       next: async (res: any) => {
         await this.general.stopLoading();
         await this.general.presentToast(res.message);

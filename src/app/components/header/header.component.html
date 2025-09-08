@@ -11,7 +11,7 @@
     @if(showMenu){
     <ion-buttons slot="end">
       <ion-button [color]="selected ? 'light' : 'dark'" (click)="general.openPopover($event)">
-        <ion-icon [name]="!isOpen ? 'menu-outline' : 'close-outline'" class="menu-icon"></ion-icon>
+        <ion-icon [name]="!isOpen ? 'menu-outline' : 'close-outline'" class="menu-icon" [color]="selected ? 'light' : 'dark'"></ion-icon>
       </ion-button>
     </ion-buttons>
     }

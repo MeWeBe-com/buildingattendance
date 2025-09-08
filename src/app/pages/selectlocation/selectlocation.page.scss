@@ -4,6 +4,15 @@ ion-content {
 
 ::ng-deep .ng-select.ng-select-single .ng-select-container {
   height: 44px;
+  border-radius: 8px;
+
+}
+::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
+  padding: 10px 15px;
+}
+
+::ng-deep .ng-select .ng-select-container .ng-value-container .ng-input>input{
+    height: 35px;
 }
 
 
@@ -12,6 +21,7 @@ ion-content {
   height: 10px;
   border-radius: 50%;
   display: inline-block;
+  margin-right: 10px;
 }
 
 .green {

@@ -9,16 +9,26 @@
 
 .search-card {
   color: #fff;
+  margin-bottom: 44px;
 
   ion-searchbar {
     --background: #fff;
     --border-radius: 8px;
+   
+
     padding: 0;
 
     ::ng-deep .searchbar-input-container {
       height: 44px !important;
     }
   }
+  ::ng-deep .searchbar-left-aligned.sc-ion-searchbar-ios-h .searchbar-input.sc-ion-searchbar-ios{
+    padding-inline-start: 45px!important;
+  }
+  ::ng-deep .searchbar-left-aligned.sc-ion-searchbar-ios-h .searchbar-search-icon.sc-ion-searchbar-ios{
+    margin-inline-start: 10px
+  }
+
 
 }
 
