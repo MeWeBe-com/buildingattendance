@@ -100,17 +100,9 @@
           }
         </ion-select>
 
-        <!-- <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="emergency_role"
-          mode="md" interface="popover">
-          <div slot="label">Emergency Role (if any)</div>
-          <ion-select-option value="" selected>Select Role</ion-select-option>
-          @for(r of emergencyRoles; track r?.id){
-          <ion-select-option [value]="r?.id">{{r?.name}}</ion-select-option>
-          }
-        </ion-select> -->
-
-        <div class="ion-margin-vertical">
-          <ng-select placeholder="Emergency Role (if any)" formControlName="emergency_role"  [multiple]="true" [closeOnSelect]="false" [searchable]="false">
+         <div class="ion-margin-vertical custom-select">
+          <label [ngClass]="{'selected' : profileForm.value.emergency_role}">Emergency Role (if any)</label>
+          <ng-select formControlName="emergency_role" [multiple]="true" [closeOnSelect]="false" [searchable]="false">
             @for(r of emergencyRoles; track r?.id){
             <ng-option [value]="r?.id">
               <div class="d-flex align-items-center" style="gap: 20px">
