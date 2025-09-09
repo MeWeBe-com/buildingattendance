@@ -31,7 +31,7 @@
 
     <div class="form">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
-        <ion-input labelPlacement="floating" fill="outline" type="email" class="ion-margin-bottom" mode="md"
+        <ion-input labelPlacement="stacked" placeholder="Email" fill="outline" type="email" class="ion-margin-bottom" mode="md"
           formControlName="email_address">
           <div slot="label">Email
             @if(isSubmitted && getControl['email_address'].errors){
@@ -45,7 +45,7 @@
           </div>
         </ion-input>
 
-        <ion-input labelPlacement="floating" fill="outline" type="password" mode="md" formControlName="password">
+        <ion-input labelPlacement="stacked" placeholder="Password" fill="outline" type="password" mode="md" formControlName="password">
           <div slot="label">Password
             @if(isSubmitted && getControl['password'].errors){
             @if(getControl['password'].errors['required']){
@@ -108,7 +108,7 @@
         </div>
         <form [formGroup]="forgetPasswordForm" (ngSubmit)="onSibmitForgetForm()" novalidate>
           <div class="ion-margin-vertical ion-padding-top">
-            <ion-input labelPlacement="floating" mode="md" fill="outline" type="email" placeholder="Enter email" formControlName="email_address">
+            <ion-input labelPlacement="stacked" placeholder="Email" mode="md" fill="outline" type="email" placeholder="Enter email" formControlName="email_address">
               <div slot="label">Email
                 @if(forgetPasswordSubmitted && forgetPasswordControls['email_address'].errors){
                 @if(forgetPasswordControls['email_address'].errors['required']){

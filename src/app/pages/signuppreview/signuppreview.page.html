@@ -105,7 +105,7 @@
     <div class="form ion-margin-top">
       <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()" novalidate>
         <div class="ion-margin-bottom">
-          <ion-input label-placement="floating" fill="outline" type="password" mode="md" formControlName="password">
+          <ion-input labelPlacement="stacked" placeholder="Create Password" fill="outline" type="password" mode="md" formControlName="password">
             <div slot="label">Create Password
               @if(isSubmitted && getControl['password'].errors){
               @if(getControl['password'].errors['required']){
@@ -121,7 +121,7 @@
           </ion-note>
         </div>
 
-        <ion-input label-placement="floating" fill="outline" type="password" class="ion-margin-bottom" mode="md"
+        <ion-input labelPlacement="stacked" placeholder="Confirm Password" fill="outline" type="password" class="ion-margin-bottom" mode="md"
           formControlName="confirm_password">
           <div slot="label">Confirm Password
             @if(isSubmitted && getControl['confirm_password'].errors){
