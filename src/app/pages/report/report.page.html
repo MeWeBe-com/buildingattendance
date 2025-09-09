@@ -30,7 +30,8 @@
       </ion-select>
 
 
-      <ion-textarea rows="4" label-placement="floating" fill="outline" type="text" class="ion-margin-bottom" mode="md" formControlName="message">
+      <ion-textarea rows="5" label-placement="floating" fill="outline" type="text" class="ion-margin-bottom" mode="md"
+        formControlName="message">
         <div slot="label">Write Message...
           @if(isSubmitted && getControl['message'].errors){
           @if(getControl['message'].errors['required']){

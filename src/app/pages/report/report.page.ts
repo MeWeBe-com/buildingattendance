@@ -84,15 +84,20 @@ export class ReportPage implements OnInit {
       return
     }
 
-    console.log(this.reportForm.value)
-
-    this.http.post('', this.reportForm.value, true).subscribe({
+    this.http.post('ReportIncident', this.reportForm.value, true).subscribe({
       next: async (res: any) => {
-        await this.general.stopLoading()
+        await this.general.stopLoading();
+        if (res.status) {
+          this.isSubmitted = false;
+          this.reportForm.reset();
+          this.general.presentToast(res.message);
+        } else {
+          this.general.presentToast(res.message);
+        }
       },
       error: async (err) => {
         await this.general.stopLoading()
-
+        console.log(err)
       },
     })
 
