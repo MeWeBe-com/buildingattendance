@@ -52,7 +52,7 @@ export class HistoryPage implements OnInit {
 
   async ionViewWillEnter() {
     this.user = GlobaldataService.userObject;
-    this.getUserHistory();
+    this.getUserHistory({ from: '', to: '' });
     await this.analytics.setCurrentScreen('History')
   }
 
@@ -61,15 +61,27 @@ export class HistoryPage implements OnInit {
     this.isDatePopoverOpen = true
   }
 
-  onChange($event: any) {
-    console.log($event);
+  formatDate(date: any) {
+    let year = date.getFullYear();
+    let month = String(date.getMonth() + 1).padStart(2, '0');
+    let day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
+  onStartDate($event: any) {
+    this.dateRange.from = this.formatDate(new Date($event.time));
+  }
+
+  onEndDate($event: any) {
+    this.dateRange.to = this.formatDate(new Date($event.time))
+    this.getUserHistory(this.dateRange)
   }
 
 
-  getUserHistory() {
-    this.http.get('UserHistory', true).subscribe({
+  getUserHistory(dates: any) {
+    this.http.post('UserHistory', dates, true).subscribe({
       next: async (res: any) => {
-        console.log(res)
         await this.general.stopLoading()
         if (res.status == true) {
           this.historyItems = res.data
