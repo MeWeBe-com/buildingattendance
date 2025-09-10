@@ -194,7 +194,7 @@ export class LoginPage implements OnInit {
             this.presentForgetCodeModal()
           }, 250)
         } else {
-          this.general.presentToast(res.data.message);
+          this.general.presentToast(res.message);
         }
       },
       error: (err) => {
