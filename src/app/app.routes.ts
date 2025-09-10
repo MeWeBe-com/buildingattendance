@@ -55,8 +55,12 @@ export const routes: Routes = [
   },
   {
     path: 'report',
-    loadComponent: () => import('./pages/report/report.page').then( m => m.ReportPage),
+    loadComponent: () => import('./pages/report/report.page').then(m => m.ReportPage),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'directory',
+    loadComponent: () => import('./pages/directory/directory.page').then(m => m.DirectoryPage),
     canActivate: [AuthGuard]
   }
-
 ];

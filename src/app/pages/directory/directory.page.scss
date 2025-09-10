@@ -1,0 +1,77 @@
+
+.blue-bg {
+  --background: var(--theme-darkblue);
+}
+
+.green-bg {
+  --background: var(--theme-green);
+}
+
+.search-card {
+  margin-bottom: 44px;
+
+  ion-select{
+    --background: #fff;
+    margin-bottom: 16px;
+  }
+
+
+}
+
+.date-filter-row {
+  color: #fff;
+  // display: flex;
+  // justify-content: space-between;
+  // align-items: center;
+
+  ion-button {
+    font-family: "Inter", sans-serif;
+    background-color: #fff;
+    height: 40px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #000;
+    border-radius: 8px;
+  }
+
+}
+
+.date-popover{
+  --min-width	: 300px;
+}
+
+.history-heading {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 28px;
+  color: #181D27;
+}
+
+ion-item {
+
+  ion-label {
+    h2 {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      color: #181D27;
+
+    }
+
+    p {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: #535862;
+    }
+  }
+
+  .status {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+  }
+}

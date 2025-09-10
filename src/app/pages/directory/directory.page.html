@@ -1,0 +1,66 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios" [ngClass]="{
+    'green-bg': (user?.company_id === '1'),
+    'blue-bg': (user?.company_id === '2'),
+  }">
+    <ion-buttons slot="start">
+      <ion-back-button color="light" mode="md"></ion-back-button>
+    </ion-buttons>
+    <ion-title></ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="general.openPopover($event)" color="light">
+        <ion-icon [name]="!isOpen ? 'menu-outline' : 'close-outline'" class="menu-icon" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [ngClass]="{
+  'green-bg': user?.company_id === '1',
+   'blue-bg': user?.company_id === '2',
+}">
+
+  <div class="search-card ion-padding-horizontal ion-margin-vertical">
+    <ion-select fill="outline" mode="md" interface="popover" (ionChange)="changeBuilding($event)">
+      <div slot="label">Select Building</div> 
+      <ion-select-option value="" selected>Select Building</ion-select-option>
+      @for(p of properties; track p?.property_id){
+      <ion-select-option [value]="p?.property_id">{{p?.property_name}}</ion-select-option>
+      }
+    </ion-select>
+
+    <!-- <div class="date-filter-row ">
+      <ion-button expand="block" fill="clear" class="cal-btn inter-font" (click)="openDate($event)">
+        <ion-icon slot="start" name="calendar-clear-outline"></ion-icon>
+        {{ (dateRange.from | date: 'MMM dd, yyyy') + ' - ' + (dateRange.to | date: 'MMM dd, yyyy') }}
+      </ion-button>
+
+      <ion-popover #popover class="date-popover" [isOpen]="isDatePopoverOpen" (willDismiss)="isDatePopoverOpen = false">
+        <ng-template>
+          <ion-range-calendar [(ngModel)]="dateRange" (selectStart)="onStartDate($event)" (selectEnd)="onEndDate($event)" [options]="optionsRange" [type]="type" [format]="'yyyy-MM-dd'">
+          </ion-range-calendar>
+        </ng-template>
+      </ion-popover>
+
+    </div> -->
+  </div>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label class="history-heading inter-font">Directory</ion-label>
+    </ion-list-header>
+
+    @for(item of historyItems; track $index){
+    <ion-item class="inter-font">
+      <ion-label>
+        <h2>{{ item?.full_name }}</h2>
+        <p>{{item?.employment_name}} - {{ item?.mobile_number }}</p>
+      </ion-label>
+      <ion-note slot="end" class="time-note">
+        <div class="status" [ngStyle]="{'background-color': item?.is_checked_in ? 'var(--ion-color-success)': 'var(--ion-color-danger)'}"></div>
+      </ion-note>
+    </ion-item>
+    }
+  </ion-list>
+
+</ion-content>

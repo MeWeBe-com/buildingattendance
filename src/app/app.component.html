@@ -47,7 +47,7 @@
         </ion-item>
 
         <!-- Directory -->
-        <ion-item button [ngClass]="{'highlighted' : selectedPage == '/directory' }">
+        <ion-item button [ngClass]="{'highlighted' : selectedPage == '/directory' }" (click)="goTo('directory')">
           <ion-icon name="folder-outline" slot="start"></ion-icon>
           <ion-label>Directory</ion-label>
         </ion-item>
