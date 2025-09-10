@@ -95,7 +95,7 @@ export class LoginPage implements OnInit {
       next: async (res: any) => {
         await this.general.stopLoading();
         if (res.status == true) {
-          GlobaldataService.userObject = res.data.user_token;
+          GlobaldataService.loginToken = res.data.user_token;
           await this.storage.setObject('login_token', res.data.user_token);
           await this.analytics.logEvent('login', null);
           const result = await NativeBiometric.isAvailable({ useFallback: true });
@@ -210,6 +210,27 @@ export class LoginPage implements OnInit {
       component: ForgetcodeComponent,
     });
     return await modal.present();
+  }
+
+  guestLogin() {
+    this.http.get2('GuestLogin', true).subscribe({
+      next: async (res: any) => {
+        console.log(res);
+        await this.general.stopLoading();
+        if (res.status == true) {
+          GlobaldataService.loginToken = res.data.user_token;
+          await this.storage.setObject('login_token', res.data.user_token);
+          await this.analytics.logEvent('GuestLogin', null);
+          setTimeout(()=>{
+            this.general.goToRoot('guest');
+          }, 100)
+        }
+      },
+      error: async (err) => {
+        await this.general.stopLoading();
+        console.log(err)
+      },
+    })
   }
 
 }

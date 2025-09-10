@@ -1,0 +1,38 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-title>Select Company</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="selection ion-margin-bottom">
+
+    <div class="morgan ion-text-center">
+      <img src="assets/imgs/login/morgan-btn.svg">
+    </div>
+
+    <div class="cbre ion-text-center">
+      <img src="assets/imgs/login/cbre-btn.svg">
+    </div>
+
+    <div class="inter-font select-com ion-text-center">
+      Please select company
+    </div>
+  </div>
+
+  <ion-select label-placement="stacked" [(ngModel)]="company_id" placeholder="Select Company" fill="outline"
+    class="ion-margin-bottom" mode="md" interface="popover">
+    <div slot="label">Select Company</div>
+    <ion-select-option value="" selected>Select Comapny</ion-select-option>
+    @for(c of companies; track c?.company_id){
+    <ion-select-option [value]="c?.company_id">{{c?.company_name}}</ion-select-option>
+    }
+  </ion-select>
+
+  <div class="login-btn ion-margin-top">
+    <ion-button expand="block" mode="ios"  class="inter-font" (click)="submit()">
+      Submit
+    </ion-button>
+  </div>
+
+</ion-content>
