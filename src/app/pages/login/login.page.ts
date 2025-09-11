@@ -212,25 +212,4 @@ export class LoginPage implements OnInit {
     return await modal.present();
   }
 
-  guestLogin() {
-    this.http.get2('GuestLogin', true).subscribe({
-      next: async (res: any) => {
-        console.log(res);
-        await this.general.stopLoading();
-        if (res.status == true) {
-          GlobaldataService.loginToken = res.data.user_token;
-          await this.storage.setObject('login_token', res.data.user_token);
-          await this.analytics.logEvent('GuestLogin', null);
-          setTimeout(()=>{
-            this.general.goToRoot('guest');
-          }, 100)
-        }
-      },
-      error: async (err) => {
-        await this.general.stopLoading();
-        console.log(err)
-      },
-    })
-  }
-
 }

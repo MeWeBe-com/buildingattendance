@@ -8,6 +8,7 @@ import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
 import { AnalyticsService } from 'src/app/providers/analytics.service';
+import { StorageService } from 'src/app/providers/storage.service';
 
 @Component({
   selector: 'app-guest',
@@ -26,6 +27,7 @@ export class GuestPage implements OnInit {
   general = inject(GeneralService);
   formBuilder = inject(FormBuilder);
   analytics = inject(AnalyticsService);
+  storage = inject(StorageService);
 
   signupForm!: FormGroup;
   isSubmitted: boolean = false;
@@ -63,8 +65,6 @@ export class GuestPage implements OnInit {
     })
   }
 
-
-
   initForm() {
     this.signupForm = this.formBuilder.group({
       full_name: new FormControl('', Validators.required),
@@ -84,12 +84,31 @@ export class GuestPage implements OnInit {
 
   onSubmit() {
     this.isSubmitted = true;
+    console.log(this.signupForm.value)
     if (this.signupForm.invalid) {
       this.general.presentToast('Please fill form correctly!')
       return
     }
 
 
+    this.http.post2('GuestLogin', this.signupForm.value, true).subscribe({
+      next: async (res: any) => {
+        console.log(res);
+        await this.general.stopLoading();
+        if (res.status == true) {
+          GlobaldataService.loginToken = res.data.user_token;
+          await this.storage.setObject('login_token', res.data.user_token);
+          await this.analytics.logEvent('GuestLogin', null);
+          setTimeout(() => {
+            this.general.goToRoot('home');
+          }, 100)
+        }
+      },
+      error: async (err) => {
+        await this.general.stopLoading();
+        console.log(err)
+      },
+    })
 
   }
 

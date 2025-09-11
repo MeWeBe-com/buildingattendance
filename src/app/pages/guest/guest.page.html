@@ -64,13 +64,13 @@
         </ion-select>
 
         <ion-input labelPlacement="stacked" placeholder="Visiting" fill="outline" type="text" class="ion-margin-bottom" mode="md"
-          formControlName="email_address">
+          formControlName="visiting">
           <div slot="label">Visiting
-            @if(isSubmitted && getControl['email_address'].errors){
-            @if(getControl['email_address'].errors['required']){
+            @if(isSubmitted && getControl['visiting'].errors){
+            @if(getControl['visiting'].errors['required']){
             <ion-note color="danger">(is required*)</ion-note>
             }
-            @if(getControl['email_address'].invalid && !getControl['email_address'].errors['required']){
+            @if(getControl['visiting'].invalid && !getControl['visiting'].errors['required']){
             <ion-note color="danger">(is invalid*)</ion-note>
             }
             }
