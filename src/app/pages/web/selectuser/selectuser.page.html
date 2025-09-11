@@ -1,5 +1,9 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar mode="ios">
+  <ion-toolbar mode="ios" [ngClass]="{
+    'green-toolbar': selectedProperty?.status == '0',
+    'orange-toolbar': selectedProperty?.status === '1',
+    'red-toolbar': selectedProperty?.status === '2'
+  }">
     <ion-title>{{selectedProperty?.building_name}}</ion-title>
   </ion-toolbar>
 </ion-header>

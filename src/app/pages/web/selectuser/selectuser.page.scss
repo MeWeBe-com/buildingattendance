@@ -2,8 +2,24 @@ ion-content {
     --background: url('../../../../assets/imgs/bg-image.svg') center no-repeat;
 }
 
+.green-toolbar {
+  --background: #12B76A;
+  --color: #fff;
+}
+
+.red-toolbar {
+  --background: #FF3B30;
+  --color: #fff;
+}
+
+.orange-toolbar {
+  --background: #FDB022;
+  --color: #fff;
+}
+
 .green {
     background-color: #12B76A;
+    --background: #12B76A;
 }
 
 .red {
