@@ -1,47 +1,102 @@
-.selection {
+.faceid {
 
-    .morgan {
-        // background-image: url('../../../assets/imgs/login/morgan-btn.png');
-        // background-repeat: no-repeat;
-        // background-size: contain;
-        // background-position: center;
-        width: 85%;
-        height: 48px;
-        margin: 16px auto;
-
-    }
-
-    .cbre {
-        // background-image: url('../../../assets/imgs/login/cbre-btn.png');
-        // background-repeat: no-repeat;
-        // background-size: contain;
-        // background-position: center;
-        width: 85%;
-        height: 48px;
-        margin: 16px auto;
-        border-radius: 20px;
+    p {
+        color: var(--theme-grey);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 28px;
+        line-height: 36px;
     }
 
     img {
-        border-radius: 10px;
-        height: 48px;
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
     }
 
-    .select-com {
+    .cap {
         font-style: normal;
         font-weight: 400;
         font-size: 12px;
         line-height: 18px;
     }
-
 }
 
-.login-btn {
-    ion-button {
+.form {
+    width: 85%;
+    margin: 20px auto 0 auto;
+
+    ::ng-deep .ng-select-container {
+        border: 1px solid var(--theme-grey);
+        border-radius: 4px;
+        line-height: 50px;
+
+        .ng-placeholder {
+            color: #000;
+            font-size: 12px;
+            padding-left: 15px;
+        }
+    }
+
+    .custom-select {
+        position: relative;
+
+        label {
+            position: absolute;
+            z-index: 10;
+            font-size: 12px;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            transition: all 0.2s ease-in-out;
+            pointer-events: none;
+        }
+
+        &:focus-within label {
+            background-color: #fff;
+            top: 0;
+            transform: translateY(1) scale(0.85);
+            color: #000;
+            /* Example: change color to indicate active state */
+            font-size: 10px;
+            padding-left: 5px;
+            z-index: 99999999999;
+        }
+
+        .selected {
+            background-color: #fff;
+            top: 0;
+            transform: translateY(1) scale(0.85);
+            color: #000;
+            /* Example: change color to indicate active state */
+            font-size: 10px;
+            padding-left: 5px;
+            z-index: 99999999999;
+        }
+    }
+
+    ion-checkbox {
+        --size: 18px;
+        --border-color: var(--theme-purple);
+        --checkbox-background-checked: #fff;
+        --checkmark-color: var(--theme-light-green);
+        --border-radius: 4px;
         font-style: normal;
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 24px;
-        --background: var(--theme-light-green);
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        color: var(--theme-grey);
+    }
+
+    .login-btn {
+        margin-top: 50px;
+
+        ion-button {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+            --background: var(--theme-light-green);
+        }
     }
 }

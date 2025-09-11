@@ -24,7 +24,7 @@ import { Keyboard, KeyboardResize, KeyboardResizeOptions } from '@capacitor/keyb
 })
 export class SelectlocationPage implements OnInit {
 
-  general = inject(GeneralService)
+  general = inject(GeneralService);
   http = inject(HttpService);
   analytics = inject(AnalyticsService);
 
@@ -59,7 +59,7 @@ export class SelectlocationPage implements OnInit {
     await this.analytics.setCurrentScreen('Select Location')
     if (Capacitor.isNativePlatform()) {
       await this.getLocation()
-    }else{
+    } else {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((succ) => {
           this.userPosition = {

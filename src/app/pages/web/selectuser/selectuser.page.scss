@@ -1,0 +1,34 @@
+ion-content {
+    --background: url('../../../../assets/imgs/bg-image.svg') center no-repeat;
+}
+
+.green {
+    background-color: #12B76A;
+}
+
+.red {
+    background-color: #FF3B30;
+}
+
+.orange {
+    background-color: #FDB022;
+}
+
+.main {
+    height: 90vh;
+}
+
+.btns {
+    div {
+        width: calc(100% / 3.5);
+    }
+
+}
+
+ion-button {
+    --background: var(--theme-light-blue);
+}
+
+.selected-btn{
+    --background: var(--theme-light-green);
+}

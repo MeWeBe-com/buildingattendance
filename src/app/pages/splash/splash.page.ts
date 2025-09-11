@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { IonContent } from '@ionic/angular/standalone';
 import { GeneralService } from 'src/app/providers/general.service';
-
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-splash',
@@ -21,7 +21,11 @@ export class SplashPage implements OnInit {
 
   ionViewDidEnter() {
     setTimeout(() => {
-      this.general.goToPage('home');
+      if (Capacitor.isNativePlatform()) {
+        this.general.goToRoot('home');
+      } else {
+        this.general.goToRoot('selectbuilding');
+      }
     }, 7000)
   }
 

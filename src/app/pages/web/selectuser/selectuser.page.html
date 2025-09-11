@@ -1,0 +1,42 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-title>{{selectedProperty?.building_name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [ngClass]="{
+'green': selectedProperty?.status == '0',
+'orange': selectedProperty?.status === '1',
+'red': selectedProperty?.status === '2'
+}">
+
+  <div class="ion-padding d-flex justify-content-center flex-column main">
+    <div class="d-flex align-items-center justify-content-between ion-margin-vertical btns">
+      <div>
+        <ion-button expand="block" mode="ios" [ngClass]="{'selected-btn': selected_type == 'guest'}"
+          (click)="selected_type = 'guest'">
+          <ion-icon slot="start" name="add-outline"></ion-icon>Guest
+        </ion-button>
+      </div>
+      <div>
+        <ion-button expand="block" mode="ios" [ngClass]="{'selected-btn': selected_type == 'employee'}"
+          (click)="selected_type = 'employee'">
+          <ion-icon slot="start" name="add-outline"></ion-icon>Employee
+        </ion-button>
+      </div>
+      <div>
+        <ion-button expand="block" mode="ios" [ngClass]="{'selected-btn': selected_type == 'security'}"
+          (click)="selected_type = 'security'">
+          <ion-icon slot="start" name="add-outline"></ion-icon>Security
+        </ion-button>
+      </div>
+    </div>
+
+    <div class="ion-margin-vertical">
+      <ion-button expand="block" mode="ios" >
+        Check-in / Out
+      </ion-button>
+    </div>
+  </div>
+
+</ion-content>

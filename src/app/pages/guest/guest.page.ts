@@ -1,44 +1,60 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonSelect, IonSelectOption, IonButton } from '@ionic/angular/standalone';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOption, IonNote } from '@ionic/angular/standalone';
+import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
+
 import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
-import { AnalyticsService } from 'src/app/providers/analytics.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
-import { StorageService } from 'src/app/providers/storage.service';
+import { AnalyticsService } from 'src/app/providers/analytics.service';
 
 @Component({
   selector: 'app-guest',
   templateUrl: './guest.page.html',
   styleUrls: ['./guest.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule,
-    IonContent, IonHeader, IonTitle, IonToolbar, IonSelect, IonSelectOption, IonButton
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgSelectComponent, NgOptionComponent,
+    IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOption, IonNote
   ]
 })
 export class GuestPage implements OnInit {
 
+  @ViewChild('selfieInput', { static: false }) selfieInput!: ElementRef;
+
   http = inject(HttpService);
   general = inject(GeneralService);
+  formBuilder = inject(FormBuilder);
   analytics = inject(AnalyticsService);
-  storage = inject(StorageService);
+
+  signupForm!: FormGroup;
+  isSubmitted: boolean = false;
 
   companies: any = [];
-  company_id: any = null;
+  positions: any = [
+    {
+      name: 'ICT Technician', value: 'ict_technician'
+    },
+    {
+      name: 'Managed Services', value: 'managed_services'
+    }
+  ];
 
   constructor() { }
 
   ngOnInit() {
+    this.initForm()
   }
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
     this.getCompanies();
+    await this.analytics.setCurrentScreen('SignUp')
   }
 
   getCompanies() {
     this.http.get2('GetCompanies', false).subscribe({
       next: (res: any) => {
+        GlobaldataService.companies = res.data.company;
         this.companies = res.data.company;
       },
       error: (err) => {
@@ -47,30 +63,67 @@ export class GuestPage implements OnInit {
     })
   }
 
-  submit() {
-    if (!this.company_id) {
-      this.general.presentToast('Please select company')
+
+
+  initForm() {
+    this.signupForm = this.formBuilder.group({
+      full_name: new FormControl('', Validators.required),
+      company_id: new FormControl('', Validators.required),
+      position: new FormControl('', Validators.required),
+      visiting: new FormControl('', Validators.required),
+      email_address: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
+      mobile_number: new FormControl('', Validators.required),
+      profile_pic: new FormControl('', Validators.required),
+      profile_pic_url: new FormControl(''),
+    })
+  }
+
+  get getControl() {
+    return this.signupForm.controls;
+  }
+
+  onSubmit() {
+    this.isSubmitted = true;
+    if (this.signupForm.invalid) {
+      this.general.presentToast('Please fill form correctly!')
       return
     }
 
-    this.http.post('UpdateGuestCompany', { company_id: this.company_id }, true).subscribe({
+
+
+  }
+
+  selectPhoto() {
+    this.selfieInput.nativeElement.click();
+  }
+
+  uploadSelfie(e: any) {
+    if (e.target.files.length > 0) {
+      const formData = new FormData();
+      formData.append('media', e.target.files[0]);
+      this.uploadImage(formData);
+    }
+  }
+
+  uploadImage(formData: any) {
+    this.http.uploadImages(formData, 'UploadMedia', true).subscribe({
       next: async (res: any) => {
         await this.general.stopLoading();
         if (res.status == true) {
-          GlobaldataService.userObject = res.data;
-          await this.storage.setObject('CBREuserObject', res.data);
-          await this.analytics.setUserId(res.data.user_id)
-          await this.analytics.logEvent('guest-account-setup', { user_id: res.data.user_id });
-          this.general.goToRoot('home');
+          this.signupForm.patchValue({
+            profile_pic: res.filename,
+            profile_pic_url: res.media_url
+          });
+        } else {
+          this.general.presentToast('Something went wrong!')
         }
+        this.selfieInput.nativeElement.value = '';
       },
       error: async (err) => {
-        await this.general.stopLoading()
+        await this.general.stopLoading();
         console.log(err)
       },
     })
   }
-
-
 
 }

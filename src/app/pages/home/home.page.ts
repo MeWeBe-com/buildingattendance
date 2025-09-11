@@ -34,8 +34,8 @@ export class HomePage {
   };
   isOpen: boolean = false;
 
-  constructor() { 
-    this.events.receiveOnPopover().subscribe((res:any)=>{
+  constructor() {
+    this.events.receiveOnPopover().subscribe((res: any) => {
       this.isOpen = res;
     })
   }
@@ -63,9 +63,9 @@ export class HomePage {
     //Radar.startTrackingContinuous(); // start
     Radar.setForegroundServiceOptions({
       options: {
-        text: "Text", 
+        text: "Text",
         title: "Title",
-        iconString: 'your_icon_name', 
+        iconString: 'your_icon_name',
         updatesOnly: true,
       }
     })

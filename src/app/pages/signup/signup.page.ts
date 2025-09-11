@@ -54,6 +54,7 @@ export class SignupPage implements OnInit {
       name: 'Red', value: 'red'
     }
   ];
+  isEmailTaken: boolean = false;
 
   constructor() { }
 
@@ -150,9 +151,22 @@ export class SignupPage implements OnInit {
     });
 
     GlobaldataService.signupData = this.signupForm.value;
-    setTimeout(() => {
-      this.general.goToPage('signuppreview')
-    }, 50)
+    this.http.post2('CheckUserEmail', { email_address: this.signupForm.value.email_address }, true).subscribe({
+      next: async (res: any) => {
+        this.general.stopLoading()
+        if (res.status) {
+          this.isEmailTaken = false;
+          this.general.goToPage('signuppreview')
+        } else {
+          this.isEmailTaken = true;
+          this.general.presentToast('Email already in use!')
+        }
+      },
+      error: async (err) => {
+        this.general.stopLoading()
+
+      },
+    })
 
   }
 

@@ -80,13 +80,14 @@
     ion-checkbox {
         --border-color: var(--theme-purple);
         --checkbox-background-checked: #fff;
-        --checkmark-color: var(--theme-light-green);
+        --checkmark-color: var(--theme-darkblue);
         --border-radius: 4px;
         font-style: normal;
         font-weight: 400;
         font-size: 12px;
         line-height: 18px;
         color: var(--theme-grey);
+        --checkmark-width: 3px;
     }
 
     .no-account {
@@ -122,8 +123,8 @@
         font-weight: 600;
         font-size: 16px;
         line-height: 24px;
-        --border-color: var(--theme-light-green);
-        --color: var(--theme-light-green)
+        --background: var(--theme-light-blue);
+        --color: #000;
     }
 }
 

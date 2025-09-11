@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <div class="selection ion-margin-bottom">
+    <!-- <div class="selection ion-margin-bottom">
 
       <div class="morgan ion-text-center">
         <img src="assets/imgs/login/morgan-btn.svg">
@@ -27,7 +27,7 @@
       <div class="inter-font select-com ion-text-center">
         Please select company
       </div>
-    </div>
+    </div> -->
 
     <div class="form">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
@@ -81,7 +81,7 @@
       </form>
 
       <div class="guest-btn ion-margin-top">
-        <ion-button expand="block" fill="outline" mode="ios" class="inter-font" (click)="guestLogin()">
+        <ion-button expand="block" mode="ios" class="inter-font" (click)="general.goToPage('guest')">
           Guest Login
         </ion-button>
       </div>

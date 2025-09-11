@@ -1,4 +1,4 @@
-<ion-content [fullscreen]="true">
+<ion-content>
   <div class="ion-padding">
 
     <div class="faceid ion-text-center ion-margin">
@@ -21,8 +21,8 @@
 
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
       <div class="form ion-margin-top">
-        <ion-input labelPlacement="stacked" placeholder="Full Name" fill="outline" type="text" class="ion-margin-bottom" mode="md"
-          formControlName="full_name">
+        <ion-input labelPlacement="stacked" placeholder="Full Name" fill="outline" type="text" class="ion-margin-bottom"
+          mode="md" formControlName="full_name">
           <div slot="label">Full Name
             @if(isSubmitted && getControl['full_name'].errors){
             @if(getControl['full_name'].errors['required']){
@@ -111,8 +111,8 @@
           </ng-select>
         </div>
 
-        <ion-input labelPlacement="stacked" placeholder="Email" fill="outline" type="email" class="ion-margin-bottom" mode="md"
-          formControlName="email_address">
+        <ion-input labelPlacement="stacked" placeholder="Email" fill="outline" type="email" class="ion-margin-bottom"
+          mode="md" formControlName="email_address">
           <div slot="label">Email
             @if(isSubmitted && getControl['email_address'].errors){
             @if(getControl['email_address'].errors['required']){
@@ -122,11 +122,14 @@
             <ion-note color="danger">(is invalid*)</ion-note>
             }
             }
+            @if(isEmailTaken){
+            <ion-note color="danger">(already taken*)</ion-note>
+            }
           </div>
         </ion-input>
 
-        <ion-input labelPlacement="stacked" placeholder="Mobile" fill="outline" type="text" class="ion-margin-bottom" mode="md"
-          formControlName="mobile_number">
+        <ion-input labelPlacement="stacked" placeholder="Mobile" fill="outline" type="text" class="ion-margin-bottom"
+          mode="md" formControlName="mobile_number">
           <div slot="label">Mobile
             @if(isSubmitted && getControl['mobile_number'].errors){
             @if(getControl['mobile_number'].errors['required']){

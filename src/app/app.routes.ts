@@ -66,6 +66,14 @@ export const routes: Routes = [
   {
     path: 'guest',
     loadComponent: () => import('./pages/guest/guest.page').then( m => m.GuestPage)
+  },
+  {
+    path: 'selectbuilding',
+    loadComponent: () => import('./pages/web/selectbuilding/selectbuilding.page').then( m => m.SelectbuildingPage)
+  },
+  {
+    path: 'selectuser',
+    loadComponent: () => import('./pages/web/selectuser/selectuser.page').then( m => m.SelectuserPage)
   }
 
 ];

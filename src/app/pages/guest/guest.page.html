@@ -1,38 +1,149 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar mode="ios">
-    <ion-title>Select Company</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <div class="ion-padding">
 
-<ion-content class="ion-padding">
-  <div class="selection ion-margin-bottom">
+    <div class="faceid ion-text-center ion-margin">
+      <p class="roboto-font">
+        Guest Login
+      </p>
 
-    <div class="morgan ion-text-center">
-      <img src="assets/imgs/login/morgan-btn.svg">
+      <img [src]="getControl['profile_pic_url'].value || 'assets/imgs/signin/signin.png'" (click)="selectPhoto()" />
+
+      <div class="cap inter-font">
+        Tap to upload profile photo
+      </div>
+
+      @if(isSubmitted && getControl['profile_pic'].errors){
+      @if(getControl['profile_pic'].errors['required']){
+      <ion-note color="danger">Profile Picture is required*</ion-note>
+      }
+      }
     </div>
 
-    <div class="cbre ion-text-center">
-      <img src="assets/imgs/login/cbre-btn.svg">
-    </div>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="form ion-margin-top">
+        <ion-input labelPlacement="stacked" placeholder="Full Name" fill="outline" type="text" class="ion-margin-bottom" mode="md"
+          formControlName="full_name">
+          <div slot="label">Full Name
+            @if(isSubmitted && getControl['full_name'].errors){
+            @if(getControl['full_name'].errors['required']){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            }
+          </div>
+        </ion-input>
 
-    <div class="inter-font select-com ion-text-center">
-      Please select company
-    </div>
+        <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="company_id"
+          mode="md" interface="popover">
+          <div slot="label">Company
+            @if(isSubmitted && getControl['company_id'].errors){
+            @if(getControl['company_id'].errors['required']){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            }
+          </div>
+          <ion-select-option value="" selected>Select Comapny</ion-select-option>
+          @for(c of companies; track c?.company_id){
+          <ion-select-option [value]="c?.company_id">{{c?.company_name}}</ion-select-option>
+          }
+
+        </ion-select>
+
+        <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="position"
+          mode="md" interface="popover">
+          <div slot="label">Position
+            @if(isSubmitted && getControl['position'].errors){
+            @if(getControl['position'].errors['required']){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            }
+          </div>
+          <ion-select-option value="" selected>Select Position</ion-select-option>
+          @for(p of positions; track p?.name){
+          <ion-select-option [value]="p?.value">{{p?.name}}</ion-select-option>
+          }
+        </ion-select>
+
+        <ion-input labelPlacement="stacked" placeholder="Visiting" fill="outline" type="text" class="ion-margin-bottom" mode="md"
+          formControlName="email_address">
+          <div slot="label">Visiting
+            @if(isSubmitted && getControl['email_address'].errors){
+            @if(getControl['email_address'].errors['required']){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            @if(getControl['email_address'].invalid && !getControl['email_address'].errors['required']){
+            <ion-note color="danger">(is invalid*)</ion-note>
+            }
+            }
+          </div>
+        </ion-input>
+
+        <ion-input labelPlacement="stacked" placeholder="Email" fill="outline" type="email" class="ion-margin-bottom" mode="md"
+          formControlName="email_address">
+          <div slot="label">Email
+            @if(isSubmitted && getControl['email_address'].errors){
+            @if(getControl['email_address'].errors['required']){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            @if(getControl['email_address'].invalid && !getControl['email_address'].errors['required']){
+            <ion-note color="danger">(is invalid*)</ion-note>
+            }
+            }
+          </div>
+        </ion-input>
+
+        <ion-input labelPlacement="stacked" placeholder="Mobile" fill="outline" type="text" class="ion-margin-bottom" mode="md"
+          formControlName="mobile_number">
+          <div slot="label">Mobile
+            @if(isSubmitted && getControl['mobile_number'].errors){
+            @if(getControl['mobile_number'].errors['required']){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            }
+          </div>
+        </ion-input>
+
+        <!-- <div class="ion-margin-bottom">
+          <ion-checkbox labelPlacement="end" formControlName="biometric_login">
+            <span class="ion-text-wrap">
+              Facial Recognition for faster login
+            </span>
+          </ion-checkbox>
+          <div>
+            @if(isSubmitted && getControl['biometric_login'].errors){
+            @if(getControl['biometric_login'].errors['required']){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            }
+          </div>
+        </div>
+
+        <div class="ion-margin-bottom">
+          <ion-checkbox labelPlacement="end" formControlName="terms">
+            <span class="ion-text-wrap">
+              I agree to Terms of Service and Privacy Policy
+            </span>
+          </ion-checkbox>
+          <div>
+            @if(isSubmitted && getControl['terms'].errors){
+            @if(getControl['terms'].errors['required']){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            }
+          </div>
+        </div> -->
+
+
+        <div class="login-btn">
+          <ion-button expand="block" mode="ios" type="submit" class="inter-font">
+            Submit
+          </ion-button>
+        </div>
+
+
+      </div>
+    </form>
   </div>
 
-  <ion-select label-placement="stacked" [(ngModel)]="company_id" placeholder="Select Company" fill="outline"
-    class="ion-margin-bottom" mode="md" interface="popover">
-    <div slot="label">Select Company</div>
-    <ion-select-option value="" selected>Select Comapny</ion-select-option>
-    @for(c of companies; track c?.company_id){
-    <ion-select-option [value]="c?.company_id">{{c?.company_name}}</ion-select-option>
-    }
-  </ion-select>
-
-  <div class="login-btn ion-margin-top">
-    <ion-button expand="block" mode="ios"  class="inter-font" (click)="submit()">
-      Submit
-    </ion-button>
-  </div>
-
+  <input type="file" #selfieInput (change)="uploadSelfie($event)" hidden="true" accept="image/*"
+    style="visibility: hidden;" />
 </ion-content>
