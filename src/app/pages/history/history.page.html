@@ -1,8 +1,5 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar mode="ios" [ngClass]="{
-    'green-bg': (user?.company_id === '1'),
-    'blue-bg': (user?.company_id === '2'),
-  }">
+  <ion-toolbar mode="ios" [ngStyle]="{'--background': user?.company_color}">
     <ion-buttons slot="start">
       <ion-back-button color="light" mode="md"></ion-back-button>
     </ion-buttons>
@@ -15,10 +12,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [ngClass]="{
-  'green-bg': user?.company_id === '1',
-   'blue-bg': user?.company_id === '2',
-}">
+<ion-content [ngStyle]="{'--background': user?.company_color}">
 
   <div class="search-card ion-padding-horizontal">
     <ion-searchbar placeholder="Search History" mode="ios">

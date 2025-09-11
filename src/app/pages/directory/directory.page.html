@@ -1,8 +1,5 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar mode="ios" [ngClass]="{
-    'green-bg': (user?.company_id === '1'),
-    'blue-bg': (user?.company_id === '2'),
-  }">
+  <ion-toolbar mode="ios" [ngStyle]="{'--background': user?.company_color}">
     <ion-buttons slot="start">
       <ion-back-button color="light" mode="md"></ion-back-button>
     </ion-buttons>
@@ -15,14 +12,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [ngClass]="{
-  'green-bg': user?.company_id === '1',
-   'blue-bg': user?.company_id === '2',
-}">
+<ion-content [ngStyle]="{'--background': user?.company_color}">
 
   <div class="search-card ion-padding-horizontal ion-margin-vertical">
     <ion-select fill="outline" mode="md" interface="popover" (ionChange)="changeBuilding($event)">
-      <div slot="label">Select Building</div> 
+      <div slot="label">Select Building</div>
       <ion-select-option value="" selected>Select Building</ion-select-option>
       @for(p of properties; track p?.property_id){
       <ion-select-option [value]="p?.property_id">{{p?.property_name}}</ion-select-option>
@@ -57,7 +51,9 @@
         <p>{{item?.employment_name}} - {{ item?.mobile_number }}</p>
       </ion-label>
       <ion-note slot="end" class="time-note">
-        <div class="status" [ngStyle]="{'background-color': item?.is_checked_in ? 'var(--ion-color-success)': 'var(--ion-color-danger)'}"></div>
+        <div class="status"
+          [ngStyle]="{'background-color': item?.is_checked_in ? 'var(--ion-color-success)': 'var(--ion-color-danger)'}">
+        </div>
       </ion-note>
     </ion-item>
     }
