@@ -1,8 +1,7 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOption, IonNote } from '@ionic/angular/standalone';
-import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
+import { IonContent, IonInput, IonButton, IonSelect, IonSelectOption, IonNote } from '@ionic/angular/standalone';
 
 import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
@@ -15,8 +14,8 @@ import { StorageService } from 'src/app/providers/storage.service';
   templateUrl: './guest.page.html',
   styleUrls: ['./guest.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgSelectComponent, NgOptionComponent,
-    IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOption, IonNote
+  imports: [CommonModule, FormsModule, ReactiveFormsModule,
+    IonContent, IonInput, IonButton, IonSelect, IonSelectOption, IonNote
   ]
 })
 export class GuestPage implements OnInit {
@@ -92,7 +91,7 @@ export class GuestPage implements OnInit {
 
     this.http.post2('GuestLogin', this.signupForm.value, true).subscribe({
       next: async (res: any) => {
-        
+
         await this.general.stopLoading();
         if (res.status == true) {
           GlobaldataService.loginToken = res.data.user_token;

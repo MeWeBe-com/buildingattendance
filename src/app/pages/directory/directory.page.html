@@ -22,21 +22,6 @@
       <ion-select-option [value]="p?.property_id">{{p?.property_name}}</ion-select-option>
       }
     </ion-select>
-
-    <!-- <div class="date-filter-row ">
-      <ion-button expand="block" fill="clear" class="cal-btn inter-font" (click)="openDate($event)">
-        <ion-icon slot="start" name="calendar-clear-outline"></ion-icon>
-        {{ (dateRange.from | date: 'MMM dd, yyyy') + ' - ' + (dateRange.to | date: 'MMM dd, yyyy') }}
-      </ion-button>
-
-      <ion-popover #popover class="date-popover" [isOpen]="isDatePopoverOpen" (willDismiss)="isDatePopoverOpen = false">
-        <ng-template>
-          <ion-range-calendar [(ngModel)]="dateRange" (selectStart)="onStartDate($event)" (selectEnd)="onEndDate($event)" [options]="optionsRange" [type]="type" [format]="'yyyy-MM-dd'">
-          </ion-range-calendar>
-        </ng-template>
-      </ion-popover>
-
-    </div> -->
   </div>
 
   <ion-list>
