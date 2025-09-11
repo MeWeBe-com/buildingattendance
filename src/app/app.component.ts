@@ -91,6 +91,7 @@ export class AppComponent {
   async signOut() {
     this.isPopoverOpen = false;
     GlobaldataService.clearGobal();
+    this.events.publishIsLogout(true);
     await this.storage.clear();
     await this.analytics.logEvent('logout', null);
     setTimeout(() => {

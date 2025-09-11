@@ -161,9 +161,50 @@ ion-select {
     font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: 12px;
+    font-size: 16px !important;
     line-height: 16px;
     letter-spacing: 0.4px;
+}
+
+ion-select::part(label) {
+    font-size: 16px;
+}
+
+.custom-select {
+    position: relative;
+
+    label {
+        position: absolute;
+        z-index: 10;
+        font-size: 12px;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        transition: all 0.2s ease-in-out;
+        pointer-events: none;
+    }
+
+    &:focus-within label {
+        background-color: #fff;
+        top: 0;
+        transform: translateY(1) scale(0.85);
+        color: #000;
+        /* Example: change color to indicate active state */
+        font-size: 12px;
+        padding-left: 5px;
+        z-index: 99999999999;
+    }
+
+    .selected {
+        background-color: #fff;
+        top: 0;
+        transform: translateY(1) scale(0.85);
+        color: #000;
+        /* Example: change color to indicate active state */
+        font-size: 12px;
+        padding-left: 5px;
+        z-index: 99999999999;
+    }
 }
 
 .menu-popover {

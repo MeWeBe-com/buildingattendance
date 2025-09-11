@@ -15,7 +15,7 @@
 <ion-content [ngStyle]="{'--background': user?.company_color}">
 
   <div class="search-card ion-padding-horizontal">
-    <ion-searchbar placeholder="Search History" mode="ios">
+    <ion-searchbar placeholder="Search History" mode="ios" enterkeyhint="search" [(ngModel)]="keyword" (keyup.enter)="searchNow()">
     </ion-searchbar>
 
     <div class="date-filter-row ">
@@ -26,7 +26,8 @@
 
       <ion-popover #popover class="date-popover" [isOpen]="isDatePopoverOpen" (willDismiss)="isDatePopoverOpen = false">
         <ng-template>
-          <ion-range-calendar [(ngModel)]="dateRange" (selectStart)="onStartDate($event)" (selectEnd)="onEndDate($event)" [options]="optionsRange" [type]="type" [format]="'yyyy-MM-dd'">
+          <ion-range-calendar [(ngModel)]="dateRange" (selectStart)="onStartDate($event)"
+            (selectEnd)="onEndDate($event)" [options]="optionsRange" [type]="type" [format]="'yyyy-MM-dd'">
           </ion-range-calendar>
         </ng-template>
       </ion-popover>

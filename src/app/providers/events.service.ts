@@ -7,6 +7,8 @@ import { Subject } from 'rxjs';
 export class EventsService {
   private popover = new Subject<any>();
   private isPopover = new Subject<boolean>();
+  private logout = new Subject<boolean>();
+
 
   constructor() { }
 
@@ -25,4 +27,13 @@ export class EventsService {
   receiveOnPopover(): Subject<any> {
     return this.isPopover
   }
+
+  publishIsLogout(data: any) {
+    this.logout.next(data)
+  }
+
+  receiveIsLogout(): Subject<any> {
+    return this.logout
+  }
+
 }

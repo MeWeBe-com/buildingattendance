@@ -35,7 +35,7 @@ export class HistoryPage implements OnInit {
   };
 
   user: any;
-  searchText = '';
+  keyword: string = '';
 
 
   historyItems: any = [];
@@ -52,8 +52,12 @@ export class HistoryPage implements OnInit {
 
   async ionViewWillEnter() {
     this.user = GlobaldataService.userObject;
-    this.getUserHistory({ from: '', to: '' });
+    this.getUserHistory('', { from: '', to: '' });
     await this.analytics.setCurrentScreen('History')
+  }
+
+  searchNow() {
+    this.getUserHistory(this.keyword, { from: '', to: '' });
   }
 
   openDate(e: any) {
@@ -75,12 +79,17 @@ export class HistoryPage implements OnInit {
 
   onEndDate($event: any) {
     this.dateRange.to = this.formatDate(new Date($event.time))
-    this.getUserHistory(this.dateRange)
+    this.getUserHistory(this.keyword, this.dateRange);
   }
 
 
-  getUserHistory(dates: any) {
-    this.http.post('UserHistory', dates, true).subscribe({
+  getUserHistory(keyword: string = '', dates: any) {
+    let data = {
+      property_name: keyword,
+      from: dates.from,
+      to: dates.to,
+    }
+    this.http.post('UserHistory', data, true).subscribe({
       next: async (res: any) => {
         await this.general.stopLoading()
         if (res.status == true) {

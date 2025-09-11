@@ -69,6 +69,7 @@ export class GuestPage implements OnInit {
     this.signupForm = this.formBuilder.group({
       full_name: new FormControl('', Validators.required),
       company_id: new FormControl('', Validators.required),
+      company_name: new FormControl(''),
       position: new FormControl('', Validators.required),
       visiting: new FormControl('', Validators.required),
       email_address: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
@@ -84,16 +85,14 @@ export class GuestPage implements OnInit {
 
   onSubmit() {
     this.isSubmitted = true;
-    console.log(this.signupForm.value)
     if (this.signupForm.invalid) {
       this.general.presentToast('Please fill form correctly!')
       return
     }
 
-
     this.http.post2('GuestLogin', this.signupForm.value, true).subscribe({
       next: async (res: any) => {
-        console.log(res);
+        
         await this.general.stopLoading();
         if (res.status == true) {
           GlobaldataService.loginToken = res.data.user_token;
@@ -101,7 +100,7 @@ export class GuestPage implements OnInit {
           await this.analytics.logEvent('GuestLogin', null);
           setTimeout(() => {
             this.general.goToRoot('home');
-          }, 100)
+          }, 750)
         }
       },
       error: async (err) => {

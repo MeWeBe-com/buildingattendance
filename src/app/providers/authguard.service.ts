@@ -22,11 +22,11 @@ export class PermissionsService {
 
 
   constructor() {
-    // this.events.receiveIsLogout().subscribe((res: boolean) => {
-    //   if (res == true) {
-    //     this.isLoggedIn = false;
-    //   }
-    // })
+    this.events.receiveIsLogout().subscribe((res: boolean) => {
+      if (res == true) {
+        this.isLoggedIn = false;
+      }
+    })
   }
 
   checkLoginStatus(): boolean {

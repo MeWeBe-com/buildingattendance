@@ -45,8 +45,21 @@
           @for(c of companies; track c?.company_id){
           <ion-select-option [value]="c?.company_id">{{c?.company_name}}</ion-select-option>
           }
-
+          <ion-select-option value="other">Other</ion-select-option>
         </ion-select>
+
+        @if(signupForm.value.company_id == 'other'){
+          <ion-input labelPlacement="stacked" placeholder="Company Name" fill="outline" type="text" class="ion-margin-bottom" mode="md"
+            formControlName="company_name">
+            <div slot="label">Company Name
+              @if(isSubmitted && signupForm.value.company_id == 'other'){
+              @if(signupForm.value.company_name == ''){
+              <ion-note color="danger">(is required*)</ion-note>
+              }
+              }
+            </div>
+          </ion-input>
+        }
 
         <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="position"
           mode="md" interface="popover">

@@ -80,13 +80,13 @@
     ion-checkbox {
         --border-color: var(--theme-purple);
         --checkbox-background-checked: #fff;
-        --checkmark-color: var(--theme-darkblue);
         --border-radius: 4px;
         font-style: normal;
         font-weight: 400;
         font-size: 12px;
         line-height: 18px;
         color: var(--theme-grey);
+        --checkmark-color: var(--theme-darkblue);
         --checkmark-width: 3px;
     }
 
