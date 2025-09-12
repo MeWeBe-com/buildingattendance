@@ -46,19 +46,15 @@ export class FcmService {
 
   getToken() {
     if (Capacitor.isNativePlatform()) {
-      PushNotifications.requestPermissions().then((permission) => {
+      PushNotifications.requestPermissions().then(async (permission) => {
         if (permission.receive == "granted") {
           // Register with Apple / Google to receive push via APNS/FCM
           if (Capacitor.getPlatform() == 'ios') {
-            PushNotifications.register().then((res) => {
-              console.log('From Regisiter Promise', res)
-            })
-            PushNotifications.addListener('registration', (token: Token) => {
-              FCM.getToken().then((result) => {
-                this.remoteToken = result.token;
-                GlobaldataService.deviceToken = result.token;
-              }).catch((err) => console.log('i am Error', err));
-            })
+            await PushNotifications.register();
+            FCM.getToken().then((result) => {
+              this.remoteToken = result.token;
+              GlobaldataService.deviceToken = result.token;
+            }).catch((err) => console.log('i am Error', err));
           } else {
             FCM.getToken().then((result) => {
               this.remoteToken = result.token;
