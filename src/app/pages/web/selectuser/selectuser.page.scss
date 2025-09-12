@@ -19,7 +19,6 @@ ion-content {
 
 .green {
     background-color: #12B76A;
-    --background: #12B76A;
 }
 
 .red {
@@ -36,9 +35,8 @@ ion-content {
 
 .btns {
     div {
-        width: calc(100% / 3.5);
+        width: calc(100% / 2.3);
     }
-
 }
 
 ion-button {

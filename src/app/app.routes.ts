@@ -68,12 +68,12 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/guest/guest.page').then( m => m.GuestPage)
   },
   {
-    path: 'selectbuilding',
-    loadComponent: () => import('./pages/web/selectbuilding/selectbuilding.page').then( m => m.SelectbuildingPage)
-  },
-  {
     path: 'selectuser',
     loadComponent: () => import('./pages/web/selectuser/selectuser.page').then( m => m.SelectuserPage)
+  },
+  {
+    path: 'web-login',
+    loadComponent: () => import('./pages/web/web-login/web-login.page').then( m => m.WebLoginPage)
   }
 
 ];

@@ -24,7 +24,7 @@ export class SplashPage implements OnInit {
       if (Capacitor.isNativePlatform()) {
         this.general.goToRoot('home');
       } else {
-        this.general.goToRoot('selectbuilding');
+        this.general.goToRoot('selectuser');
       }
     }, 7000)
   }

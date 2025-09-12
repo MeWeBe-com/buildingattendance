@@ -75,7 +75,8 @@ export class CheckoutPage implements OnInit {
           await this.analytics.logEvent('Check-In', { ...data, user_id: this.user.user_id })
           this.general.goToRoot('checkout');
         } else {
-          this.general.presentToast(res.message)
+          //this.general.presentToast(res.message)
+          this.general.presentAlert('Warning!', 'You can only check in when are at the location!');
           await this.analytics.logEvent('Check-In Failed', { ...data, user_id: this.user.user_id })
         }
       },

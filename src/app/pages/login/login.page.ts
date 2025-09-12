@@ -70,7 +70,7 @@ export class LoginPage implements OnInit {
 
   initForm() {
     this.loginForm = this.formBuilder.group({
-      decive_token: new FormControl(''),
+      device_token: new FormControl(''),
       email_address: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       password: new FormControl('', Validators.required)
     })
@@ -86,7 +86,9 @@ export class LoginPage implements OnInit {
       this.general.presentToast('Please fill form correctly!')
       return
     }
-
+    this.loginForm.patchValue({
+      device_token: GlobaldataService.deviceToken
+    });
     this.loginNow(this.loginForm.value);
   }
 
@@ -144,10 +146,11 @@ export class LoginPage implements OnInit {
       this.loginNow({
         email_address: credentials.username,
         password: credentials.password,
-        decive_token: GlobaldataService.deviceToken
+        device_token: GlobaldataService.deviceToken
       })
     } catch (e) {
-      console.log(e)
+      console.log(e);
+      this.general.presentAlert('Alert!', 'No account associated, please login to setup!')
     }
   }
 

@@ -86,7 +86,8 @@ export class SelectlocationPage implements OnInit {
         }
       }
     } catch (e) {
-      console.log(e)
+      console.log(e);
+      this.general.presentAlert('Alert!', 'Please enable location service (GPS).')
     }
 
   }
@@ -116,6 +117,10 @@ export class SelectlocationPage implements OnInit {
       this.alertButtons = ['Dismiss']
       this.isAlertOpen = true;
     }
+
+    setTimeout(()=>{
+      Keyboard.hide();
+    }, 100)
   }
 
   checkIn() {

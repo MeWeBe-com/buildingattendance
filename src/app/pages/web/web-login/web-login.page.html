@@ -1,0 +1,59 @@
+<ion-content [fullscreen]="true">
+  <div class="web-container">
+    <div class="selection ion-margin-bottom">
+
+      <div class="morgan ion-text-center">
+        <img src="assets/imgs/login/morgan-btn.svg">
+      </div>
+
+      <div class="cbre ion-text-center">
+        <img src="assets/imgs/login/cbre-btn.svg">
+      </div>
+
+      <div class="inter-font select-com ion-text-center">
+        Login into continue
+      </div>
+    </div>
+    
+    <div class="ion-padding">
+
+      <div class="form">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+          <ion-input labelPlacement="stacked" placeholder="Email" fill="outline" type="email" class="ion-margin-bottom"
+            mode="md" formControlName="email_address">
+            <div slot="label">Email
+              @if(isSubmitted && getControl['email_address'].errors){
+              @if(getControl['email_address'].errors['required']){
+              <ion-note color="danger">(is required*)</ion-note>
+              }
+              @if(getControl['email_address'].invalid && !getControl['email_address'].errors['required']){
+              <ion-note color="danger">(is invalid*)</ion-note>
+              }
+              }
+            </div>
+          </ion-input>
+
+          <ion-input labelPlacement="stacked" placeholder="Password" fill="outline" type="password" mode="md"
+            formControlName="password">
+            <div slot="label">Password
+              @if(isSubmitted && getControl['password'].errors){
+              @if(getControl['password'].errors['required']){
+              <ion-note color="danger">(is required*)</ion-note>
+              }
+              }
+            </div>
+          </ion-input>
+
+
+          <div class="login-btn ion-margin-top">
+            <ion-button expand="block" mode="ios" type="submit" class="inter-font">
+              Sign In
+            </ion-button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</ion-content>

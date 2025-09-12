@@ -8,7 +8,7 @@
 }">
 
   <div class="ion-padding">
-    <ng-select (change)="changeLocation($event)" placeholder="Start typing to search...">
+    <ng-select (change)="changeLocation($event)" placeholder="Start typing to search..." [closeOnSelect]="true">
       @for (p of properties; track p?.property_id) {
       <ng-option [value]="p">
         <span class="select-status" [ngClass]="{

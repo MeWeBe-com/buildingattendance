@@ -1,4 +1,5 @@
 .selection {
+    margin-top: 50px;
 
     .morgan {
         // background-image: url('../../../assets/imgs/login/morgan-btn.png');
@@ -30,8 +31,53 @@
     .select-com {
         font-style: normal;
         font-weight: 400;
+        font-size: 14px;
+        line-height: 18px;
+    }
+
+}
+
+.form {
+    width: 80%;
+    margin: 50px auto 0 auto;
+
+    .forget {
+        ion-button {
+            --color: var(--theme-light-blue);
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 18px;
+            --padding-end: 0;
+        }
+    }
+
+    ion-checkbox {
+        --border-color: var(--theme-purple);
+        --checkbox-background-checked: #fff;
+        --border-radius: 4px;
+        font-style: normal;
+        font-weight: 400;
         font-size: 12px;
         line-height: 18px;
+        color: var(--theme-grey);
+        --checkmark-color: var(--theme-darkblue);
+        --checkmark-width: 3px;
+    }
+
+    .no-account {
+
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+
+        ion-button {
+            --color: var(--theme-light-blue);
+            --padding-start: 2px;
+            font-size: 12px;
+        }
     }
 
 }
