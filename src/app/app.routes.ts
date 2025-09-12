@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './providers/authguard.service';
 import { CheckGuard } from './providers/checkinguard.service';
+import { WebGuard } from './providers/webguard.service';
 
 export const routes: Routes = [
   {
@@ -10,7 +11,8 @@ export const routes: Routes = [
   },
   {
     path: 'splash',
-    loadComponent: () => import('./pages/splash/splash.page').then(m => m.SplashPage)
+    loadComponent: () => import('./pages/splash/splash.page').then(m => m.SplashPage),
+    canActivate: [WebGuard]
   },
   {
     path: 'home',
@@ -65,15 +67,15 @@ export const routes: Routes = [
   },
   {
     path: 'guest',
-    loadComponent: () => import('./pages/guest/guest.page').then( m => m.GuestPage)
+    loadComponent: () => import('./pages/guest/guest.page').then(m => m.GuestPage)
   },
   {
     path: 'selectuser',
-    loadComponent: () => import('./pages/web/selectuser/selectuser.page').then( m => m.SelectuserPage)
+    loadComponent: () => import('./pages/web/selectuser/selectuser.page').then(m => m.SelectuserPage)
   },
   {
     path: 'web-login',
-    loadComponent: () => import('./pages/web/web-login/web-login.page').then( m => m.WebLoginPage)
+    loadComponent: () => import('./pages/web/web-login/web-login.page').then(m => m.WebLoginPage)
   }
 
 ];

@@ -19,16 +19,10 @@ export class CheckinguardService {
   events = inject(EventsService);
   analytics = inject(AnalyticsService);
 
-
   constructor() {
-
   }
 
-
-
   canActivate(): boolean | Observable<boolean> | Promise<boolean> {
-
-
     return new Promise(async (resolve, reject) => {
       let loginToken = await this.storage.getObject('login_token');
       if (loginToken) {
