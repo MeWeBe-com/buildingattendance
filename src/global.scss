@@ -266,8 +266,14 @@ ion-select::part(label) {
 .menu-icon {
     font-size: 32px;
     color: #000;
+    margin-inline-end: 3px!important;
 }
 
 ion-button {
     --background-activated: var(--theme-light-blue) !important;
+}
+
+.web-container{
+    max-width: 600px;
+    margin: 0 auto;
 }

@@ -76,6 +76,10 @@ export const routes: Routes = [
   {
     path: 'web-login',
     loadComponent: () => import('./pages/web/web-login/web-login.page').then(m => m.WebLoginPage)
+  },
+  {
+    path: 'select-user-type',
+    loadComponent: () => import('./pages/web/select-user-type/select-user-type.page').then( m => m.SelectUserTypePage)
   }
 
 ];

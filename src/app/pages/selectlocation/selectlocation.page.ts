@@ -119,7 +119,9 @@ export class SelectlocationPage implements OnInit {
     }
 
     setTimeout(()=>{
-      Keyboard.hide();
+      if(Capacitor.isNativePlatform()){
+        Keyboard.hide();
+      }
     }, 100)
   }
 

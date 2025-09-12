@@ -1,0 +1,48 @@
+ion-content {
+    --background: url('../../../../assets/imgs/bg-image.svg') center no-repeat;
+}
+
+.green-toolbar {
+  --background: #12B76A;
+  --color: #fff;
+}
+
+.red-toolbar {
+  --background: #FF3B30;
+  --color: #fff;
+}
+
+.orange-toolbar {
+  --background: #FDB022;
+  --color: #fff;
+}
+
+.green {
+    background-color: #12B76A;
+}
+
+.red {
+    background-color: #FF3B30;
+}
+
+.orange {
+    background-color: #FDB022;
+}
+
+.main {
+    height: 90vh;
+}
+
+.btns {
+    div {
+        width: calc(100% / 2.3);
+    }
+}
+
+ion-button {
+    --background: var(--theme-light-blue);
+}
+
+.selected-btn{
+    --background: var(--theme-light-green);
+}

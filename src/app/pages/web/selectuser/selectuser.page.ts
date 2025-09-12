@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-selectuser',
@@ -9,7 +9,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon } from 
   styleUrls: ['./selectuser.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule,
-    IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon
+    IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon,  IonSelect, IonSelectOption
   ] 
 })
 export class SelectuserPage implements OnInit {
@@ -19,7 +19,7 @@ export class SelectuserPage implements OnInit {
     status: '0'
   }
 
-  selected_type: string = '';
+  selected_user: any = null;
   constructor() { }
 
   ngOnInit() {

@@ -59,6 +59,8 @@ export class WebLoginPage implements OnInit {
   }
 
   loginNow(data: any) {
+    this.general.goToPage('selectuser');
+    return
     this.http.post2('Login', data, true).subscribe({
       next: async (res: any) => {
         await this.general.stopLoading();
@@ -67,7 +69,6 @@ export class WebLoginPage implements OnInit {
           await this.storage.setObject('login_token', res.data.user_token);
           await this.analytics.logEvent('login', null);
           this.general.goToPage('selectuser');
-
         } else {
           this.general.presentToast(res.message)
         }

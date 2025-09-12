@@ -3,18 +3,18 @@ ion-content {
 }
 
 .green-toolbar {
-  --background: #12B76A;
-  --color: #fff;
+    --background: #12B76A;
+    --color: #fff;
 }
 
 .red-toolbar {
-  --background: #FF3B30;
-  --color: #fff;
+    --background: #FF3B30;
+    --color: #fff;
 }
 
 .orange-toolbar {
-  --background: #FDB022;
-  --color: #fff;
+    --background: #FDB022;
+    --color: #fff;
 }
 
 .green {
@@ -29,20 +29,122 @@ ion-content {
     background-color: #FDB022;
 }
 
-.main {
-    height: 90vh;
+ion-select {
+    background: #fff;
+    color: #000;
+    --highlight-color: #fff;
+    border-radius: 10px;
+    --padding-start: 10px;
+    --padding-end: 10px;
 }
 
-.btns {
-    div {
-        width: calc(100% / 2.3);
+.main-box {
+    width: 85%;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .user {
+        .img-box {
+            .upload {
+                margin: 0 auto;
+
+                &:hover {
+                    cursor: pointer;
+                }
+
+                img {
+                    width: 120px;
+                    height: 120px;
+                    object-fit: contain;
+                    border-radius: 10px;
+                }
+            }
+        }
+
+        .name {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 24px;
+        }
+
+        .myp {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 18px;
+            color: #fff;
+        }
+    }
+
+    .arrow-icon {
+        color: #fff;
+
+        .arrow-bg {
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 50%;
+            width: 148px;
+            height: 148px;
+            border: 15px solid;
+
+            ion-icon {
+                font-size: 120px;
+            }
+        }
+
+        .arrow-green {
+            color: #12B76A;
+            border-color: #12B76A;
+        }
+
+        .text {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 28px;
+            color: #FFFFFF;
+            margin-top: 10px;
+        }
+    }
+
+    .check-icon {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 44px;
+        letter-spacing: -0.02em;
+        color: #FFFFFF;
+
+        img {
+            width: 148px;
+            height: 118px;
+            object-fit: contain;
+        }
+
+
     }
 }
 
-ion-button {
-    --background: var(--theme-light-blue);
+.icon-pulse {
+    display: inline-block;
+    animation: iconPulse 2s infinite;
 }
 
-.selected-btn{
-    --background: var(--theme-light-green);
+@keyframes iconPulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }

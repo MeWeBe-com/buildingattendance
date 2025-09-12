@@ -33,4 +33,12 @@ export class SplashPage implements OnInit {
     }, 4500)
   }
 
+  goTo() {
+    if (Capacitor.isNativePlatform()) {
+      this.general.goToRoot('home');
+    } else {
+      this.general.goToRoot('web-login');
+    }
+  }
+
 }
