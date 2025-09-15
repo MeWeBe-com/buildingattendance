@@ -59,7 +59,7 @@ export class WebLoginPage implements OnInit {
   }
 
   loginNow(data: any) {
-    this.general.goToPage('selectuser');
+    this.general.goToPage('select-user-type');
     return
     this.http.post2('Login', data, true).subscribe({
       next: async (res: any) => {

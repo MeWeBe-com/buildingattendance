@@ -17,14 +17,12 @@
   <div class="ion-padding d-flex justify-content-center flex-column main">
     <div class="d-flex align-items-center justify-content-between ion-margin-vertical btns">
       <div>
-        <ion-button expand="block" mode="ios" [ngClass]="{'selected-btn': selected_type == 'guest'}"
-          (click)="selected_type = 'guest'">
+        <ion-button expand="block" mode="ios" [routerLink]="['/add-user']" [queryParams]="{type: 'guest'}">
           <ion-icon slot="start" name="add-outline"></ion-icon>Guest
         </ion-button>
       </div>
       <div>
-        <ion-button expand="block" mode="ios" [ngClass]="{'selected-btn': selected_type == 'employee'}"
-          (click)="selected_type = 'employee'">
+        <ion-button expand="block" mode="ios" [routerLink]="['/add-user']" [queryParams]="{type: 'employee'}">
           <ion-icon slot="start" name="add-outline"></ion-icon>Employee
         </ion-button>
       </div>
@@ -37,7 +35,7 @@
     </div>
 
     <div class="ion-margin-vertical">
-      <ion-button expand="block" mode="ios" >
+      <ion-button expand="block" mode="ios" [routerLink]="['/selectuser']">
         Check-in / Out
       </ion-button>
     </div>

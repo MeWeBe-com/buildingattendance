@@ -32,6 +32,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/signuppreview/signuppreview.page').then(m => m.SignuppreviewPage)
   },
   {
+    path: 'guest',
+    loadComponent: () => import('./pages/guest/guest.page').then(m => m.GuestPage)
+  },
+  {
     path: 'selectlocation',
     loadComponent: () => import('./pages/selectlocation/selectlocation.page').then(m => m.SelectlocationPage),
     canActivate: [AuthGuard]
@@ -65,21 +69,25 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/directory/directory.page').then(m => m.DirectoryPage),
     canActivate: [AuthGuard]
   },
+
+
+
+  //Web Routes
   {
-    path: 'guest',
-    loadComponent: () => import('./pages/guest/guest.page').then(m => m.GuestPage)
+    path: 'web-login',
+    loadComponent: () => import('./pages/web/web-login/web-login.page').then(m => m.WebLoginPage)
   },
   {
     path: 'selectuser',
     loadComponent: () => import('./pages/web/selectuser/selectuser.page').then(m => m.SelectuserPage)
   },
   {
-    path: 'web-login',
-    loadComponent: () => import('./pages/web/web-login/web-login.page').then(m => m.WebLoginPage)
+    path: 'select-user-type',
+    loadComponent: () => import('./pages/web/select-user-type/select-user-type.page').then(m => m.SelectUserTypePage)
   },
   {
-    path: 'select-user-type',
-    loadComponent: () => import('./pages/web/select-user-type/select-user-type.page').then( m => m.SelectUserTypePage)
+    path: 'add-user',
+    loadComponent: () => import('./pages/web/add-user/add-user.page').then(m => m.AddUserPage)
   }
 
 ];

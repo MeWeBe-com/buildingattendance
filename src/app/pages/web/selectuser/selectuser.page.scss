@@ -3,7 +3,7 @@ ion-content {
 }
 
 .green-toolbar {
-    --background: #12B76A;
+    --background: #22C55E;
     --color: #fff;
 }
 
@@ -18,7 +18,7 @@ ion-content {
 }
 
 .green {
-    background-color: #12B76A;
+    background-color: #22C55E;
 }
 
 .red {
@@ -95,11 +95,71 @@ ion-select {
             ion-icon {
                 font-size: 120px;
             }
+
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            transition: transform 0.5s ease;
+            position: relative;
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: -20px;
+                left: -20px;
+                right: -20px;
+                bottom: -20px;
+                border-radius: 50%;
+                background: inherit;
+                opacity: 0.5;
+                z-index: -1;
+                animation: btn-pulse 2s infinite;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border: 1px solid white;
+                border-radius: 50%;
+                opacity: 0;
+                animation: zoom-border 2s infinite;
+            }
+
+            @keyframes btn-pulse {
+                0% {
+                    transform: scale(0.8);
+                    opacity: 0.7;
+                }
+
+                70% {
+                    transform: scale(1.2);
+                    opacity: 0;
+                }
+
+                100% {
+                    transform: scale(1.2);
+                    opacity: 0;
+                }
+            }
+
+            @keyframes zoom-border {
+                0% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+
+                100% {
+                    transform: scale(1.5);
+                    opacity: 0;
+                }
+            }
         }
 
         .arrow-green {
-            color: #12B76A;
-            border-color: #12B76A;
+            color: #22C55E;
+            border-color: #22C55E;
         }
 
         .text {
@@ -146,5 +206,46 @@ ion-select {
 
     100% {
         transform: scale(1);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .main-box {
+        flex-direction: column;
+        height: calc(75%);
+
+        .user {
+            .img-box {
+                .upload {
+
+                    img {
+                        width: 80px;
+                        height: 80px;
+                    }
+                }
+            }
+        }
+
+        .arrow-icon {
+
+
+            .arrow-bg {
+
+                width: 108px;
+                height: 108px;
+
+                ion-icon {
+                    font-size: 80px;
+                }
+            }
+        }
+
+        .check-icon {
+            img {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
     }
 }
