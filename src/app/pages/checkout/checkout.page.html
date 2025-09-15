@@ -13,16 +13,16 @@
 
   <div class="ion-text-center img-box">
     @if(user){
-      <div class="upload d-flex align-items-center justify-content-center">
-        <img [src]="user?.profile_pic_url">
-      </div>
+    <div class="upload d-flex align-items-center justify-content-center">
+      <img [src]="user?.profile_pic_url">
+    </div>
     }
 
     <h4 class="inter-font">{{user?.full_name}}</h4>
     <div class="inter-font myp">{{user?.email_address}}</div>
   </div>
 
-  @if(!isCheckedIn){
+  @if(!showStatus){
   <div class="ion-text-center arrow-icon" (click)="checkIn()">
     <div class="arrow-bg d-flex align-items-center justify-content-center arrow-green">
       <ion-icon name="arrow-forward-circle-outline"></ion-icon>
@@ -31,15 +31,15 @@
   }@else{
   <div class="ion-text-center arrow-icon" (click)="checkOut()">
     <div class="arrow-bg d-flex align-items-center justify-content-center arrow-green">
-      <ion-icon [name]="showCheckInArrow ? 'arrow-forward-circle-outline' : 'arrow-back-circle-outline'"
-      [ngClass]="{ 'icon-zoom': isCheckingOut }"></ion-icon>
+      <ion-icon [name]="showCheckInArrow ? 'arrow-back-circle-outline' : 'arrow-forward-circle-outline'"
+        [ngClass]="{ 'icon-zoom': isCheckingOut }"></ion-icon>
     </div>
   </div>
   }
 
 
 
-  @if(isCheckedIn){
+  @if(showStatus){
   <div class="ion-text-center check-icon">
     <svg [ngClass]="{ animate: isCheckingOut }" width="148" height="118" viewBox="0 0 148 118" fill="none"
       xmlns="http://www.w3.org/2000/svg">
@@ -116,12 +116,12 @@
 
     </svg>
 
-    @if(!isCheckingOut){
-    <div class="cont" animate.enter="enter-animation">
+    @if(isCheckedIn){
+    <div class="cont" @slideIn>
       Checked In
     </div>
     }@else{
-    <div class="cont" animate.enter="enter-animation">
+    <div class="cont" @slideIn>
       Checked Out
     </div>
     }

@@ -68,7 +68,6 @@ export class SelectlocationPage implements OnInit {
               longitude: succ.coords.longitude
             }
           }
-          console.log(this.userPosition)
         }, (err) => {
           console.log(err)
         });
@@ -118,8 +117,8 @@ export class SelectlocationPage implements OnInit {
       this.isAlertOpen = true;
     }
 
-    setTimeout(()=>{
-      if(Capacitor.isNativePlatform()){
+    setTimeout(() => {
+      if (Capacitor.isNativePlatform()) {
         Keyboard.hide();
       }
     }, 100)
