@@ -1,5 +1,5 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar mode="ios">
+  <ion-toolbar mode="ios" class="my-toolbar">
     <ion-title></ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="general.openPopover($event)">
@@ -33,7 +33,7 @@
 
 
     <div class="inter-font check2 ion-text-center ion-padding-horizontal">
-      Automatically logs you in and out <br/> based on location.
+      Automatically logs you in and out <br /> based on location.
     </div>
 
     @if(!user?.auto_checkin){
@@ -84,7 +84,7 @@
       </div>
 
       <div>
-        <ion-checkbox mode="md" labelPlacement="end" [checked]="user?.is_checked_in"><b>Checked Out</b></ion-checkbox>
+        <ion-checkbox mode="md" labelPlacement="end" [checked]="!user?.is_checked_in"><b>Checked Out</b></ion-checkbox>
       </div>
     </div>
   </div>

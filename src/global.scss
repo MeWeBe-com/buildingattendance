@@ -266,14 +266,27 @@ ion-select::part(label) {
 .menu-icon {
     font-size: 32px;
     color: #000;
-    margin-inline-end: 3px!important;
+    margin-inline-end: 3px !important;
 }
 
 ion-button {
     --background-activated: var(--theme-light-blue) !important;
 }
 
-.web-container{
+.web-container {
     max-width: 600px;
     margin: 0 auto;
+}
+
+.my-toolbar {
+    --background: #fff;
+}
+
+.my-toolbar-title {
+    font-family: 'Roboto', sans-serif;
+    color: var(--theme-grey);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 36px;
 }

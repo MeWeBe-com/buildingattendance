@@ -1,7 +1,7 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOption, IonNote } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonButton, IonButtons, IonBackButton, IonCheckbox, IonSelect, IonSelectOption, IonNote } from '@ionic/angular/standalone';
 import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
 
 import { HttpService } from 'src/app/providers/http.service';
@@ -15,7 +15,7 @@ import { AnalyticsService } from 'src/app/providers/analytics.service';
   styleUrls: ['./signup.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, NgSelectComponent, NgOptionComponent,
-    IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOption, IonNote
+    IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonButton, IonButtons, IonBackButton, IonCheckbox, IonSelect, IonSelectOption, IonNote
   ]
 })
 export class SignupPage implements OnInit {

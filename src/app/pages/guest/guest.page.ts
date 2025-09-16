@@ -1,7 +1,7 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { IonContent, IonInput, IonButton, IonSelect, IonSelectOption, IonNote } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonButton, IonButtons, IonBackButton, IonSelect, IonSelectOption, IonNote } from '@ionic/angular/standalone';
 
 import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
@@ -15,7 +15,7 @@ import { StorageService } from 'src/app/providers/storage.service';
   styleUrls: ['./guest.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule,
-    IonContent, IonInput, IonButton, IonSelect, IonSelectOption, IonNote
+    IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonButton, IonButtons, IonBackButton, IonSelect, IonSelectOption, IonNote
   ]
 })
 export class GuestPage implements OnInit {

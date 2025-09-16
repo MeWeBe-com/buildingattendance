@@ -1,9 +1,18 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios" class="my-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class=" my-toolbar-title">Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
   <div class="ion-padding">
 
     <div class="faceid ion-text-center ion-margin">
       <p class="roboto-font">
-        Register
+        
       </p>
 
       <img [src]="getControl['profile_pic_url'].value || 'assets/imgs/signin/signin.png'" (click)="selectPhoto()" />
