@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
+import { GlobaldataService } from 'src/app/providers/globaldata.service';
 
 @Component({
   selector: 'app-select-user-type',
@@ -15,15 +16,15 @@ import { RouterLink } from '@angular/router';
 })
 export class SelectUserTypePage implements OnInit {
 
-  selectedProperty: any = {
-    building_name: 'CROYDON DATA CENTRE',
-    status: '0'
-  }
+  user: any = null;
 
-  selected_type: string = '';
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    this.user = GlobaldataService.userObject;
   }
 
 }

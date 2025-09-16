@@ -17,8 +17,8 @@ export class WebguardService {
     if (Capacitor.isNativePlatform()) {
       return true;
     } else {
-      this.general.goToRoot('web-login');
-      return false
+      this.general.goToRoot('select-user-type');
+      return false;
     }
   }
 

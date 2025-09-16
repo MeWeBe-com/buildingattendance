@@ -12,9 +12,7 @@ import {
   trigger,
   transition,
   style,
-  animate,
-  query,
-  group
+  animate
 } from '@angular/animations';
 
 @Component({

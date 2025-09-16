@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GeneralService } from './general.service';
 import { GlobaldataService } from './globaldata.service';
 import { environment } from 'src/environments/environment';
+import { Capacitor } from '@capacitor/core';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,8 @@ export class HttpService {
       'Authorization': 'Bearer ' + GlobaldataService.loginToken,
       'Accept': 'application/json'
     });
-    return this.http.post(environment.baseUrl + link, JSON.stringify(data), { headers: headers })
+    let url = Capacitor.isNativePlatform() ? environment.baseUrl : environment.baseUrl2;
+    return this.http.post(url + link, JSON.stringify(data), { headers: headers })
   }
 
   post2(link: string, data: any, loader: boolean) {
@@ -33,7 +35,8 @@ export class HttpService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.post(environment.baseUrl + link, JSON.stringify(data), { headers: headers })
+    let url = Capacitor.isNativePlatform() ? environment.baseUrl : environment.baseUrl2;
+    return this.http.post(url + link, JSON.stringify(data), { headers: headers })
   }
 
   get(link: string, loader: boolean) {
@@ -45,7 +48,9 @@ export class HttpService {
       'Authorization': 'Bearer ' + GlobaldataService.loginToken,
       'Accept': 'application/json'
     });
-    return this.http.get(environment.baseUrl + link, { headers: headers })
+    let url = Capacitor.isNativePlatform() ? environment.baseUrl : environment.baseUrl2;
+    return this.http.get(url + link, { headers: headers })
+
   }
 
   get2(link: string, loader: boolean) {
@@ -55,7 +60,8 @@ export class HttpService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.get(environment.baseUrl + link, { headers: headers })
+    let url = Capacitor.isNativePlatform() ? environment.baseUrl : environment.baseUrl2;
+    return this.http.get(url + link, { headers: headers })
   }
 
   uploadImages(formData: any, url: string, loader: boolean) {
@@ -65,6 +71,7 @@ export class HttpService {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + GlobaldataService.loginToken,
     });
-    return this.http.post(environment.baseUrl + url, formData, { headers: headers });
+    let urls = Capacitor.isNativePlatform() ? environment.baseUrl : environment.baseUrl2;
+    return this.http.post(urls + url, formData, { headers: headers });
   }
 }

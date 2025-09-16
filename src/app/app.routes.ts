@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from './providers/authguard.service';
 import { CheckGuard } from './providers/checkinguard.service';
 import { WebGuard } from './providers/webguard.service';
+import { WebAuthGuard } from './providers/web-auth-guard.service';
 
 export const routes: Routes = [
   {
@@ -71,23 +72,25 @@ export const routes: Routes = [
   },
 
 
-
   //Web Routes
   {
     path: 'web-login',
-    loadComponent: () => import('./pages/web/web-login/web-login.page').then(m => m.WebLoginPage)
+    loadComponent: () => import('./pages/web/web-login/web-login.page').then(m => m.WebLoginPage),
   },
   {
     path: 'selectuser',
-    loadComponent: () => import('./pages/web/selectuser/selectuser.page').then(m => m.SelectuserPage)
+    loadComponent: () => import('./pages/web/selectuser/selectuser.page').then(m => m.SelectuserPage),
+    canActivate: [WebAuthGuard]
   },
   {
     path: 'select-user-type',
-    loadComponent: () => import('./pages/web/select-user-type/select-user-type.page').then(m => m.SelectUserTypePage)
+    loadComponent: () => import('./pages/web/select-user-type/select-user-type.page').then(m => m.SelectUserTypePage),
+    canActivate: [WebAuthGuard]
   },
   {
     path: 'add-user',
-    loadComponent: () => import('./pages/web/add-user/add-user.page').then(m => m.AddUserPage)
+    loadComponent: () => import('./pages/web/add-user/add-user.page').then(m => m.AddUserPage),
+    canActivate: [WebAuthGuard]
   }
 
 ];

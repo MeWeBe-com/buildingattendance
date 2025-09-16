@@ -36,9 +36,12 @@ export class WebLoginPage implements OnInit {
     this.initForm();
   }
 
+  async ionViewWillEnter(){
+    await this.analytics.setCurrentScreen('Web-login');
+  }
+
   initForm() {
     this.loginForm = this.formBuilder.group({
-      decive_token: new FormControl(''),
       email_address: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       password: new FormControl('', Validators.required)
     })
@@ -59,16 +62,15 @@ export class WebLoginPage implements OnInit {
   }
 
   loginNow(data: any) {
-    this.general.goToPage('select-user-type');
-    return
     this.http.post2('Login', data, true).subscribe({
       next: async (res: any) => {
+        console.log(res);
         await this.general.stopLoading();
         if (res.status == true) {
           GlobaldataService.loginToken = res.data.user_token;
           await this.storage.setObject('login_token', res.data.user_token);
-          await this.analytics.logEvent('login', null);
-          this.general.goToPage('selectuser');
+          await this.analytics.logEvent('web-login', null);
+          this.general.goToRoot('select-user-type');
         } else {
           this.general.presentToast(res.message)
         }

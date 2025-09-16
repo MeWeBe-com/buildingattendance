@@ -69,6 +69,9 @@ export class AddUserPage implements OnInit {
         this.userType = params['type'];
 
         setTimeout(() => {
+          this.signupForm.patchValue({
+            type: this.userType
+          })
           if (this.userType === 'employee') {
             this.signupForm.get('user_shift')?.setValidators(Validators.required);
             this.signupForm.get('visiting')?.clearValidators();
@@ -127,11 +130,12 @@ export class AddUserPage implements OnInit {
 
   initForm() {
     this.signupForm = this.formBuilder.group({
+      type: new FormControl(''),
       full_name: new FormControl('', Validators.required),
       company_id: new FormControl('', Validators.required),
       position: new FormControl('', Validators.required),
 
-      emergency_role: new FormControl(null),
+      emergency_role: new FormControl(''),
 
       user_shift: new FormControl(''),
       visiting: new FormControl(''),
@@ -140,7 +144,7 @@ export class AddUserPage implements OnInit {
       mobile_number: new FormControl('', Validators.required),
       terms: new FormControl(false, Validators.requiredTrue),
 
-      profile_pic: new FormControl('', Validators.required),
+      profile_pic: new FormControl(''),
       profile_pic_url: new FormControl(''),
     })
   }
@@ -150,13 +154,28 @@ export class AddUserPage implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.signupForm.value);
-
     this.isSubmitted = true;
     if (this.signupForm.invalid) {
       this.general.presentToast('Please fill form correctly!')
       return
     }
+
+    this.http.post('RegisterUser', this.signupForm.value, true).subscribe({
+      next: async (res: any) => {
+        await this.general.stopLoading();
+        console.log(res)
+        if (res.status == true) {
+
+        } else {
+          this.general.presentToast(res.message)
+        }
+        this.selfieInput.nativeElement.value = '';
+      },
+      error: async (err) => {
+        await this.general.stopLoading();
+        console.log(err)
+      },
+    })
   }
 
   selectPhoto() {

@@ -1,17 +1,17 @@
 <ion-header class="ion-no-border">
   <ion-toolbar mode="ios" [ngClass]="{
-    'green-toolbar': selectedProperty?.status == '0',
-    'orange-toolbar': selectedProperty?.status === '1',
-    'red-toolbar': selectedProperty?.status === '2'
+    'green-toolbar': user?.status == '0',
+    'orange-toolbar': user?.status === '1',
+    'red-toolbar': user?.status === '2'
   }">
-    <ion-title>{{selectedProperty?.building_name}}</ion-title>
+    <ion-title>{{user?.property_name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [ngClass]="{
-'green': selectedProperty?.status == '0',
-'orange': selectedProperty?.status === '1',
-'red': selectedProperty?.status === '2'
+'green': user?.status == '0',
+'orange': user?.status === '1',
+'red': user?.status === '2'
 }">
 
   <div class="ion-padding d-flex justify-content-center flex-column main">

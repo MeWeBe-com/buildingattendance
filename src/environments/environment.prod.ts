@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   baseUrl: 'https://cbrm.qtcloud.co.uk/api/',
+  baseUrl2: 'https://cbrm.qtcloud.co.uk/web/',
   firebaseConfig: {
     apiKey: "AIzaSyDI3phMvdIvEyRUJC_6kRCCiS1s8epP02Q",
     authDomain: "cbre-sentry-4a111.firebaseapp.com",
