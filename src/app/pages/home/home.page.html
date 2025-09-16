@@ -43,9 +43,13 @@
         Select Location
       </ion-button>
     </div>
+    }@else{
+    <div class="ion-padding ion-text-center ion-margin-bottom">
+      Simply walk up to, or away from your building and you will be auto loged in and out accordingly
+    </div>
     }
 
-    @if(!user?.auto_checkin && showAutoChekin){
+
     <div class="box ion-padding">
       <div class="cls-btn" (click)="showAutoChekin = false">
         <ion-icon name="close"></ion-icon>
@@ -69,7 +73,7 @@
       </div>
 
     </div>
-    }
+
 
     @if(user?.show_company_branding){
     <div class="logo-box">

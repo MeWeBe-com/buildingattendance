@@ -7,7 +7,8 @@
         font-size: 28px;
         line-height: 36px;
     }
-    .head{
+
+    .head {
         margin-top: 0;
     }
 
@@ -45,14 +46,16 @@
     ion-checkbox {
         --size: 18px;
         --border-color: var(--theme-purple);
+        --border-color-checked: var(--theme-purple);
         --checkbox-background-checked: #fff;
-        --checkmark-color: var(--theme-light-green);
         --border-radius: 4px;
         font-style: normal;
         font-weight: 400;
         font-size: 12px;
         line-height: 18px;
         color: var(--theme-grey);
+        --checkmark-color: var(--theme-darkblue);
+        --checkmark-width: 3px;
     }
 
     .login-btn {
