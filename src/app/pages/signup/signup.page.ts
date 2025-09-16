@@ -42,6 +42,9 @@ export class SignupPage implements OnInit {
   ];
   shifts: any = [
     {
+      name: 'None', value: 'none'
+    },
+    {
       name: 'Yellow', value: 'yellow'
     },
     {

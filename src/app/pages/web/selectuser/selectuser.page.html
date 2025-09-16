@@ -4,8 +4,11 @@
     'orange-toolbar': user?.status === '1',
     'red-toolbar': user?.status === '2'
   }">
-    <ion-title>{{user?.property_name}}</ion-title>
-  </ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="select-user-type"></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{user?.property_name}}</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content [ngClass]="{
@@ -15,7 +18,8 @@
 }">
 
   <div class="ion-padding web-container">
-    <ion-select label-placement="floating" class="ion-margin-bottom" mode="ios" interface="popover" (ionChange)="onUserSelect($event)">
+    <ion-select label-placement="floating" class="ion-margin-bottom" mode="ios" interface="popover"
+      (ionChange)="onUserSelect($event)">
       <div slot="label">Select User</div>
       @for(u of users; track u?.user_id){
       <ion-select-option [value]="u">{{u?.full_name}}</ion-select-option>
@@ -54,8 +58,8 @@
 
     <div>
       <div class="ion-text-center check-icon">
-        <svg [ngClass]="selected_user?.is_check_in ? 'tick animate' : 'cross animate'"  width="148" height="118" viewBox="0 0 148 118" fill="none"
-          xmlns="http://www.w3.org/2000/svg">
+        <svg [ngClass]="selected_user?.is_check_in ? 'tick animate' : 'cross animate'" width="148" height="118"
+          viewBox="0 0 148 118" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clip-path="url(#clip0_8645_8559)">
             <path d="M133.174 115.24H64.1519V118H133.174V115.24Z" fill="white" />
             <path d="M57.5257 115.24H52.0039V118H57.5257V115.24Z" fill="white" />
@@ -117,23 +121,22 @@
 
             <path
               d="M116.001 99.4881L114.29 98.2404L97.6636 85.912C93.5333 82.8479 91.0706 77.9508 91.0706 72.8107V47.5798L93.6216 47.3866C101.915 46.7572 114.279 37.7138 114.406 37.62L116.046 36.4109L117.685 37.62C117.807 37.7138 130.176 46.7572 138.464 47.3866L141.015 47.5798V72.8107C141.015 77.9508 138.547 82.8479 134.416 85.912L117.619 98.3674L116.007 99.4881H116.001ZM96.5923 52.5266V72.8107C96.5923 76.2117 98.2213 79.447 100.955 81.4732L116.046 92.6642L131.131 81.4732C133.864 79.447 135.499 76.2062 135.499 72.8107V52.5266C128.05 50.9973 119.563 45.6199 116.051 43.2238C112.539 45.6199 104.052 50.9973 96.5979 52.5266H96.5923Z"
-              fill="#13FF02"
-              />
+              fill="#13FF02" />
             <path
               d="M114.074 78.4918L103.771 68.1897L107.674 64.2863L114.074 70.6796L124.654 60.1014L128.558 64.0048L114.074 78.4918Z"
-              fill="#13FF02"/>
+              fill="#13FF02" />
             <path
               d="M126.15 61.062L122.246 57.1587L115.919 63.4857L109.585 57.1587L105.681 61.062L112.015 67.3891L105.681 73.7216L109.585 77.625L115.919 71.2924L122.246 77.625L126.15 73.7216L119.822 67.3891L126.15 61.062Z"
-              fill="#FF3B30"/>
+              fill="#FF3B30" />
 
           </g>
         </svg>
 
         <div class="status-container">
           @if (selected_user?.is_check_in) {
-            <div class="cont" @slideIn>Checked In</div>
+          <div class="cont" @slideIn>Checked In</div>
           } @else {
-            <div class="cont" @slideIn>Checked Out</div>
+          <div class="cont" @slideIn>Checked Out</div>
           }
         </div>
 

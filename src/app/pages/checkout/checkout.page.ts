@@ -130,7 +130,7 @@ export class CheckoutPage implements OnInit {
           await this.analytics.logEvent('Check-Out', { user_id: this.user.user_id })
           this.general.presentToast(res.message);
           setTimeout(() => {
-            this.general.goToRoot('home');
+            this.general.goToRoot('selectlocation');
           }, 3000)
         } else {
           this.general.presentToast(res.message)

@@ -5,6 +5,13 @@
     'red-toolbar': user?.status === '2'
   }">
     <ion-title>{{user?.property_name}}</ion-title>
+    
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="logOut()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -17,12 +24,12 @@
   <div class="ion-padding d-flex justify-content-center flex-column main">
     <div class="d-flex align-items-center justify-content-between ion-margin-vertical btns">
       <div>
-        <ion-button expand="block" mode="ios" [routerLink]="['/add-user']" [queryParams]="{type: 'guest'}">
+        <ion-button expand="block" mode="ios" [routerLink]="['/add-user']" [queryParams]="{type: 'guest'}" class="my-button">
           <ion-icon slot="start" name="add-outline"></ion-icon>Guest
         </ion-button>
       </div>
       <div>
-        <ion-button expand="block" mode="ios" [routerLink]="['/add-user']" [queryParams]="{type: 'employee'}">
+        <ion-button expand="block" mode="ios" [routerLink]="['/add-user']" [queryParams]="{type: 'employee'}" class="my-button">
           <ion-icon slot="start" name="add-outline"></ion-icon>Employee
         </ion-button>
       </div>
@@ -35,7 +42,7 @@
     </div>
 
     <div class="ion-margin-vertical">
-      <ion-button expand="block" mode="ios" [routerLink]="['/selectuser']">
+      <ion-button expand="block" mode="ios" [routerLink]="['/selectuser']"  class="my-button">
         Check-in / Out
       </ion-button>
     </div>

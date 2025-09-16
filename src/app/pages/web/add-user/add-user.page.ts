@@ -1,13 +1,12 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonSelect, IonSelectOption, IonNote, IonButton, IonCheckbox } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonInput, IonSelect, IonSelectOption, IonNote, IonButton, IonCheckbox } from '@ionic/angular/standalone';
 
 import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
 import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { AnalyticsService } from 'src/app/providers/analytics.service';
-import { GlobaldataService } from 'src/app/providers/globaldata.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -16,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./add-user.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, NgSelectComponent, NgOptionComponent,
-    IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonSelect, IonSelectOption, IonNote, IonButton, IonCheckbox
+    IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonInput, IonSelect, IonSelectOption, IonNote, IonButton, IonCheckbox
   ]
 })
 export class AddUserPage implements OnInit {

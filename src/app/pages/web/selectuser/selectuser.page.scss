@@ -1,3 +1,9 @@
+ion-toolbar {
+    ion-back-button {
+        color: #fff;
+    }
+}
+
 ion-content {
     --background: url('../../../../assets/imgs/bg-image.svg') center no-repeat;
 }
@@ -200,6 +206,7 @@ ion-select {
         position: absolute;
         top: 0;
         left: 0;
+        width: 100%;
     }
 }
 

@@ -64,7 +64,6 @@ export class WebLoginPage implements OnInit {
   loginNow(data: any) {
     this.http.post2('Login', data, true).subscribe({
       next: async (res: any) => {
-        console.log(res);
         await this.general.stopLoading();
         if (res.status == true) {
           GlobaldataService.loginToken = res.data.user_token;

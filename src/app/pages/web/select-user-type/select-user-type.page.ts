@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonIcon } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
+import { EventsService } from 'src/app/providers/events.service';
+import { GeneralService } from 'src/app/providers/general.service';
+import { AnalyticsService } from 'src/app/providers/analytics.service';
+import { StorageService } from 'src/app/providers/storage.service';
 
 @Component({
   selector: 'app-select-user-type',
@@ -11,10 +15,15 @@ import { GlobaldataService } from 'src/app/providers/globaldata.service';
   styleUrls: ['./select-user-type.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink,
-    IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon
+    IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonIcon
   ]
 })
 export class SelectUserTypePage implements OnInit {
+
+  general = inject(GeneralService);
+  events = inject(EventsService);
+  analytics = inject(AnalyticsService);
+  storage = inject(StorageService);
 
   user: any = null;
 
@@ -25,6 +34,16 @@ export class SelectUserTypePage implements OnInit {
 
   ionViewWillEnter() {
     this.user = GlobaldataService.userObject;
+  }
+
+  async logOut() {
+    GlobaldataService.clearGobal();
+    this.events.publishIsLogout(true);
+    await this.storage.clear();
+    await this.analytics.logEvent('logout', null);
+    setTimeout(() => {
+      this.general.goToRoot('web-login');
+    }, 50)
   }
 
 }
