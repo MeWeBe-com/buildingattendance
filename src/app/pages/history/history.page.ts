@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonHeader, IonToolbar, IonTitle, IonButtons, IonContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonListHeader, IonNote, IonSearchbar, IonPopover, IonBackButton } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonButtons, IonContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonListHeader, IonNote, IonSearchbar, IonPopover, IonBackButton } from '@ionic/angular/standalone';
 import { CalendarComponentOptions, IonRangeCalendarComponent } from '@googlproxer/ion-range-calendar';
 
 import { HttpService } from 'src/app/providers/http.service';
@@ -16,7 +16,7 @@ import { EventsService } from 'src/app/providers/events.service';
   styleUrls: ['./history.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, IonRangeCalendarComponent,
-    IonHeader, IonToolbar, IonTitle, IonButtons, IonContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonListHeader, IonNote, IonSearchbar, IonPopover, IonBackButton
+    IonHeader, IonToolbar, IonButtons, IonContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonListHeader, IonNote, IonSearchbar, IonPopover, IonBackButton
   ]
 })
 export class HistoryPage implements OnInit {

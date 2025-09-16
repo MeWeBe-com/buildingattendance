@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonHeader, IonToolbar, IonTitle, IonButtons, IonContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonListHeader, IonNote, IonBackButton, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonButtons, IonContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonListHeader, IonNote, IonBackButton, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 
 import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
@@ -15,7 +15,7 @@ import { EventsService } from 'src/app/providers/events.service';
   styleUrls: ['./directory.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule,
-    IonHeader, IonToolbar, IonTitle, IonButtons, IonContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonListHeader, IonNote, IonBackButton, IonSelect, IonSelectOption
+    IonHeader, IonToolbar, IonButtons, IonContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonListHeader, IonNote, IonBackButton, IonSelect, IonSelectOption
   ]
 })
 export class DirectoryPage implements OnInit {
