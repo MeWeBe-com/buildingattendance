@@ -81,6 +81,21 @@
           }
         </ion-select>
 
+        <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="employment_role"
+          mode="md" interface="popover">
+          <div slot="label">Employment Role
+            @if(isSubmitted && getControl['employment_role'].errors){
+            @if(getControl['employment_role'].errors['required']){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            }
+          </div>
+          <ion-select-option value="" selected>Employment Role</ion-select-option>
+          @for(p of employmentRoles; track p?.id){
+          <ion-select-option [value]="p?.id">{{p?.name}}</ion-select-option>
+          }
+        </ion-select>
+
         <ion-input labelPlacement="stacked" placeholder="Visiting" fill="outline" type="text" class="ion-margin-bottom"
           mode="md" formControlName="visiting">
           <div slot="label">Visiting

@@ -41,7 +41,7 @@ export class LoginPage implements OnInit {
       text: 'Not Now',
       role: 'cancel',
       handler: () => {
-        this.general.goToPage('home');
+        this.general.goToRoot('home');
       },
     },
     {
@@ -72,7 +72,8 @@ export class LoginPage implements OnInit {
     this.loginForm = this.formBuilder.group({
       device_token: new FormControl(''),
       email_address: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
-      password: new FormControl('', Validators.required)
+      password: new FormControl('', Validators.required),
+      remember_me: new FormControl(false)
     })
   }
 
@@ -100,19 +101,17 @@ export class LoginPage implements OnInit {
           GlobaldataService.loginToken = res.data.user_token;
           await this.storage.setObject('login_token', res.data.user_token);
           await this.analytics.logEvent('login', null);
-          const result = await NativeBiometric.isAvailable({ useFallback: true });
-          if (!result.isAvailable) {
-            this.general.goToPage('home');
-          } else {
-            try {
-              const isCredentialSaved = await NativeBiometric.getCredentials({
-                server: "www.cbre.com",
-              });
-              this.general.goToPage('home');
-            } catch (e) {
+          console.log(this.loginForm.value.remember_me);
+
+          if (this.loginForm.value.remember_me) {
+            const result = await NativeBiometric.isAvailable({ useFallback: true });
+            if (!result.isAvailable) {
+              this.general.goToRoot('home');
+            } else {
               this.isBiometricSaveOpen = true;
-              console.log(e)
             }
+          } else {
+            this.general.goToRoot('home');
           }
         } else {
           this.general.presentToast(res.message)
@@ -160,7 +159,8 @@ export class LoginPage implements OnInit {
       password: password,
       server: server,
     }).then((cres: any) => {
-      this.general.goToPage('home');
+      console.log(cres)
+      this.general.goToRoot('home');
     });
   }
 

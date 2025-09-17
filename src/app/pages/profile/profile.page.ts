@@ -1,7 +1,7 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { IonHeader, IonTitle, IonToolbar, IonButtons, IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOption, IonNote, IonAlert, IonIcon } from '@ionic/angular/standalone';
+import { IonHeader, IonTitle, IonToolbar, IonButtons, IonContent, IonInput, IonButton, IonBackButton, IonCheckbox, IonSelect, IonSelectOption, IonNote, IonAlert, IonIcon } from '@ionic/angular/standalone';
 import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
 
 import { HttpService } from 'src/app/providers/http.service';
@@ -17,7 +17,7 @@ import { EventsService } from 'src/app/providers/events.service';
   styleUrls: ['./profile.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, NgSelectComponent, NgOptionComponent,
-    IonHeader, IonTitle, IonToolbar, IonButtons, IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOption, IonNote, IonAlert, IonIcon
+    IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOption, IonNote, IonAlert, IonIcon
   ]
 })
 export class ProfilePage implements OnInit {

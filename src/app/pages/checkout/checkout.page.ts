@@ -52,6 +52,8 @@ export class CheckoutPage implements OnInit {
   showStatus: boolean = false;
 
   isOpen: boolean = false;
+  intervalID: any;
+
   constructor() {
     this.events.receiveOnPopover().subscribe((res: any) => {
       this.isOpen = res;
@@ -73,10 +75,33 @@ export class CheckoutPage implements OnInit {
 
   async ionViewDidEnter() {
     await this.analytics.setCurrentScreen('Checkout Page');
+    if (GlobaldataService.userObject.is_checked_in) {
+      this.intervalID = setInterval(() => {
+        this.getUserDetails();
+      }, 30000);
+    }
   }
 
   ionViewWillLeave() {
     this.showStatus = false;
+    clearInterval(this.intervalID);
+  }
+
+  getUserDetails() {
+    this.http.get('GetUserDetails', false).subscribe({
+      next: (res: any) => {
+        if (res.status == true) {
+          if (res.data.is_checked_in) {
+            this.user = res.data;
+          } else {
+            this.general.goToRoot('home');
+          }
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    })
   }
 
   checkIn() {
@@ -90,6 +115,7 @@ export class CheckoutPage implements OnInit {
       next: async (res: any) => {
         await this.general.stopLoading();
         if (res.status == true) {
+          this.user.property_name = res.property_name;
           this.showStatus = true;
           this.isCheckingOut = true;
           setTimeout(() => {

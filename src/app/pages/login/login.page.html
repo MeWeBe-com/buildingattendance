@@ -14,21 +14,6 @@
       </div>
     </div>
 
-    <!-- <div class="selection ion-margin-bottom">
-
-      <div class="morgan ion-text-center">
-        <img src="assets/imgs/login/morgan-btn.svg">
-      </div>
-
-      <div class="cbre ion-text-center">
-        <img src="assets/imgs/login/cbre-btn.svg">
-      </div>
-
-      <div class="inter-font select-com ion-text-center">
-        Please select company
-      </div>
-    </div> -->
-
     <div class="form">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
         <ion-input labelPlacement="stacked" placeholder="Email" fill="outline" type="email" class="ion-margin-bottom" mode="md"
@@ -62,7 +47,7 @@
         </div>
 
         <div class="ion-margin-bottom">
-          <ion-checkbox labelPlacement="end" class="inter-font">Remember me</ion-checkbox>
+          <ion-checkbox labelPlacement="end" class="inter-font" formControlName="remember_me">Remember me</ion-checkbox>
         </div>
 
         <div class="d-flex align-items-center ion-margin-top justify-content-center no-account inter-font">

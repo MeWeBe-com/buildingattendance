@@ -32,6 +32,7 @@ export class GuestPage implements OnInit {
   isSubmitted: boolean = false;
 
   companies: any = [];
+  employmentRoles: any = [];
   positions: any = [
     {
       name: 'ICT Technician', value: 'ict_technician'
@@ -49,7 +50,8 @@ export class GuestPage implements OnInit {
 
   async ionViewWillEnter() {
     this.getCompanies();
-    await this.analytics.setCurrentScreen('SignUp')
+    this.getEmploymentRoles();
+    await this.analytics.setCurrentScreen('Guest-login');
   }
 
   getCompanies() {
@@ -63,6 +65,17 @@ export class GuestPage implements OnInit {
       },
     })
   }
+  
+  getEmploymentRoles() {
+    this.http.get2('GetEmploymentRoles', false).subscribe({
+      next: (res: any) => {
+        this.employmentRoles = res.data.roles;
+      },
+      error: (err) => {
+        console.log(err)
+      },
+    })
+  }
 
   initForm() {
     this.signupForm = this.formBuilder.group({
@@ -70,6 +83,7 @@ export class GuestPage implements OnInit {
       company_id: new FormControl('', Validators.required),
       company_name: new FormControl(''),
       position: new FormControl('', Validators.required),
+      employment_role: new FormControl('', Validators.required),
       visiting: new FormControl('', Validators.required),
       email_address: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       mobile_number: new FormControl('', Validators.required),

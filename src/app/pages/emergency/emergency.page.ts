@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonHeader, IonTitle, IonToolbar, IonButtons, IonButton, IonContent, IonIcon } from '@ionic/angular/standalone';
+import { IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonButton, IonContent, IonIcon } from '@ionic/angular/standalone';
 import { GeneralService } from 'src/app/providers/general.service';
 import { EventsService } from 'src/app/providers/events.service';
 
@@ -10,7 +10,7 @@ import { EventsService } from 'src/app/providers/events.service';
   templateUrl: './emergency.page.html',
   styleUrls: ['./emergency.page.scss'],
   standalone: true,
-  imports: [IonContent, CommonModule, FormsModule, IonHeader, IonTitle, IonToolbar, IonButtons, IonButton, IonIcon]
+  imports: [IonContent, CommonModule, FormsModule, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonButton, IonIcon]
 })
 export class EmergencyPage implements OnInit {
 
