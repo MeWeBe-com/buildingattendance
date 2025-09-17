@@ -65,11 +65,15 @@ export class GuestPage implements OnInit {
       },
     })
   }
-  
+
   getEmploymentRoles() {
     this.http.get2('GetEmploymentRoles', false).subscribe({
       next: (res: any) => {
         this.employmentRoles = res.data.roles;
+        this.employmentRoles.push({
+          id: 'other',
+          name: 'Other'
+        })
       },
       error: (err) => {
         console.log(err)
@@ -84,6 +88,7 @@ export class GuestPage implements OnInit {
       company_name: new FormControl(''),
       position: new FormControl('', Validators.required),
       employment_role: new FormControl('', Validators.required),
+      employment_role_name: new FormControl(''),
       visiting: new FormControl('', Validators.required),
       email_address: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       mobile_number: new FormControl('', Validators.required),
@@ -105,15 +110,15 @@ export class GuestPage implements OnInit {
 
     this.http.post2('GuestLogin', this.signupForm.value, true).subscribe({
       next: async (res: any) => {
-
         await this.general.stopLoading();
         if (res.status == true) {
           GlobaldataService.loginToken = res.data.user_token;
           await this.storage.setObject('login_token', res.data.user_token);
+          await this.storage.setObject('employment_role_name', this.signupForm.value.employment_role_name);
           await this.analytics.logEvent('GuestLogin', null);
           setTimeout(() => {
             this.general.goToRoot('home');
-          }, 750)
+          }, 250)
         }
       },
       error: async (err) => {

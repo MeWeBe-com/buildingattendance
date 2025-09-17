@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border">
   <ion-toolbar mode="ios" class="my-toolbar">
     <ion-buttons slot="start">
-      <ion-back-button  color="dark"></ion-back-button>
+      <ion-back-button color="dark"></ion-back-button>
     </ion-buttons>
 
     <ion-title>Profile</ion-title>
@@ -32,8 +32,8 @@
 
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" novalidate>
       <div class="form ion-margin-top">
-        <ion-input labelPlacement="stacked" placeholder="Full Name" fill="outline" type="text" class="ion-margin-bottom" mode="md"
-          formControlName="full_name">
+        <ion-input labelPlacement="stacked" placeholder="Full Name" fill="outline" type="text" class="ion-margin-bottom"
+          mode="md" formControlName="full_name">
           <div slot="label">Full Name
             @if(isSubmitted && getControl['full_name'].errors){
             @if(getControl['full_name'].errors['required']){
@@ -89,6 +89,19 @@
           }
         </ion-select>
 
+        @if(profileForm.value.employment_role == 'other'){
+        <ion-input labelPlacement="stacked" placeholder="Enter Employment Role" fill="outline" type="text"
+          class="ion-margin-bottom" mode="md" formControlName="employment_role_name">
+          <div slot="label">Enter Employment Role
+            @if(isSubmitted && profileForm.value.employment_role == 'other'){
+            @if(profileForm.value.employment_role_name == ''){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            }
+          </div>
+        </ion-input>
+        }
+
         <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="user_shift"
           mode="md" interface="popover">
           <div slot="label">User Shift
@@ -104,7 +117,7 @@
           }
         </ion-select>
 
-         <div class="ion-margin-vertical custom-select">
+        <div class="ion-margin-vertical custom-select">
           <label [ngClass]="{'selected' : profileForm.value.emergency_role}">Emergency Role (if any)</label>
           <ng-select formControlName="emergency_role" [multiple]="true" [closeOnSelect]="false" [searchable]="false">
             @for(r of emergencyRoles; track r?.id){
@@ -122,8 +135,8 @@
           </ng-select>
         </div>
 
-        <ion-input labelPlacement="stacked" placeholder="Email" fill="outline" type="email" class="ion-margin-bottom" mode="md"
-          formControlName="email_address" readonly>
+        <ion-input labelPlacement="stacked" placeholder="Email" fill="outline" type="email" class="ion-margin-bottom"
+          mode="md" formControlName="email_address" readonly>
           <div slot="label">Email
             @if(isSubmitted && getControl['email_address'].errors){
             @if(getControl['email_address'].errors['required']){
@@ -136,8 +149,8 @@
           </div>
         </ion-input>
 
-        <ion-input labelPlacement="stacked" placeholder="Mobile" fill="outline" type="text" class="ion-margin-bottom" mode="md"
-          formControlName="mobile_number">
+        <ion-input labelPlacement="stacked" placeholder="Mobile" fill="outline" type="text" class="ion-margin-bottom"
+          mode="md" formControlName="mobile_number">
           <div slot="label">Mobile
             @if(isSubmitted && getControl['mobile_number'].errors){
             @if(getControl['mobile_number'].errors['required']){
@@ -188,8 +201,8 @@
 
       <div class="form ion-margin-top">
         <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()" novalidate>
-          <ion-input labelPlacement="stacked" placeholder="Old Password" fill="outline" type="password" class="ion-margin-bottom" mode="md"
-            formControlName="old_password">
+          <ion-input labelPlacement="stacked" placeholder="Old Password" fill="outline" type="password"
+            class="ion-margin-bottom" mode="md" formControlName="old_password">
             <div slot="label">Old Password
               @if(isPSubmitted && getPassControl['old_password'].errors){
               @if(getPassControl['old_password'].errors['required']){
@@ -201,8 +214,8 @@
             </div>
           </ion-input>
 
-          <ion-input labelPlacement="stacked" placeholder="Create Password" fill="outline" type="password" class="ion-margin-bottom" mode="md"
-            formControlName="new_password">
+          <ion-input labelPlacement="stacked" placeholder="Create Password" fill="outline" type="password"
+            class="ion-margin-bottom" mode="md" formControlName="new_password">
             <div slot="label">Create Password
               @if(isPSubmitted && getPassControl['new_password'].errors){
               @if(getPassControl['new_password'].errors['required']){
@@ -214,8 +227,8 @@
             </div>
           </ion-input>
 
-          <ion-input labelPlacement="stacked" placeholder="Confirm Password" fill="outline" type="password" class="ion-margin-bottom" mode="md"
-            formControlName="confirm_password">
+          <ion-input labelPlacement="stacked" placeholder="Confirm Password" fill="outline" type="password"
+            class="ion-margin-bottom" mode="md" formControlName="confirm_password">
             <div slot="label">Confirm Password
               @if(isPSubmitted && getPassControl['confirm_password'].errors){
               @if(getPassControl['confirm_password'].errors['required']){

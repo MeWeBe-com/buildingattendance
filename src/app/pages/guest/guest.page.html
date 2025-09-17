@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  
+
   <div class="ion-padding">
     <div class="faceid ion-text-center ion-margin">
       <img [src]="getControl['profile_pic_url'].value || 'assets/imgs/signin/signin.png'" (click)="selectPhoto()" />
@@ -95,6 +95,19 @@
           <ion-select-option [value]="p?.id">{{p?.name}}</ion-select-option>
           }
         </ion-select>
+
+        @if(signupForm.value.employment_role == 'other'){
+        <ion-input labelPlacement="stacked" placeholder="Enter Employment Role" fill="outline" type="text"
+          class="ion-margin-bottom" mode="md" formControlName="employment_role_name">
+          <div slot="label">Enter Employment Role
+            @if(isSubmitted && signupForm.value.employment_role == 'other'){
+            @if(signupForm.value.employment_role_name == ''){
+            <ion-note color="danger">(is required*)</ion-note>
+            }
+            }
+          </div>
+        </ion-input>
+        }
 
         <ion-input labelPlacement="stacked" placeholder="Visiting" fill="outline" type="text" class="ion-margin-bottom"
           mode="md" formControlName="visiting">

@@ -128,8 +128,18 @@ export class ProfilePage implements OnInit {
 
   getEmploymentRoles() {
     this.http.get2('GetEmploymentRoles', false).subscribe({
-      next: (res: any) => {
+      next: async (res: any) => {
         this.employmentRoles = res.data.roles;
+        if (GlobaldataService.userObject.employment_role == 'other') {
+          this.employmentRoles.push({
+            id: 'other',
+            name: 'Other'
+          })
+          let oer = await this.storage.getObject('employment_role_name');
+          this.profileForm.patchValue({
+            employment_role_name: oer
+          })
+        }
       },
       error: (err) => {
         console.log(err)
@@ -144,6 +154,7 @@ export class ProfilePage implements OnInit {
       company_id: new FormControl('', Validators.required),
       emergency_role: new FormControl(''),
       employment_role: new FormControl('', Validators.required),
+      employment_role_name: new FormControl(''),
       email_address: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       mobile_number: new FormControl('', Validators.required),
       terms: new FormControl(false, Validators.requiredTrue),
@@ -172,6 +183,7 @@ export class ProfilePage implements OnInit {
         if (res.status == true) {
           GlobaldataService.userObject = res.data;
           await this.storage.setObject('CBREuserObject', res.data);
+          await this.storage.setObject('employment_role_name', this.profileForm.value.employment_role_name);
           this.general.presentToast(res.message)
           await this.analytics.logEvent('Profile Update', res.data)
         } else {
