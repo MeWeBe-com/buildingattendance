@@ -12,6 +12,7 @@ import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { StorageService } from 'src/app/providers/storage.service';
 import { EventsService } from 'src/app/providers/events.service';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-home',
@@ -61,37 +62,65 @@ export class HomePage {
 
   startTracking() {
     //Radar.startTrackingContinuous(); // start
-    Radar.setForegroundServiceOptions({
-      options: {
-        text: "Text",
-        title: "Title",
-        iconString: 'your_icon_name',
-        updatesOnly: true,
-      }
-    })
-    Radar.startTrackingCustom({
-      options: {
+    let opt: any = null;
+    if (Capacitor.getPlatform() == 'ios') {
+      opt = {
         desiredStoppedUpdateInterval: 30,
-        fastestStoppedUpdateInterval: 0,
         desiredMovingUpdateInterval: 30,
-        fastestMovingUpdateInterval: 0,
-        desiredSyncInterval: 0,
+        desiredSyncInterval: 5,
         desiredAccuracy: 'high',
-        stopDuration: 0,
-        stopDistance: 0,
-        replay: 'none',
-        sync: 'none',
+        stopDuration: 140,
+        stopDistance: 30,
+        startTrackingAfter: null,
+        stopTrackingAfter: null,
+        replay: "all",
+        syncLocations: "all",
         showBlueBar: true,
         useStoppedGeofence: false,
         stoppedGeofenceRadius: 0,
         useMovingGeofence: false,
         movingGeofenceRadius: 0,
-        syncGeofences: false,
-        syncGeofencesLimit: 0,
-        foregroundServiceEnabled: false,
-        beacons: true
+        syncGeofences: true,
+        useVisits: true,
+        useSignificantLocationChanges: false,
+        beacons: false
       }
-    })
+    } else {
+      opt = {
+        desiredStoppedUpdateInterval: 30,
+        fastestStoppedUpdateInterval: 30,
+        desiredMovingUpdateInterval: 30,
+        fastestMovingUpdateInterval: 10,
+        desiredSyncInterval: 5,
+        desiredAccuracy: 'high',
+        stopDuration: 140,
+        stopDistance: 30,
+        startTrackingAfter: null,
+        stopTrackingAfter: null,
+        replay: 'all',
+        sync: 'all',
+        useStoppedGeofence: false,
+        stoppedGeofenceRadius: 0,
+        useMovingGeofence: false,
+        movingGeofenceRadius: 0,
+        syncGeofences: true,
+        syncGeofencesLimit: 10,
+        foregroundServiceEnabled: true,
+        beacons: false
+      }
+    }
+    Radar.startTrackingCustom({
+      options: opt
+    });
+
+    // Radar.setForegroundServiceOptions({
+    //   options: {
+    //     text: "Text",
+    //     title: "Title",
+    //     iconString: 'your_icon_name',
+    //     updatesOnly: false,
+    //   }
+    // })
   }
 
   onChange(e: any) {
