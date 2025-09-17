@@ -51,6 +51,7 @@ export class PermissionsService {
               await this.analytics.logEvent('app_open', { user_id: res2.data.user_id })
               this.isLoggedIn = true;
               if (res2.data.is_checked_in == true) {
+                this.events.publishIsCheckedIn(true);
                 this.general.goToRoot('checkout')
               } else {
                 this.general.goToRoot('home')

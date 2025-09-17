@@ -97,6 +97,7 @@ export class CheckoutPage implements OnInit {
           }, 1500)
           this.isCheckedIn = true;
           this.general.presentToast(res.message);
+          this.events.publishIsCheckedIn(true);
           await this.analytics.logEvent('Check-In', { ...data, user_id: this.user.user_id })
         } else {
           this.general.presentAlert('Warning!', 'You can only check in when are at the location!');
@@ -129,6 +130,7 @@ export class CheckoutPage implements OnInit {
           this.showCheckInArrow = false;
           await this.analytics.logEvent('Check-Out', { user_id: this.user.user_id })
           this.general.presentToast(res.message);
+          this.events.publishIsCheckedIn(false);
           setTimeout(() => {
             this.general.goToRoot('selectlocation');
           }, 3000)

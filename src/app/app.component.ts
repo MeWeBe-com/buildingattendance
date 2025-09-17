@@ -35,9 +35,10 @@ export class AppComponent {
 
   isPopoverOpen: boolean = false;
   selectedPage: any = '';
+  isCheckedIn: boolean = false;
 
   constructor() {
-    addIcons({ fingerPrintOutline, addCircleOutline, alertCircle, close, lockOpenOutline, arrowForwardCircle, menuOutline, homeOutline, settingsOutline, locationOutline, logOutOutline, folderOutline, warningOutline, bookOutline, shieldOutline, arrowForwardCircleOutline, calendarOutline, filterOutline, lockClosedOutline, arrowBackCircleOutline, chevronBackOutline, mailOutline, closeOutline, calendarClearOutline,  addOutline });
+    addIcons({ fingerPrintOutline, addCircleOutline, alertCircle, close, lockOpenOutline, arrowForwardCircle, menuOutline, homeOutline, settingsOutline, locationOutline, logOutOutline, folderOutline, warningOutline, bookOutline, shieldOutline, arrowForwardCircleOutline, calendarOutline, filterOutline, lockClosedOutline, arrowBackCircleOutline, chevronBackOutline, mailOutline, closeOutline, calendarClearOutline, addOutline });
     this.initApp()
   }
 
@@ -62,6 +63,10 @@ export class AppComponent {
     this.events.receivePopover().subscribe((res: any) => {
       this.presentPopover(res);
     })
+
+    this.events.receiveIsCheckedIn().subscribe((res: any) => {
+      this.isCheckedIn = res;
+    })
   }
 
   routeCehcker() {
@@ -76,7 +81,7 @@ export class AppComponent {
     this.isPopoverOpen = true;
   }
 
-  onClose(){
+  onClose() {
     this.isPopoverOpen = false;
     this.events.publishOnPopover(false);
   }

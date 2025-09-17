@@ -8,6 +8,7 @@ export class EventsService {
   private popover = new Subject<any>();
   private isPopover = new Subject<boolean>();
   private logout = new Subject<boolean>();
+  private isCheckedIn = new Subject<boolean>();
 
 
   constructor() { }
@@ -34,6 +35,14 @@ export class EventsService {
 
   receiveIsLogout(): Subject<any> {
     return this.logout
+  }
+
+  publishIsCheckedIn(data: any) {
+    this.isCheckedIn.next(data)
+  }
+
+  receiveIsCheckedIn(): Subject<any> {
+    return this.isCheckedIn
   }
 
 }

@@ -67,7 +67,7 @@ export class HomePage {
       opt = {
         desiredStoppedUpdateInterval: 30,
         desiredMovingUpdateInterval: 30,
-        desiredSyncInterval: 5,
+        desiredSyncInterval: 10,
         desiredAccuracy: 'high',
         stopDuration: 140,
         stopDistance: 30,
@@ -80,18 +80,18 @@ export class HomePage {
         stoppedGeofenceRadius: 0,
         useMovingGeofence: false,
         movingGeofenceRadius: 0,
-        syncGeofences: true,
+        syncGeofences: false,
         useVisits: true,
         useSignificantLocationChanges: false,
         beacons: false
-      }
+      };
     } else {
       opt = {
         desiredStoppedUpdateInterval: 30,
         fastestStoppedUpdateInterval: 30,
         desiredMovingUpdateInterval: 30,
-        fastestMovingUpdateInterval: 10,
-        desiredSyncInterval: 5,
+        fastestMovingUpdateInterval: 15,
+        desiredSyncInterval: 10,
         desiredAccuracy: 'high',
         stopDuration: 140,
         stopDistance: 30,
@@ -103,11 +103,11 @@ export class HomePage {
         stoppedGeofenceRadius: 0,
         useMovingGeofence: false,
         movingGeofenceRadius: 0,
-        syncGeofences: true,
-        syncGeofencesLimit: 10,
+        syncGeofences: false,
+        syncGeofencesLimit: 0,
         foregroundServiceEnabled: true,
         beacons: false
-      }
+      };
     }
     Radar.startTrackingCustom({
       options: opt

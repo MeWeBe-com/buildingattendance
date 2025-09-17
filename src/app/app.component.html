@@ -19,12 +19,14 @@
           <ion-label>Profile</ion-label>
         </ion-item>
 
+        @if(isCheckedIn){
         <!-- Saved Locations -->
-        <!-- <ion-item button>
+        <ion-item button [ngClass]="{'highlighted' : selectedPage == '/profile' }" (click)="goTo('checkout')">
           <ion-icon name="location-outline" slot="start"></ion-icon>
-          <ion-label>Saved Locations</ion-label>
-          <ion-note slot="end">10+</ion-note>
-        </ion-item> -->
+          <ion-label>Check Out</ion-label>
+          <!-- <ion-note slot="end">10+</ion-note> -->
+        </ion-item>
+        }
 
         <!-- Sign Out -->
         <ion-item button (click)="signOut()">
