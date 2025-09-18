@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Sentry QT</string>
-    <string name="title_activity_main">Sentry QT</string>
+    <string name="app_name">Cocoon live</string>
+    <string name="title_activity_main">Cocoon live</string>
     <string name="package_name">com.qtcbresentry.app</string>
     <string name="custom_url_scheme">com.qtcbresentry.app</string>
 </resources>

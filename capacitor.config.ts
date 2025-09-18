@@ -3,7 +3,7 @@ import { KeyboardResize } from '@capacitor/keyboard';
 
 const config: CapacitorConfig = {
   appId: 'com.qtcbresentry.app',
-  appName: 'Sentry QT',
+  appName: 'Cocoon live',
   webDir: 'www',
   plugins: {
     Keyboard: {
