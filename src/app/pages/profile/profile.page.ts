@@ -69,14 +69,12 @@ export class ProfilePage implements OnInit {
       text: 'Cancel',
       role: 'cancel',
       handler: () => {
-        console.log('Alert canceled');
       },
     },
     {
       text: 'Confirm',
       role: 'destructive',
       handler: () => {
-        console.log('Alert confirmed');
         this.deleteAccount()
       },
     },

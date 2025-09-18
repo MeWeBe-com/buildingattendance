@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { IonContent, IonInput, IonButton, IonCheckbox, IonNote, IonAlert, ModalController, IonModal, IonText, IonIcon, IonButtons, IonToolbar, IonHeader } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonButton, IonCheckbox, IonNote, IonAlert, ModalController, IonModal, IonText, IonIcon, IonButtons, IonInputPasswordToggle } from '@ionic/angular/standalone';
 
 import { NativeBiometric, BiometryType } from "@capgo/capacitor-native-biometric";
 import { HttpService } from 'src/app/providers/http.service';
@@ -13,14 +13,13 @@ import { AnalyticsService } from 'src/app/providers/analytics.service';
 
 import { ForgetcodeComponent } from 'src/app/components/forgetcode/forgetcode.component';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink,
-    IonContent, IonInput, IonButton, IonCheckbox, IonNote, IonAlert, IonModal, IonText, IonIcon, IonButtons, IonToolbar, IonHeader
+    IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonButton, IonCheckbox, IonNote, IonAlert, IonModal, IonText, IonIcon, IonButtons, IonInputPasswordToggle
   ]
 })
 export class LoginPage implements OnInit {
@@ -101,8 +100,6 @@ export class LoginPage implements OnInit {
           GlobaldataService.loginToken = res.data.user_token;
           await this.storage.setObject('login_token', res.data.user_token);
           await this.analytics.logEvent('login', null);
-          console.log(this.loginForm.value.remember_me);
-
           if (this.loginForm.value.remember_me) {
             const result = await NativeBiometric.isAvailable({ useFallback: true });
             if (!result.isAvailable) {
@@ -148,20 +145,35 @@ export class LoginPage implements OnInit {
         device_token: GlobaldataService.deviceToken
       })
     } catch (e) {
-      console.log(e);
       this.general.presentAlert('Alert!', 'No account associated, please login to setup!')
     }
   }
 
-  setCredentials(email: string, password: string, server: string) {
-    NativeBiometric.setCredentials({
-      username: email,
-      password: password,
-      server: server,
-    }).then((cres: any) => {
-      console.log(cres)
+  async setCredentials(email: string, password: string, server: string) {
+    try {
+      await NativeBiometric.deleteCredentials({ server: server });
+
+      await NativeBiometric.setCredentials({
+        username: email,
+        password: password,
+        server: server,
+      })
+
       this.general.goToRoot('home');
-    });
+    } catch (e) {
+      this.saveErrorLog(e);
+    }
+  }
+
+  saveErrorLog(errData: any) {
+    this.http.post2('LoginLogs', { data: errData }, false).subscribe({
+      next: (res: any) => {
+
+      },
+      error: (err) => {
+
+      },
+    })
   }
 
   deleteCredentials() {

@@ -95,19 +95,22 @@ export class ForgetcodeComponent implements OnInit {
 
   submit() {
     let a = { verification_key: this.code.one + this.code.two + this.code.three + this.code.four };
-    this.http.post2('ValidateCode', a, true).subscribe((res: any) => {
-      this.general.stopLoading()
-      if (res.status == true) {
-        this.showForm = true;
-        this.passwordForm.patchValue({
-          email_address: res.data
-        })
-      } else {
-        this.general.presentToast(res.data.message);
+    this.http.post2('ValidateCode', a, true).subscribe({
+      next: async (res: any) => {
+        await this.general.stopLoading()
+        if (res.status == true) {
+          this.showForm = true;
+          this.passwordForm.patchValue({
+            email_address: res.data
+          })
+        } else {
+          this.general.presentToast(res.data.message);
+        }
+      },
+      error: async (e) => {
+        await this.general.stopLoading()
+        console.log(e);
       }
-    }, (e) => {
-      console.log(e);
-      this.general.stopLoading()
     })
   }
 

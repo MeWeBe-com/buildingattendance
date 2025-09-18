@@ -171,38 +171,30 @@ ion-select::part(label) {
 }
 
 .custom-select {
+    ng-select .ng-select-container {
+        border: 1px solid var(--theme-grey);
+        border-radius: 4px;
+        line-height: 50px;
+
+        .ng-placeholder {
+            color: grey !important;
+            font-size: 16px;
+            padding-left: 10px !important;
+        }
+    }
+
     position: relative;
 
     label {
         position: absolute;
-        z-index: 10;
-        font-size: 12px;
-        top: 50%;
-        left: 10px;
         transform: translateY(-50%);
-        transition: all 0.2s ease-in-out;
-        pointer-events: none;
-    }
-
-    &:focus-within label {
         background-color: #fff;
         top: 0;
+        left: 14px;
         transform: translateY(1) scale(0.85);
         color: #000;
-        /* Example: change color to indicate active state */
         font-size: 12px;
-        padding-left: 5px;
-        z-index: 99999999999;
-    }
-
-    .selected {
-        background-color: #fff;
-        top: 0;
-        transform: translateY(1) scale(0.85);
-        color: #000;
-        /* Example: change color to indicate active state */
-        font-size: 12px;
-        padding-left: 5px;
+        padding: 0 5px;
         z-index: 99999999999;
     }
 }

@@ -104,7 +104,7 @@
 
         <div class="ion-margin-vertical custom-select">
           <label [ngClass]="{'selected' : signupForm.value.emergency_role}">Emergency Role (if any)</label>
-          <ng-select formControlName="emergency_role" [multiple]="true" [closeOnSelect]="false" [searchable]="false">
+          <ng-select placeholder="Emergency Role (if any)" formControlName="emergency_role" [multiple]="true" [closeOnSelect]="false" [searchable]="false">
             @for(r of emergencyRoles; track r?.id){
             <ng-option [value]="r?.id">
               <div class="d-flex align-items-center" style="gap: 20px">

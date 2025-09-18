@@ -1,10 +1,15 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios" class="my-toolbar">
+    <ion-title class=" my-toolbar-title">Sign In</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
 
   <div class="ion-padding">
 
     <div class="faceid ion-text-center ion-margin" (click)="performBiometricVerification()">
       <p class="roboto-font">
-        Sign In
+        
       </p>
 
       <img src="assets/imgs/login/faceid.png" />
@@ -17,7 +22,7 @@
     <div class="form">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
         <ion-input labelPlacement="stacked" placeholder="Email" fill="outline" type="email" class="ion-margin-bottom" mode="md"
-          formControlName="email_address">
+          clearOnEdit="false" formControlName="email_address">
           <div slot="label">Email
             @if(isSubmitted && getControl['email_address'].errors){
             @if(getControl['email_address'].errors['required']){
@@ -30,7 +35,7 @@
           </div>
         </ion-input>
 
-        <ion-input labelPlacement="stacked" placeholder="Password" fill="outline" type="password" mode="md" formControlName="password">
+        <ion-input labelPlacement="stacked" placeholder="Password" fill="outline" type="password" mode="md" clearOnEdit="false" formControlName="password">
           <div slot="label">Password
             @if(isSubmitted && getControl['password'].errors){
             @if(getControl['password'].errors['required']){
@@ -38,6 +43,7 @@
             }
             }
           </div>
+          <ion-input-password-toggle color="dark" mode="ios" slot="end"></ion-input-password-toggle>
         </ion-input>
 
         <div class="ion-text-right forget">
@@ -94,7 +100,7 @@
         <div class="heading">
           Forgot password
           <div class="sub-heading">
-            We will send you an email for your password
+            We will send you an email to reset your passord.
           </div>
         </div>
         <form [formGroup]="forgetPasswordForm" (ngSubmit)="onSibmitForgetForm()" novalidate>

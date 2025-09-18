@@ -136,23 +136,6 @@ export class SelectlocationPage implements OnInit {
     setTimeout(() => {
       this.general.goToPage('checkout');
     })
-    // this.http.post('CheckIn', data, true).subscribe({
-    //   next: async (res: any) => {
-    //     await this.general.stopLoading();
-    //     if (res.status == true) {
-    //       this.general.presentToast(res.message);
-    //       await this.analytics.logEvent('Check-In', { ...data, user_id: this.user.user_id })
-    //       this.general.goToRoot('checkout');
-    //     } else {
-    //       this.general.presentToast(res.message)
-    //       await this.analytics.logEvent('Check-In Failed', { ...data, user_id: this.user.user_id })
-    //     }
-    //   },
-    //   error: async (err) => {
-    //     await this.general.stopLoading()
-    //     console.log(err)
-    //   },
-    // })
   }
 
   onChange(e: any) {

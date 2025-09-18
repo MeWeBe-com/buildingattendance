@@ -71,7 +71,6 @@ export class AppComponent {
 
   routeCehcker() {
     this.router.events.pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
-      console.log(event)
       this.selectedPage = event.urlAfterRedirects;
     });
   }
