@@ -17,6 +17,7 @@ import { AnalyticsService } from './providers/analytics.service';
 import { EventsService } from './providers/events.service';
 import { LocationAccuracy } from '@awesome-cordova-plugins/location-accuracy/ngx';
 import { Capacitor } from '@capacitor/core';
+import { HttpService } from './providers/http.service';
 
 @Component({
   selector: 'app-root',
@@ -36,6 +37,7 @@ export class AppComponent {
   analytics = inject(AnalyticsService);
   events = inject(EventsService);
   locationAccuracy = inject(LocationAccuracy);
+  http = inject(HttpService);
 
   isPopoverOpen: boolean = false;
   selectedPage: any = '';
@@ -99,13 +101,28 @@ export class AppComponent {
 
   async signOut() {
     this.isPopoverOpen = false;
-    GlobaldataService.clearGobal();
-    this.events.publishIsLogout(true);
-    await this.storage.clear();
-    await this.analytics.logEvent('logout', null);
-    setTimeout(() => {
-      this.general.goToRoot('login');
-    }, 50)
+
+    this.http.get('Logout', true).subscribe({
+      next: async (res: any) => {
+        await this.general.stopLoading();
+        if (res.status == true) {
+          GlobaldataService.clearGobal();
+          this.events.publishIsLogout(true);
+          await this.storage.clear();
+          await this.analytics.logEvent('logout', null);
+          setTimeout(() => {
+            this.general.goToRoot('login');
+          })
+        }
+      },
+      error: async (err) => {
+        await this.general.stopLoading();
+        console.log(err)
+      },
+    })
+
+
+
   }
 
   isGPSEnable() {

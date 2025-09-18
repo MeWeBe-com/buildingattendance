@@ -39,6 +39,7 @@ export class LoginPage implements OnInit {
     {
       text: 'Not Now',
       role: 'cancel',
+      cssClass: 'alertBtn',
       handler: () => {
         this.general.goToRoot('home');
       },
@@ -46,6 +47,7 @@ export class LoginPage implements OnInit {
     {
       text: 'Yes, Enable',
       role: 'confirm',
+      cssClass: 'alertBtn',
       handler: () => {
         this.setCredentials(this.loginForm.value.email_address, this.loginForm.value.password, 'www.cbre.com');
       },
