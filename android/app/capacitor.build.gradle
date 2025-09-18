@@ -21,7 +21,7 @@ dependencies {
     implementation project(':capawesome-capacitor-android-edge-to-edge-support')
     implementation project(':capgo-capacitor-native-biometric')
     implementation project(':capacitor-radar')
-
+    implementation "com.google.android.gms:play-services-location:16.+"
 }
 
 

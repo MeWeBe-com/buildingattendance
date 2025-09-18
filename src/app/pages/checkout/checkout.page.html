@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding green">
+<ion-content class="ion-padding-horizontal green">
 
   <div class="ion-text-center img-box">
     @if(user){
@@ -20,7 +20,7 @@
 
     <h4 class="inter-font">{{user?.full_name}}</h4>
     <div class="inter-font myp">{{user?.email_address}}</div>
-    <div  class="inter-font myp">{{user?.property_name}}</div>
+    <div class="inter-font myp">{{user?.property_name}}</div>
   </div>
 
   @if(!showStatus){
@@ -116,7 +116,7 @@
       </g>
     </svg>
 
-    @if(isCheckedIn){
+    <!-- @if(isCheckedIn){
     <div class="cont" @slideIn>
       Checked In
     </div>
@@ -124,11 +124,19 @@
     <div class="cont" @slideIn>
       Checked Out
     </div>
-    }
+    } -->
 
-    
+    <div class="status-container">
+      @if (isCheckedIn) {
+      <div class="cont" @slideIn>Checked In</div>
+      } @else {
+      <div class="cont" @slideIn>Checked Out</div>
+      }
+    </div>
+
+
   </div>
-}
+  }
 
 
 

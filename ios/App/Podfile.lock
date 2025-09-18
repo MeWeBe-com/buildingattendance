@@ -34,6 +34,8 @@ PODS:
     - Capacitor
   - CapgoCapacitorNativeBiometric (0.0.1):
     - Capacitor
+  - CordovaPlugins (7.4.3):
+    - CapacitorCordova
   - FirebaseAnalytics (11.7.0):
     - FirebaseAnalytics/AdIdSupport (= 11.7.0)
     - FirebaseCore (~> 11.7.0)
@@ -147,6 +149,7 @@ DEPENDENCIES:
   - CapacitorRadar (from `../../node_modules/capacitor-radar`)
   - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
   - "CapgoCapacitorNativeBiometric (from `../../node_modules/@capgo/capacitor-native-biometric`)"
+  - CordovaPlugins (from `../capacitor-cordova-ios-plugins`)
 
 SPEC REPOS:
   trunk:
@@ -191,6 +194,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/status-bar"
   CapgoCapacitorNativeBiometric:
     :path: "../../node_modules/@capgo/capacitor-native-biometric"
+  CordovaPlugins:
+    :path: "../capacitor-cordova-ios-plugins"
 
 SPEC CHECKSUMS:
   Capacitor: b4741ca7affb32c1b70debd03df92cbf522d8a80
@@ -206,6 +211,7 @@ SPEC CHECKSUMS:
   CapacitorRadar: ffce472a15aeb3e6a3d9262e874558d3b7bf1fdd
   CapacitorStatusBar: 275cbf2f4dfc00388f519ef80c7ec22edda342c9
   CapgoCapacitorNativeBiometric: ef4244ffac92fb918ec8aaf19dc0aaef54e24a99
+  CordovaPlugins: 710a72d6b88acbbefebdfd90eeb3751e110404af
   FirebaseAnalytics: bc9e565af9044ba8d6c6e4157e4edca8e5fdf7ec
   FirebaseCore: 3227e35f4197a924206fbcdc0349325baf4f5de4
   FirebaseCoreInternal: d6c17dafc8dc33614733a8b52df78fcb4394c881
@@ -220,6 +226,6 @@ SPEC CHECKSUMS:
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RadarSDK: 8020b428dd73ea5bbd8778a1b90372ddeec9784a
 
-PODFILE CHECKSUM: 0c3b0e70f13e96b8b2d293f20555fa1a65713d2c
+PODFILE CHECKSUM: f935e203767593158dbeb6a033ce08c9b9008188
 
 COCOAPODS: 1.15.2

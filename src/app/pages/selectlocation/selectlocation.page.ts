@@ -37,7 +37,7 @@ export class SelectlocationPage implements OnInit {
   alertButtons: any = [];
 
   userPosition: any = null;
-
+  intervalID: any;
   constructor() { }
 
   ngOnInit() {
@@ -73,6 +73,29 @@ export class SelectlocationPage implements OnInit {
         });
       }
     }
+    this.intervalID = setInterval(() => {
+      this.getUserDetails();
+    }, 30000);
+  }
+
+
+  ionViewWillLeave() {
+    clearInterval(this.intervalID);
+  }
+
+  getUserDetails() {
+    this.http.get('GetUserDetails', false).subscribe({
+      next: (res: any) => {
+        if (res.status == true) {
+          if (res.data.is_checked_in) {
+            this.general.goToRoot('checkout');
+          }
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    })
   }
 
   async getLocation() {

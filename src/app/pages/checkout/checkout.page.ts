@@ -23,11 +23,23 @@ import {
   animations: [
     trigger('slideIn', [
       transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(100%)' }),
-        animate('500ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
+        style({
+          opacity: 0,
+          transform: 'translateX(100%)',
+          position: 'absolute',
+          width: '100%'
+        }),
+        animate(
+          '1000ms 200ms cubic-bezier(0.25, 1, 0.5, 1)', // ✅ correct order: duration delay easing
+          style({ opacity: 1, transform: 'translateX(0)' })
+        )
       ]),
       transition(':leave', [
-        animate('1000ms ease-in', style({ opacity: 0, transform: 'translateX(-100%)' }))
+        style({ position: 'absolute', width: '100%' }),
+        animate(
+          '800ms cubic-bezier(0.25, 1, 0.5, 1)',
+          style({ opacity: 0, transform: 'translateX(-100%)' })
+        )
       ])
     ])
   ],
@@ -36,7 +48,6 @@ import {
   ]
 })
 export class CheckoutPage implements OnInit {
-
 
   http = inject(HttpService);
   general = inject(GeneralService);

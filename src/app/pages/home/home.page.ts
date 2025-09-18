@@ -29,11 +29,13 @@ export class HomePage {
   events = inject(EventsService);
 
 
+
   showAutoChekin: boolean = true;
   user: any = {
     auto_checkin: false
   };
   isOpen: boolean = false;
+  intervalID: any;
 
   constructor() {
     this.events.receiveOnPopover().subscribe((res: any) => {
@@ -45,6 +47,29 @@ export class HomePage {
     this.user = GlobaldataService.userObject;
     await this.analytics.setCurrentScreen('Home');
     this.setupRadar(this.user.user_id);
+
+    this.intervalID = setInterval(() => {
+      this.getUserDetails();
+    }, 30000);
+  }
+
+  ionViewWillLeave() {
+    clearInterval(this.intervalID);
+  }
+
+  getUserDetails() {
+    this.http.get('GetUserDetails', false).subscribe({
+      next: (res: any) => {
+        if (res.status == true) {
+          if (res.data.is_checked_in) {
+            this.general.goToRoot('checkout');
+          }
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    })
   }
 
   setupRadar(id: any) {

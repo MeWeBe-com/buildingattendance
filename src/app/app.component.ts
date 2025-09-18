@@ -15,10 +15,13 @@ import { StorageService } from './providers/storage.service';
 import { GlobaldataService } from './providers/globaldata.service';
 import { AnalyticsService } from './providers/analytics.service';
 import { EventsService } from './providers/events.service';
+import { LocationAccuracy } from '@awesome-cordova-plugins/location-accuracy/ngx';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
+  providers: [LocationAccuracy],
   imports: [CommonModule,
     IonApp, IonRouterOutlet, IonPopover, IonList, IonItem, IonItemDivider, IonLabel, IonIcon],
 })
@@ -32,6 +35,7 @@ export class AppComponent {
   storage = inject(StorageService);
   analytics = inject(AnalyticsService);
   events = inject(EventsService);
+  locationAccuracy = inject(LocationAccuracy);
 
   isPopoverOpen: boolean = false;
   selectedPage: any = '';
@@ -46,6 +50,7 @@ export class AppComponent {
     this.platform.ready().then(async () => {
       this.initializeFirebase();
       this.eventListener();
+      this.isGPSEnable();
       setTimeout(() => {
         this.fcm.getToken();
       }, 1000)
@@ -101,6 +106,24 @@ export class AppComponent {
     setTimeout(() => {
       this.general.goToRoot('login');
     }, 50)
+  }
+
+  isGPSEnable() {
+    if (Capacitor.isNativePlatform()) {
+      this.locationAccuracy.canRequest().then((canRequest: boolean) => {
+        if (canRequest) {
+          // the accuracy option will be ignored by iOS
+          this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+            (succ) => {
+              console.log('Request successful')
+            },
+            (error) => {
+              console.log('Error requesting location permissions', error)
+            }
+          );
+        }
+      });
+    }
   }
 
 }
