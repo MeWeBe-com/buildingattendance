@@ -109,7 +109,7 @@ export class SelectlocationPage implements OnInit {
       }
     } catch (e) {
       console.log(e);
-      this.general.presentAlert('Alert!', 'Please enable location service (GPS).')
+      this.general.presentAlert('Alert!', 'Please enable device location service (GPS).')
     }
 
   }

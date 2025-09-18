@@ -13,6 +13,7 @@ import { GeneralService } from 'src/app/providers/general.service';
 import { StorageService } from 'src/app/providers/storage.service';
 import { EventsService } from 'src/app/providers/events.service';
 import { Capacitor } from '@capacitor/core';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-home',
@@ -28,8 +29,7 @@ export class HomePage {
   analytics = inject(AnalyticsService);
   events = inject(EventsService);
 
-
-
+  userPosition: any = null;
   showAutoChekin: boolean = true;
   user: any = {
     auto_checkin: false
@@ -47,6 +47,22 @@ export class HomePage {
     this.user = GlobaldataService.userObject;
     await this.analytics.setCurrentScreen('Home');
     this.setupRadar(this.user.user_id);
+    if (Capacitor.isNativePlatform()) {
+      await this.getLocation()
+    } else {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((succ) => {
+          this.userPosition = {
+            coords: {
+              latitude: succ.coords.latitude,
+              longitude: succ.coords.longitude
+            }
+          }
+        }, (err) => {
+          console.log(err)
+        });
+      }
+    }
 
     this.intervalID = setInterval(() => {
       this.getUserDetails();
@@ -55,6 +71,22 @@ export class HomePage {
 
   ionViewWillLeave() {
     clearInterval(this.intervalID);
+  }
+
+  async getLocation() {
+    try {
+      let per = await Geolocation.requestPermissions();
+      if (per.location == 'granted') {
+        let position = await Geolocation.getCurrentPosition({ enableHighAccuracy: true });
+        if (position) {
+          this.userPosition = position;
+        }
+      }
+    } catch (e) {
+      console.log(e);
+      this.general.presentAlert('Alert!', 'Please enable device location service (GPS).')
+    }
+
   }
 
   getUserDetails() {
@@ -151,15 +183,35 @@ export class HomePage {
   onChange(e: any) {
     this.http.post('UpdateCheckInStatus', { auto_checkin: e.detail.checked }, true).subscribe({
       next: async (res: any) => {
-        GlobaldataService.userObject.auto_checkin = res.data.auto_checkin;
-        await this.storage.setObject('CBREuserObject', GlobaldataService.userObject);
+        if (res.status == true && res.data.auto_checkin == true) {
+          this.checkIn();
+          GlobaldataService.userObject.auto_checkin = res.data.auto_checkin;
+          await this.storage.setObject('CBREuserObject', GlobaldataService.userObject);
+          await this.general.presentToast(res.message);
+          await this.analytics.logEvent('auto_check_in', { status: res.data.auto_checkin, user_id: this.user.user_id });
+        }
         await this.general.stopLoading();
-        await this.general.presentToast(res.message);
-        await this.analytics.logEvent('auto_check_in', { status: res.data.auto_checkin, user_id: this.user.user_id });
       },
       error: async (err) => {
         await this.general.stopLoading();
         console.log(err);
+      },
+    })
+  }
+
+  checkIn() {
+    let data = {
+      lat: this.userPosition.coords.latitude,
+      lng: this.userPosition.coords.longitude
+    }
+
+    this.http.post('CheckInManual', data, true).subscribe({
+      next: async (res: any) => {
+        await this.general.stopLoading();
+      },
+      error: async (err) => {
+        await this.general.stopLoading()
+        console.log(err)
       },
     })
   }
