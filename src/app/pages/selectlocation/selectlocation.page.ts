@@ -12,6 +12,7 @@ import { GlobaldataService } from 'src/app/providers/globaldata.service';
 import { Capacitor } from '@capacitor/core';
 import { AnalyticsService } from 'src/app/providers/analytics.service';
 import { Keyboard, KeyboardResize, KeyboardResizeOptions } from '@capacitor/keyboard';
+import { EventsService } from 'src/app/providers/events.service';
 
 @Component({
   selector: 'app-selectlocation',
@@ -27,6 +28,7 @@ export class SelectlocationPage implements OnInit {
   general = inject(GeneralService);
   http = inject(HttpService);
   analytics = inject(AnalyticsService);
+  events = inject(EventsService);
 
   user: any;
   selectedProperty: any = undefined;
@@ -154,26 +156,41 @@ export class SelectlocationPage implements OnInit {
       lat: this.userPosition.coords.latitude,
       lng: this.userPosition.coords.longitude
     }
-    GlobaldataService.selectedProperty = data;
 
-    setTimeout(() => {
-      this.general.goToPage('checkout');
-    })
-  }
-
-  onChange(e: any) {
-    this.http.post('CheckIn', { property_id: this.selectedProperty.property_id }, true).subscribe({
+    this.http.post('CheckIn', data, true).subscribe({
       next: async (res: any) => {
         await this.general.stopLoading();
-        await this.general.presentToast(res.message);
-        await this.analytics.logEvent('manual_check_in', { user_id: this.user.user_id, propert_id: this.selectedProperty.propert_id });
-        this.general.goToRoot('checkout');
+        if (res.status == true) {
+          GlobaldataService.userObject.property_name = res.property_name;
+          this.general.presentToast(res.message);
+          this.events.publishIsCheckedIn(true);
+          await this.analytics.logEvent('Check-In', { ...data, user_id: this.user.user_id })
+          this.general.goToPage('checkout');
+        } else {
+          this.general.presentAlert('Warning!', 'You can only check in when are at the location!');
+          await this.analytics.logEvent('Check-In Failed', { ...data, user_id: this.user.user_id })
+        }
       },
       error: async (err) => {
-        await this.general.stopLoading();
-        console.log(err);
+        await this.general.stopLoading()
+        console.log(err)
       },
     })
   }
+
+  // onChange(e: any) {
+  //   this.http.post('CheckIn', { property_id: this.selectedProperty.property_id }, true).subscribe({
+  //     next: async (res: any) => {
+  //       await this.general.stopLoading();
+  //       await this.general.presentToast(res.message);
+  //       await this.analytics.logEvent('manual_check_in', { user_id: this.user.user_id, propert_id: this.selectedProperty.propert_id });
+  //       this.general.goToRoot('checkout');
+  //     },
+  //     error: async (err) => {
+  //       await this.general.stopLoading();
+  //       console.log(err);
+  //     },
+  //   })
+  // }
 
 }

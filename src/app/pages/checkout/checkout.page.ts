@@ -89,7 +89,7 @@ export class CheckoutPage implements OnInit {
     if (GlobaldataService.userObject.is_checked_in) {
       this.intervalID = setInterval(() => {
         this.getUserDetails();
-      }, 30000);
+      }, 15000);
     }
   }
 

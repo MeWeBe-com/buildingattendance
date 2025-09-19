@@ -66,7 +66,7 @@ export class HomePage {
 
     this.intervalID = setInterval(() => {
       this.getUserDetails();
-    }, 30000);
+    }, 15000);
   }
 
   ionViewWillLeave() {
@@ -183,6 +183,7 @@ export class HomePage {
   onChange(e: any) {
     this.http.post('UpdateCheckInStatus', { auto_checkin: e.detail.checked }, true).subscribe({
       next: async (res: any) => {
+        await this.general.stopLoading();
         if (res.status == true && res.data.auto_checkin == true) {
           this.checkIn();
           GlobaldataService.userObject.auto_checkin = res.data.auto_checkin;
@@ -190,7 +191,7 @@ export class HomePage {
           await this.general.presentToast(res.message);
           await this.analytics.logEvent('auto_check_in', { status: res.data.auto_checkin, user_id: this.user.user_id });
         }
-        await this.general.stopLoading();
+        
       },
       error: async (err) => {
         await this.general.stopLoading();
@@ -205,12 +206,10 @@ export class HomePage {
       lng: this.userPosition.coords.longitude
     }
 
-    this.http.post('CheckInManual', data, true).subscribe({
+    this.http.post('CheckInManual', data, false).subscribe({
       next: async (res: any) => {
-        await this.general.stopLoading();
       },
       error: async (err) => {
-        await this.general.stopLoading()
         console.log(err)
       },
     })
