@@ -5,7 +5,8 @@
 'green': selectedProperty?.status == '0',
 'orange': selectedProperty?.status === '1',
 'red': selectedProperty?.status === '2'
-}">
+}"
+[ngStyle]="{'--background': selectedProperty ? 'url(../../../assets/imgs/bg-image2.svg) center no-repeat' : 'url(../../../assets/imgs/bg-image.svg) center no-repeat'}">
 
   <div class="ion-padding">
     <ng-select (change)="changeLocation($event)" placeholder="Start typing to search..." [closeOnSelect]="true">
