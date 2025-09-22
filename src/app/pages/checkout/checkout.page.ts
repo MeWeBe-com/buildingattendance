@@ -169,7 +169,7 @@ export class CheckoutPage implements OnInit {
           this.general.presentToast(res.message);
           this.events.publishIsCheckedIn(false);
           setTimeout(() => {
-            this.general.goToRoot('selectlocation');
+            this.general.goToRoot('home');
           }, 3000)
         } else {
           this.general.presentToast(res.message)

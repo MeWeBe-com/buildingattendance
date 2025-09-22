@@ -18,6 +18,7 @@ import { EventsService } from './providers/events.service';
 import { LocationAccuracy } from '@awesome-cordova-plugins/location-accuracy/ngx';
 import { Capacitor } from '@capacitor/core';
 import { HttpService } from './providers/http.service';
+import { BatteryOptimization } from '@capawesome-team/capacitor-android-battery-optimization';
 
 @Component({
   selector: 'app-root',
@@ -53,6 +54,14 @@ export class AppComponent {
       this.initializeFirebase();
       this.eventListener();
       this.isGPSEnable();
+
+      if (Capacitor.getPlatform() == 'android') {
+        let batteryOptimize = await this.isBatteryOptimizationEnabled();
+        if (batteryOptimize) {
+          await this.requestIgnoreBatteryOptimization()
+        }
+      }
+
       setTimeout(() => {
         this.fcm.getToken();
       }, 1000)
@@ -142,5 +151,14 @@ export class AppComponent {
       });
     }
   }
+
+  async isBatteryOptimizationEnabled() {
+    const { enabled } = await BatteryOptimization.isBatteryOptimizationEnabled();
+    return enabled;
+  };
+
+  requestIgnoreBatteryOptimization = async () => {
+    await BatteryOptimization.requestIgnoreBatteryOptimization();
+  };
 
 }
