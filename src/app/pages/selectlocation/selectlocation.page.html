@@ -6,7 +6,7 @@
 'orange': selectedProperty?.status === '1',
 'red': selectedProperty?.status === '2'
 }"
-[ngStyle]="{'--background': selectedProperty ? 'url(../../../assets/imgs/bg-image2.svg) center no-repeat' : 'url(../../../assets/imgs/bg-image.svg) center no-repeat'}">
+  [ngStyle]="{'--background': selectedProperty ? 'url(../../../assets/imgs/bg-image2.svg) center no-repeat' : 'url(../../../assets/imgs/bg-image.svg) center no-repeat'}">
 
   <div class="ion-padding">
     <ng-select (change)="changeLocation($event)" placeholder="Start typing to search..." [closeOnSelect]="true">
@@ -50,7 +50,7 @@
     </div>
   </div>
   } @else if(selectedProperty == undefined && user?.show_company_branding){
-  <div class="logo-box">
+  <div class="logo-box" [ngStyle]="{'margin-top': 'calc(' + logoTop +'px - 76px)'}">
     <img [src]="user?.company_logo">
   </div>
   }

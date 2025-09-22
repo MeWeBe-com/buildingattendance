@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonHeader, IonTitle, IonToolbar, IonButtons, IonContent, IonToggle, IonIcon, IonCheckbox, IonButton } from '@ionic/angular/standalone';
@@ -22,7 +22,9 @@ import { Geolocation } from '@capacitor/geolocation';
   imports: [CommonModule, FormsModule, RouterLink,
     IonHeader, IonTitle, IonToolbar, IonButtons, IonContent, IonToggle, IonIcon, IonCheckbox, IonButton],
 })
-export class HomePage {
+export class HomePage implements AfterViewInit {
+  @ViewChild('logoRef') logoRef?: ElementRef;
+
   general = inject(GeneralService);
   http = inject(HttpService);
   storage = inject(StorageService);
@@ -41,6 +43,14 @@ export class HomePage {
     this.events.receiveOnPopover().subscribe((res: any) => {
       this.isOpen = res;
     })
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.logoRef) {
+        GlobaldataService.logoTop = this.logoRef.nativeElement.offsetTop;
+      }
+    }, 250)
   }
 
   async ionViewDidEnter() {
@@ -191,7 +201,7 @@ export class HomePage {
           await this.general.presentToast(res.message);
           await this.analytics.logEvent('auto_check_in', { status: res.data.auto_checkin, user_id: this.user.user_id });
         }
-        
+
       },
       error: async (err) => {
         await this.general.stopLoading();

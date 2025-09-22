@@ -32,7 +32,9 @@
     <ion-item class="inter-font">
       <ion-label>
         <h2>{{ item?.full_name }}</h2>
-        <p>{{item?.employment_name}} - {{ item?.mobile_number }}</p>
+        <p>{{item?.employment_name}} -
+          @if(item?.mobile_number){<a href="tel:{{ item?.mobile_number }}">{{ item?.mobile_number }}</a>}
+        </p>
       </ion-label>
       <ion-note slot="end" class="time-note">
         <div class="status"

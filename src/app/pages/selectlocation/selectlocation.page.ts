@@ -40,6 +40,8 @@ export class SelectlocationPage implements OnInit {
 
   userPosition: any = null;
   intervalID: any;
+
+  logoTop: number = 400;
   constructor() { }
 
   ngOnInit() {
@@ -58,6 +60,9 @@ export class SelectlocationPage implements OnInit {
   }
 
   async ionViewDidEnter() {
+    if(GlobaldataService.logoTop){
+      this.logoTop = GlobaldataService.logoTop;
+    }
     await this.analytics.setCurrentScreen('Select Location')
     if (Capacitor.isNativePlatform()) {
       await this.getLocation()
