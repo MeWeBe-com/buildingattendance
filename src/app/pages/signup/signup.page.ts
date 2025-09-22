@@ -8,13 +8,14 @@ import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
 import { AnalyticsService } from 'src/app/providers/analytics.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.page.html',
   styleUrls: ['./signup.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgSelectComponent, NgOptionComponent,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, NgSelectComponent, NgOptionComponent,
     IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonButton, IonButtons, IonBackButton, IonCheckbox, IonSelect, IonSelectOption, IonNote
   ]
 })

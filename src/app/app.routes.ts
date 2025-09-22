@@ -91,6 +91,14 @@ export const routes: Routes = [
     path: 'add-user',
     loadComponent: () => import('./pages/web/add-user/add-user.page').then(m => m.AddUserPage),
     canActivate: [WebAuthGuard]
+  },
+  {
+    path: 'terms',
+    loadComponent: () => import('./pages/terms/terms.page').then( m => m.TermsPage)
+  },
+  {
+    path: 'buildingsafety',
+    loadComponent: () => import('./pages/buildingsafety/buildingsafety.page').then( m => m.BuildingsafetyPage)
   }
 
 ];

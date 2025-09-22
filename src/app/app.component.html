@@ -68,9 +68,9 @@
         </ion-item>
 
         <!-- Building Safety Docs -->
-        <ion-item button>
+        <ion-item button [ngClass]="{'highlighted' : selectedPage == '/buildingsafety' }" (click)="goTo('buildingsafety')">
           <ion-icon name="book-outline" slot="start"></ion-icon>
-          <ion-label>Building Safety Docs</ion-label>
+          <ion-label>Building Safety</ion-label>
         </ion-item>
 
         <!-- Report Incident -->

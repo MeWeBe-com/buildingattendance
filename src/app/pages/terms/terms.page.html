@@ -1,0 +1,77 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios" class="my-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button color="dark"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Terms & Conditions</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="general.openPopover($event)">
+        <ion-icon [name]="!isOpen ? 'menu-outline' : 'close-outline'" class="menu-icon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <h1>Terms of Use for Check-In and Check-Out via Cocoon Live</h1>
+
+  <h2>1. Acceptance of Terms</h2>
+  <p>By using the Cocoon Live app for check-in and check-out, you agree to abide by these terms and conditions.</p>
+
+  <h2>2. Definitions</h2>
+  <ul>
+    <li><strong>"User"</strong>: Any individual using the Cocoon Live app.</li>
+    <li><strong>"Geofence"</strong>: A virtual perimeter for a real-world geographic area, which can trigger check-in or
+      check-out actions.</li>
+    <li><strong>"Personal Data"</strong>: Any information related to an identified or identifiable individual, as
+      defined under GDPR.</li>
+  </ul>
+
+  <h2>3. Check-In and Check-Out Process</h2>
+  <ul>
+    <li>Users must utilize the Cocoon Live app to check in and out of the building.</li>
+    <li>Check-in and check-out will be enabled through the app via manual input or the geofence feature.</li>
+    <li>Geofencing technology may automatically trigger a check-in or check-out when a user enters or exits the
+      designated area.</li>
+  </ul>
+
+  <h2>4. Geofence Enablement</h2>
+  <ul>
+    <li>Users can enable geofence functionality within the app settings.</li>
+    <li>Users will receive prompt notifications when they enter or exit the designated geofenced area.</li>
+  </ul>
+
+  <h2>5. Personal Data Handling</h2>
+  <ul>
+    <li>The app may collect and process personal data, including location data during check-in and check-out.</li>
+    <li>Users have the right to withdraw consent for location tracking at any time without affecting the legality of
+      processing based on consent before its withdrawal.</li>
+  </ul>
+
+  <h2>6. User Rights under GDPR</h2>
+  <ul>
+    <li>Users have the right to access, rectify, or request the deletion of their personal data.</li>
+    <li>Users may request clarification on how their data is used and stored.</li>
+    <li>The app implements appropriate technical and organizational measures to ensure the security and confidentiality
+      of personal data.</li>
+  </ul>
+
+  <h2>7. Data Retention</h2>
+  <p>Personal data collected through the app will be retained only for as long as necessary for the purposes outlined in
+    these terms, in compliance with GDPR.</p>
+
+  <h2>8. Liability</h2>
+  <p>The App Provider shall not be liable for any indirect, incidental, or consequential damages resulting from the use
+    of the Cocoon Live app.</p>
+
+  <h2>9. Modifications to Terms</h2>
+  <p>The App Provider may modify these terms at any time. Continued use of the app after modifications constitutes
+    acceptance of the new terms.</p>
+
+  <h2>10. Governing Law</h2>
+  <p>These terms shall be governed by and construed in accordance with the laws of the jurisdiction in which the
+    building is located.</p>
+
+</ion-content>

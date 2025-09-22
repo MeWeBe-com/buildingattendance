@@ -12,7 +12,7 @@
 
     <div class="faceid ion-text-center ion-margin">
       <p class="roboto-font">
-        
+
       </p>
 
       <img [src]="getControl['profile_pic_url'].value || 'assets/imgs/signin/signin.png'" (click)="selectPhoto()" />
@@ -71,7 +71,7 @@
         </ion-select>
 
         <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="employment_role"
-          mode="md" interface="popover"  placeholder="Employment Role">
+          mode="md" interface="popover" placeholder="Employment Role">
           <div slot="label">Employment Role
             @if(isSubmitted && getControl['employment_role'].errors){
             @if(getControl['employment_role'].errors['required']){
@@ -100,7 +100,8 @@
 
         <div class="ion-margin-vertical custom-select">
           <label [ngClass]="{'selected' : signupForm.value.emergency_role}">Emergency Role (if any)</label>
-          <ng-select placeholder="Emergency Role (if any)" formControlName="emergency_role" [multiple]="true" [closeOnSelect]="false" [searchable]="false">
+          <ng-select placeholder="Emergency Role (if any)" formControlName="emergency_role" [multiple]="true"
+            [closeOnSelect]="false" [searchable]="false">
             @for(r of emergencyRoles; track r?.id){
             <ng-option [value]="r?.id">
               <div class="d-flex align-items-center" style="gap: 20px">
@@ -162,7 +163,8 @@
         <div class="ion-margin-bottom">
           <ion-checkbox labelPlacement="end" formControlName="terms">
             <span class="ion-text-wrap">
-              I agree to Terms of Service and Privacy Policy
+              I agree to <a [routerLink]="['/terms']" (click)="$event.stopPropagation()">Terms of Service and Privacy
+                Policy</a>
             </span>
           </ion-checkbox>
           <div>
