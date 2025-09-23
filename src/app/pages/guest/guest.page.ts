@@ -55,7 +55,7 @@ export class GuestPage implements OnInit {
   }
 
   getCompanies() {
-    this.http.get2('GetCompanies', false).subscribe({
+    this.http.get2('GetGuestCompanies', false).subscribe({
       next: (res: any) => {
         GlobaldataService.companies = res.data.company;
         this.companies = res.data.company;

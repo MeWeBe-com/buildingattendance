@@ -55,7 +55,8 @@ export class WebAuthGuardService {
               resolve(true);
             } else {
               await this.storage.clear();
-              reject(true)
+              reject(true);
+              this.general.goToRoot('web-login')
             }
           },
           error: async (err) => {

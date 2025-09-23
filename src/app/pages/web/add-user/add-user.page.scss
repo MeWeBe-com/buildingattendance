@@ -1,5 +1,5 @@
-ion-toolbar{
-    ion-back-button{
+ion-toolbar {
+    ion-back-button {
         color: #000;
     }
 }
@@ -30,18 +30,6 @@ ion-toolbar{
 
     .form {
 
-        ::ng-deep .ng-select-container {
-            border: 1px solid var(--theme-grey);
-            border-radius: 4px;
-            line-height: 50px;
-
-            .ng-placeholder {
-                color: #000;
-                font-size: 12px;
-                padding-left: 15px;
-            }
-        }
-
         ion-checkbox {
             --size: 18px;
             --border-color: var(--theme-purple);
@@ -67,5 +55,15 @@ ion-toolbar{
                 --background: var(--theme-light-green);
             }
         }
+    }
+}
+
+.cam-btn {
+    ion-button {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 24px;
+        --background: var(--theme-light-green);
     }
 }

@@ -7,27 +7,32 @@ import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
 import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { AnalyticsService } from 'src/app/providers/analytics.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { PreviousRouteService } from 'src/app/providers/previous-route.service';
 
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.page.html',
   styleUrls: ['./add-user.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgSelectComponent, NgOptionComponent,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgSelectComponent, NgOptionComponent, RouterLink,
     IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonInput, IonSelect, IonSelectOption, IonNote, IonButton, IonCheckbox
   ]
 })
 export class AddUserPage implements OnInit {
 
   @ViewChild('selfieInput', { static: false }) selfieInput!: ElementRef;
+  @ViewChild('selfieInput2', { static: false }) selfieInput2!: ElementRef;
 
   http = inject(HttpService);
   general = inject(GeneralService);
   formBuilder = inject(FormBuilder);
   analytics = inject(AnalyticsService);
   aRoute = inject(ActivatedRoute);
-
+  titleService = inject(Title);
+  previousRouteService = inject(PreviousRouteService);
+  
   companies: any = [];
   emergencyRoles: any = [];
   employmentRoles: any = [];
@@ -59,7 +64,9 @@ export class AddUserPage implements OnInit {
 
   userType: string = '';
 
-  constructor() { }
+  constructor() {
+    this.titleService.setTitle('Cocoon | Tablet');
+  }
 
   ngOnInit() {
     this.initForm();
@@ -67,19 +74,30 @@ export class AddUserPage implements OnInit {
       if (params['type'] == 'guest' || params['type'] == 'employee') {
         this.userType = params['type'];
 
+        if (this.userType == 'guest') {
+          this.getCompanies('GetGuestCompanies')
+        } else {
+          this.getCompanies('GetCompanies');
+        }
+
         setTimeout(() => {
           this.signupForm.patchValue({
             type: this.userType
           })
           if (this.userType === 'employee') {
             this.signupForm.get('user_shift')?.setValidators(Validators.required);
+            this.signupForm.get('emergency_role')?.setValidators(Validators.required);
             this.signupForm.get('visiting')?.clearValidators();
           } else if (this.userType === 'guest') {
             this.signupForm.get('visiting')?.setValidators(Validators.required);
+            this.signupForm.get('emergency_role')?.clearValidators();
             this.signupForm.get('user_shift')?.clearValidators();
           }
           this.signupForm.get('visiting')?.updateValueAndValidity();
           this.signupForm.get('user_shift')?.updateValueAndValidity();
+          this.signupForm.get('emergency_role')?.updateValueAndValidity();
+          this.signupForm.get('company_name')?.updateValueAndValidity();
+
         }, 250);
       } else {
         this.general.goToRoot('select-user-type')
@@ -88,14 +106,13 @@ export class AddUserPage implements OnInit {
   }
 
   async ionViewWillEnter() {
-    this.getCompanies();
     this.getEmergencyRoles();
     this.getEmploymentRoles();
     await this.analytics.setCurrentScreen('Add user by security');
   }
 
-  getCompanies() {
-    this.http.get2('GetCompanies', false).subscribe({
+  getCompanies(url: string) {
+    this.http.get2(url, false).subscribe({
       next: (res: any) => {
         this.companies = res.data.company;
       },
@@ -132,17 +149,16 @@ export class AddUserPage implements OnInit {
       type: new FormControl(''),
       full_name: new FormControl('', Validators.required),
       company_id: new FormControl('', Validators.required),
+      company_name: new FormControl(''),
       position: new FormControl('', Validators.required),
-
       emergency_role: new FormControl(''),
-
+      employment_role: new FormControl('', Validators.required),
+      employment_role_name: new FormControl(''),
       user_shift: new FormControl(''),
       visiting: new FormControl(''),
-
       email_address: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       mobile_number: new FormControl('', Validators.required),
       terms: new FormControl(false, Validators.requiredTrue),
-
       profile_pic: new FormControl(''),
       profile_pic_url: new FormControl(''),
     })
@@ -159,12 +175,22 @@ export class AddUserPage implements OnInit {
       return
     }
 
+    if (this.userType == 'guest' && this.signupForm.value.company_id == 'other' && this.signupForm.value.company_name == '') {
+      return
+    }
+
+    if (this.userType == 'guest' && this.signupForm.value.employment_role == 'other' && this.signupForm.value.employment_role_name == '') {
+      return
+    }
+
     this.http.post('RegisterUser', this.signupForm.value, true).subscribe({
       next: async (res: any) => {
         await this.general.stopLoading();
-        console.log(res)
         if (res.status == true) {
-
+          this.isSubmitted = false;
+          this.signupForm.reset()
+          this.general.presentToast(res.message);
+          this.general.goToRoot('select-user-type');
         } else {
           this.general.presentToast(res.message)
         }
@@ -208,6 +234,10 @@ export class AddUserPage implements OnInit {
         console.log(err)
       },
     })
+  }
+
+  openCamera() {
+    this.selfieInput2.nativeElement.click();
   }
 
 }

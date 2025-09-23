@@ -8,6 +8,7 @@ import { EventsService } from 'src/app/providers/events.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { AnalyticsService } from 'src/app/providers/analytics.service';
 import { StorageService } from 'src/app/providers/storage.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-select-user-type',
@@ -24,10 +25,13 @@ export class SelectUserTypePage implements OnInit {
   events = inject(EventsService);
   analytics = inject(AnalyticsService);
   storage = inject(StorageService);
+  titleService = inject(Title);
 
   user: any = null;
 
-  constructor() { }
+  constructor() { 
+    this.titleService.setTitle('Cocoon | Tablet');
+  }
 
   ngOnInit() {
   }

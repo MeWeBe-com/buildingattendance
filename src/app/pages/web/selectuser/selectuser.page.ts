@@ -1,7 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon } from '@ionic/angular/standalone';
+import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
 
 import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
@@ -13,6 +14,7 @@ import {
   style,
   animate
 } from '@angular/animations';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-selectuser',
@@ -42,8 +44,8 @@ import {
       ])
     ])
   ],
-  imports: [CommonModule, FormsModule,
-    IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon, IonSelect, IonSelectOption
+  imports: [CommonModule, FormsModule, NgSelectComponent, NgOptionComponent,
+    IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon
   ]
 })
 export class SelectuserPage implements OnInit {
@@ -51,7 +53,8 @@ export class SelectuserPage implements OnInit {
   http = inject(HttpService);
   general = inject(GeneralService);
   analytics = inject(AnalyticsService);
-
+  titleService = inject(Title);
+  
   user: any = null;
 
   users: any = [];
@@ -59,7 +62,9 @@ export class SelectuserPage implements OnInit {
 
   isCheckingOut: boolean = false;
 
-  constructor() { }
+  constructor() { 
+    this.titleService.setTitle('Cocoon | Tablet');
+  }
 
   ngOnInit() {
   }
@@ -82,11 +87,7 @@ export class SelectuserPage implements OnInit {
   }
 
   onUserSelect(e: any) {
-    this.selected_user = e.detail.value;
-    this.isCheckingOut = true;
-    setTimeout(() => {
-      this.isCheckingOut = false;
-    }, 1500)
+    this.selected_user = e;
   }
 
   updateStatus(user: any) {

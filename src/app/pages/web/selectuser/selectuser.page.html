@@ -4,11 +4,11 @@
     'orange-toolbar': user?.status === '1',
     'red-toolbar': user?.status === '2'
   }">
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="select-user-type"></ion-back-button>
-      </ion-buttons>
-      <ion-title>{{user?.property_name}}</ion-title>
-    </ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="select-user-type"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{user?.property_name}}</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [ngClass]="{
@@ -18,13 +18,23 @@
 }">
 
   <div class="ion-padding web-container">
-    <ion-select label-placement="floating" class="ion-margin-bottom" mode="ios" interface="popover"
-      (ionChange)="onUserSelect($event)">
-      <div slot="label">Select User</div>
+    
+    <ng-select (change)="onUserSelect($event)" placeholder="Start typing to search..." [closeOnSelect]="true">
       @for(u of users; track u?.user_id){
-      <ion-select-option [value]="u">{{u?.full_name}}</ion-select-option>
+      <ng-option [value]="u">
+        <div class="d-flex align-items-center" style="gap: 10px">
+          <div>
+            <div class="user-status"
+              [ngStyle]="{'background-color': u?.is_check_in ? 'var(--ion-color-success)': 'var(--ion-color-danger)'}">
+            </div>
+          </div>
+          <div>
+            {{u?.full_name}}
+          </div>
+        </div>
+      </ng-option>
       }
-    </ion-select>
+    </ng-select>
 
   </div>
 

@@ -23,6 +23,12 @@
             Tap to upload profile photo
           </div>
 
+          <div class="cam-btn">
+            <ion-button size="small" mode="ios" (click)="openCamera()">
+              Take Photo
+            </ion-button>
+          </div>
+
           <!-- @if(isSubmitted && getControl['profile_pic'].errors){
             @if(getControl['profile_pic'].errors['required']){
             <ion-note color="danger">Profile Picture is required*</ion-note>
@@ -46,8 +52,8 @@
               </div>
             </ion-input>
 
-            <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" mode="md"
-              interface="popover" formControlName="company_id" placeholder="Company">
+            <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" mode="md" interface="popover"
+              formControlName="company_id" placeholder="Select Company">
               <div slot="label">Company
                 @if(isSubmitted && getControl['company_id'].errors){
                 @if(getControl['company_id'].errors['required']){
@@ -58,11 +64,26 @@
               @for(c of companies; track c?.company_id){
               <ion-select-option [value]="c?.company_id">{{c?.company_name}}</ion-select-option>
               }
-
+              @if(userType == 'guest'){
+              <ion-select-option value="other">Other</ion-select-option>
+              }
             </ion-select>
 
+            @if(userType == 'guest' && signupForm.value.company_id == 'other'){
+            <ion-input labelPlacement="stacked" placeholder="Company Name" fill="outline" type="text"
+              class="ion-margin-bottom" mode="md" formControlName="company_name">
+              <div slot="label">Company Name
+                @if(isSubmitted && signupForm.value.company_id == 'other'){
+                @if(signupForm.value.company_name == ''){
+                <ion-note color="danger">(is required*)</ion-note>
+                }
+                }
+              </div>
+            </ion-input>
+            }
+
             <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="position"
-              mode="md" interface="popover"  placeholder="Position">
+              mode="md" interface="popover" placeholder="Position">
               <div slot="label">Position
                 @if(isSubmitted && getControl['position'].errors){
                 @if(getControl['position'].errors['required']){
@@ -75,11 +96,55 @@
               }
             </ion-select>
 
+            <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom"
+              formControlName="employment_role" mode="md" interface="popover" placeholder="Employment Role">
+              <div slot="label">Employment Role
+                @if(isSubmitted && getControl['employment_role'].errors){
+                @if(getControl['employment_role'].errors['required']){
+                <ion-note color="danger">(is required*)</ion-note>
+                }
+                }
+              </div>
+              @for(p of employmentRoles; track p?.id){
+              <ion-select-option [value]="p?.id">{{p?.name}}</ion-select-option>
+              }
+              @if(userType == 'guest'){
+              <ion-select-option value="other">Other</ion-select-option>
+              }
+            </ion-select>
+
+            @if(signupForm.value.employment_role == 'other'){
+            <ion-input labelPlacement="stacked" placeholder="Enter Employment Role" fill="outline" type="text"
+              class="ion-margin-bottom" mode="md" formControlName="employment_role_name">
+              <div slot="label">Enter Employment Role
+                @if(isSubmitted && signupForm.value.employment_role == 'other'){
+                @if(signupForm.value.employment_role_name == ''){
+                <ion-note color="danger">(is required*)</ion-note>
+                }
+                }
+              </div>
+            </ion-input>
+            }
+
             @if(userType == 'employee'){
+            <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="user_shift"
+              mode="md" interface="popover" placeholder="Select Shift">
+              <div slot="label">User Shift
+                @if(isSubmitted && getControl['user_shift'].errors){
+                @if(getControl['user_shift'].errors['required']){
+                <ion-note color="danger">(is required*)</ion-note>
+                }
+                }
+              </div>
+              @for(s of shifts; track s?.name){
+              <ion-select-option [value]="s?.value">{{s?.name}}</ion-select-option>
+              }
+            </ion-select>
+
             <div class="ion-margin-vertical custom-select">
               <label [ngClass]="{'selected' : signupForm.value.emergency_role}">Emergency Role (if any)</label>
-              <ng-select formControlName="emergency_role" [multiple]="true" [closeOnSelect]="false"
-                [searchable]="false">
+              <ng-select placeholder="Emergency Role (if any)" formControlName="emergency_role" [multiple]="true"
+                [closeOnSelect]="false" [searchable]="false">
                 @for(r of emergencyRoles; track r?.id){
                 <ng-option [value]="r?.id">
                   <div class="d-flex align-items-center" style="gap: 20px">
@@ -94,21 +159,8 @@
                 }
               </ng-select>
             </div>
-
-            <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="user_shift"
-              mode="md" interface="popover">
-              <div slot="label">User Shift
-                @if(isSubmitted && getControl['user_shift'].errors){
-                @if(getControl['user_shift'].errors['required']){
-                <ion-note color="danger">(is required*)</ion-note>
-                }
-                }
-              </div>
-              @for(s of shifts; track s?.name){
-              <ion-select-option [value]="s?.value">{{s?.name}}</ion-select-option>
-              }
-            </ion-select>
             }@else{
+
             <ion-input labelPlacement="stacked" placeholder="Visiting" fill="outline" type="text"
               class="ion-margin-bottom" mode="md" formControlName="visiting">
               <div slot="label">Visiting
@@ -153,7 +205,9 @@
             <div class="ion-margin-bottom">
               <ion-checkbox labelPlacement="end" formControlName="terms">
                 <span class="ion-text-wrap">
-                  I agree to Terms of Service and Privacy Policy
+                  I agree to <a [routerLink]="['/terms']" (click)="$event.stopPropagation()">Terms of Service and
+                    Privacy
+                    Policy</a>
                 </span>
               </ion-checkbox>
               <div>
@@ -182,6 +236,9 @@
   </div>
 
   <input type="file" #selfieInput (change)="uploadSelfie($event)" hidden="true" accept="image/*"
-    style="visibility: hidden;" />
+    style="visibility: hidden;"/>
+
+    <input type="file" #selfieInput2 (change)="uploadSelfie($event)" hidden="true" accept="image/*"
+    style="visibility: hidden;" capture="user"/>
 
 </ion-content>

@@ -8,7 +8,7 @@ import { GeneralService } from 'src/app/providers/general.service';
 import { StorageService } from 'src/app/providers/storage.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
 import { AnalyticsService } from 'src/app/providers/analytics.service';
-
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-web-login',
@@ -26,11 +26,14 @@ export class WebLoginPage implements OnInit {
   storage = inject(StorageService);
   formBuilder = inject(FormBuilder);
   analytics = inject(AnalyticsService);
+  titleService = inject(Title);
 
   loginForm!: FormGroup;
   isSubmitted: boolean = false;
 
-  constructor() { }
+  constructor() { 
+    this.titleService.setTitle('Cocoon | Tablet');
+  }
 
   ngOnInit() {
     this.initForm();

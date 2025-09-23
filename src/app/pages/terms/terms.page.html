@@ -5,11 +5,13 @@
     </ion-buttons>
 
     <ion-title>Terms & Conditions</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="general.openPopover($event)">
-        <ion-icon [name]="!isOpen ? 'menu-outline' : 'close-outline'" class="menu-icon"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    @if(!previousRoute.includes('add-user')){
+      <ion-buttons slot="end">
+        <ion-button (click)="general.openPopover($event)">
+          <ion-icon [name]="!isOpen ? 'menu-outline' : 'close-outline'" class="menu-icon"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    }
   </ion-toolbar>
 </ion-header>
 
