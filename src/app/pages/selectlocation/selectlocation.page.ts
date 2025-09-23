@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonIcon, IonAlert } from '@ionic/angular/standalone';
@@ -29,6 +29,7 @@ export class SelectlocationPage implements OnInit {
   http = inject(HttpService);
   analytics = inject(AnalyticsService);
   events = inject(EventsService);
+  cdr = inject(ChangeDetectorRef);
 
   user: any;
   selectedProperty: any = undefined;
@@ -60,7 +61,7 @@ export class SelectlocationPage implements OnInit {
   }
 
   async ionViewDidEnter() {
-    if(GlobaldataService.logoTop){
+    if (GlobaldataService.logoTop) {
       this.logoTop = GlobaldataService.logoTop;
     }
     await this.analytics.setCurrentScreen('Select Location')
@@ -154,6 +155,39 @@ export class SelectlocationPage implements OnInit {
     }, 100)
   }
 
+  checkStatus() {
+    this.http.post('CheckPropertyStatus', { property_id: this.selectedProperty.property_id }, true).subscribe({
+      next: async (res: any) => {
+        await this.general.stopLoading();
+        if (res.status == true) {
+          if (res.data.status !== '0') {
+            this.properties = [];
+            setTimeout(() => {
+              this.properties = [...res.data.properties];
+              const updatedSelectedProperty = this.properties.find((p: any) => p.property_id === this.selectedProperty.property_id);
+              if (updatedSelectedProperty) {
+                this.selectedProperty = updatedSelectedProperty;
+              }
+              this.cdr.detectChanges();
+
+              if (this.selectedProperty && this.selectedProperty.status != '0') {
+                this.alertHeader = this.selectedProperty.header_message;
+                this.alertMessage = this.selectedProperty.message;
+                this.alertButtons = ['Dismiss']
+                this.isAlertOpen = true;
+              }
+            }, 250)
+          } else if (res.data.status == '0') {
+            this.checkIn();
+          }
+        }
+      },
+      error: async (err) => {
+        await this.general.stopLoading();
+      },
+    })
+  }
+
   checkIn() {
     let data = {
       building: this.selectedProperty,
@@ -182,20 +216,5 @@ export class SelectlocationPage implements OnInit {
       },
     })
   }
-
-  // onChange(e: any) {
-  //   this.http.post('CheckIn', { property_id: this.selectedProperty.property_id }, true).subscribe({
-  //     next: async (res: any) => {
-  //       await this.general.stopLoading();
-  //       await this.general.presentToast(res.message);
-  //       await this.analytics.logEvent('manual_check_in', { user_id: this.user.user_id, propert_id: this.selectedProperty.propert_id });
-  //       this.general.goToRoot('checkout');
-  //     },
-  //     error: async (err) => {
-  //       await this.general.stopLoading();
-  //       console.log(err);
-  //     },
-  //   })
-  // }
 
 }

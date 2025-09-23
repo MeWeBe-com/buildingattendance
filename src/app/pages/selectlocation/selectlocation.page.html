@@ -32,7 +32,7 @@
   }
 
   @if(selectedProperty && selectedProperty.status == '0'){
-  <div class="ion-text-center arrow-icon" (click)="checkIn()">
+  <div class="ion-text-center arrow-icon" (click)="checkStatus()">
     <div class="arrow-bg d-flex align-items-center justify-content-center" [ngClass]="{
       'arrow-green': selectedProperty?.status == '0',
       'arrow-red': selectedProperty?.status === '1',
