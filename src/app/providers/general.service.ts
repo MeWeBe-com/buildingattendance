@@ -96,7 +96,7 @@ export class GeneralService {
     this.menu.toggle();
   }
 
-  openPopover(e:any){
+  openPopover(e: any) {
     this.events.publishPopover(e);
     this.events.publishOnPopover(true);
   }
@@ -161,5 +161,34 @@ export class GeneralService {
     };
     reader.readAsDataURL(blob);
   });
+
+  dataURItoBlob(dataURI: string | any): Blob {
+    // Split the data URI into its parts
+    const splitDataURI = dataURI.split(',');
+    const byteString = splitDataURI[0].indexOf('base64') >= 0 ?
+      atob(splitDataURI[1]) :
+      decodeURIComponent(splitDataURI[1]);
+    const mimeString = splitDataURI[0].split(':')[1].split(';')[0];
+
+    // Convert the binary string to a Uint8Array
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+
+    // Create a Blob from the array
+    return new Blob([ia], { type: mimeString });
+  }
+
+  blobToFile(theBlob: Blob, fileName: string): File {
+    // A Blob is already a file-like object, but we can turn it into a File
+    const b: any = theBlob;
+    b.lastModifiedDate = new Date();
+    b.name = fileName;
+
+    // The File constructor is a more modern approach
+    return new File([b], fileName, { type: theBlob.type });
+  }
 
 }

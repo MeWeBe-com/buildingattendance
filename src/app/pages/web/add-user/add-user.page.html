@@ -24,7 +24,7 @@
           </div>
 
           <div class="cam-btn">
-            <ion-button size="small" mode="ios" (click)="openCamera()">
+            <ion-button size="small" mode="ios" (click)="openModal()">
               Take Photo
             </ion-button>
           </div>
@@ -236,9 +236,57 @@
   </div>
 
   <input type="file" #selfieInput (change)="uploadSelfie($event)" hidden="true" accept="image/*"
-    style="visibility: hidden;"/>
+    style="visibility: hidden;" />
 
-    <input type="file" #selfieInput2 (change)="uploadSelfie($event)" hidden="true" accept="image/*"
-    style="visibility: hidden;" capture="user"/>
+  <input type="file" #selfieInput2 (change)="uploadSelfie($event)" hidden="true" accept="image/*"
+    style="visibility: hidden;" capture="user" />
+
+  <ion-modal class="cam-modal" [isOpen]="isCameraModal" (willDismiss)="isCameraModal = false"
+    (ionModalDidPresent)="startCamera()">
+    <ng-template>
+      <ion-header class="ion-no-border">
+        <ion-toolbar mode="ios" class="my-toolbar">
+          <ion-title style="text-transform: capitalize;">Capture Photo</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeModal()">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="ion-padding">
+        <div class="camera-container">
+          @if(!capturedImage){
+            <video #video autoplay playsinline></video>
+            <canvas #canvas></canvas>
+          }@else{
+            <img [src]="capturedImage" style="object-fit: contain;">
+          }
+        </div>
+
+        <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+          <div class="d-flex align-items-center" style="gap: 15px">
+            @if(!capturedImage){
+            <ion-fab-button (click)="captureImage()" color="dark">
+              <ion-icon name="camera-outline"></ion-icon>
+            </ion-fab-button>
+          }@else{
+
+            <ion-fab-button (click)="startCamera()" color="dark">
+              <ion-icon name="arrow-undo-outline"></ion-icon>
+            </ion-fab-button>
+
+            <ion-fab-button (click)="doneCapture()" color="dark">
+              <ion-icon name="checkmark-done-outline"></ion-icon>
+            </ion-fab-button>
+          }
+            
+            
+          </div>
+        </ion-fab>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+
 
 </ion-content>

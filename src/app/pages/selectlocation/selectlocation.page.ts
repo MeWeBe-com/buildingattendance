@@ -41,6 +41,7 @@ export class SelectlocationPage implements OnInit {
 
   userPosition: any = null;
   intervalID: any;
+  buildingInterval: any;
 
   logoTop: number = 400;
   constructor() { }
@@ -83,12 +84,12 @@ export class SelectlocationPage implements OnInit {
     }
     this.intervalID = setInterval(() => {
       this.getUserDetails();
-    }, 30000);
+    }, 20000);
   }
-
 
   ionViewWillLeave() {
     clearInterval(this.intervalID);
+    clearInterval(this.buildingInterval);
   }
 
   getUserDetails() {
@@ -138,27 +139,36 @@ export class SelectlocationPage implements OnInit {
   }
 
   async changeLocation(e: any) {
-    this.selectedProperty = e;
-    await this.analytics.logEvent('Selected Location', e)
+    if (e) {
+      this.selectedProperty = e;
+      await this.analytics.logEvent('Selected Location', e)
 
-    if (this.selectedProperty && this.selectedProperty.status != '0') {
-      this.alertHeader = this.selectedProperty.header_message;
-      this.alertMessage = this.selectedProperty.message;
-      this.alertButtons = ['Dismiss']
-      this.isAlertOpen = true;
-    }
-
-    setTimeout(() => {
-      if (Capacitor.isNativePlatform()) {
-        Keyboard.hide();
+      if (this.selectedProperty && this.selectedProperty.status != '0') {
+        this.alertHeader = this.selectedProperty.header_message;
+        this.alertMessage = this.selectedProperty.message;
+        this.alertButtons = ['Dismiss']
+        this.isAlertOpen = true;
+      } else {
+        this.startBuildingInterval();
       }
-    }, 100)
+
+      setTimeout(() => {
+        if (Capacitor.isNativePlatform()) {
+          Keyboard.hide();
+        }
+      }, 100)
+    } else {
+      this.selectedProperty = undefined
+      clearInterval(this.buildingInterval)
+    }
   }
 
-  checkStatus() {
-    this.http.post('CheckPropertyStatus', { property_id: this.selectedProperty.property_id }, true).subscribe({
+  checkStatus(canCheckIn: boolean = true) {
+    this.http.post('CheckPropertyStatus', { property_id: this.selectedProperty.property_id }, canCheckIn).subscribe({
       next: async (res: any) => {
-        await this.general.stopLoading();
+        if (canCheckIn) {
+          await this.general.stopLoading();
+        }
         if (res.status == true) {
           if (res.data.status !== '0') {
             this.properties = [];
@@ -177,13 +187,15 @@ export class SelectlocationPage implements OnInit {
                 this.isAlertOpen = true;
               }
             }, 250)
-          } else if (res.data.status == '0') {
+          } else if (res.data.status == '0' && canCheckIn) {
             this.checkIn();
           }
         }
       },
       error: async (err) => {
-        await this.general.stopLoading();
+        if (canCheckIn) {
+          await this.general.stopLoading();
+        }
       },
     })
   }
@@ -215,6 +227,14 @@ export class SelectlocationPage implements OnInit {
         console.log(err)
       },
     })
+  }
+
+  startBuildingInterval() {
+    this.buildingInterval = setInterval(() => {
+      if (!this.user.is_checked_in) {
+        this.checkStatus(false);
+      }
+    }, 60000)
   }
 
 }

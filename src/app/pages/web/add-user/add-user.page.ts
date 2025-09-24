@@ -1,7 +1,7 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonInput, IonSelect, IonSelectOption, IonNote, IonButton, IonCheckbox } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonInput, IonSelect, IonSelectOption, IonNote, IonButton, IonCheckbox, IonModal, IonFab, IonFabButton, IonIcon } from '@ionic/angular/standalone';
 
 import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
 import { HttpService } from 'src/app/providers/http.service';
@@ -17,10 +17,12 @@ import { PreviousRouteService } from 'src/app/providers/previous-route.service';
   styleUrls: ['./add-user.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, NgSelectComponent, NgOptionComponent, RouterLink,
-    IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonInput, IonSelect, IonSelectOption, IonNote, IonButton, IonCheckbox
+    IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonInput, IonSelect, IonSelectOption, IonNote, IonButton, IonCheckbox, IonModal, IonFab, IonFabButton, IonIcon
   ]
 })
 export class AddUserPage implements OnInit {
+  @ViewChild('video', { static: false }) videoRef!: ElementRef<HTMLVideoElement>;
+  @ViewChild('canvas', { static: false }) canvasRef!: ElementRef<HTMLCanvasElement>;
 
   @ViewChild('selfieInput', { static: false }) selfieInput!: ElementRef;
   @ViewChild('selfieInput2', { static: false }) selfieInput2!: ElementRef;
@@ -32,7 +34,7 @@ export class AddUserPage implements OnInit {
   aRoute = inject(ActivatedRoute);
   titleService = inject(Title);
   previousRouteService = inject(PreviousRouteService);
-  
+
   companies: any = [];
   emergencyRoles: any = [];
   employmentRoles: any = [];
@@ -56,6 +58,9 @@ export class AddUserPage implements OnInit {
     },
     {
       name: 'Red', value: 'red'
+    },
+    {
+      name: 'None', value: 'none'
     }
   ];
 
@@ -63,6 +68,10 @@ export class AddUserPage implements OnInit {
   isSubmitted: boolean = false;
 
   userType: string = '';
+
+  isCameraModal: boolean = false;
+  videoStream: MediaStream | null = null;
+  capturedImage: string | null = null;
 
   constructor() {
     this.titleService.setTitle('Cocoon | Tablet');
@@ -190,7 +199,7 @@ export class AddUserPage implements OnInit {
           this.isSubmitted = false;
           this.signupForm.reset()
           this.general.presentToast(res.message);
-          this.general.goToRoot('select-user-type');
+          this.general.goToRoot('selectuser');
         } else {
           this.general.presentToast(res.message)
         }
@@ -228,6 +237,9 @@ export class AddUserPage implements OnInit {
           this.general.presentToast('Something went wrong!')
         }
         this.selfieInput.nativeElement.value = '';
+        if (this.isCameraModal) {
+          this.closeModal();
+        }
       },
       error: async (err) => {
         await this.general.stopLoading();
@@ -239,5 +251,69 @@ export class AddUserPage implements OnInit {
   openCamera() {
     this.selfieInput2.nativeElement.click();
   }
+
+  openModal() {
+    this.isCameraModal = true;
+
+  }
+
+  async startCamera() {
+    try {
+      this.capturedImage = null;
+      this.videoStream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'user' }
+      });
+      const video = this.videoRef.nativeElement;
+      video.srcObject = this.videoStream;
+    } catch (error) {
+      console.error('Camera error:', error);
+      alert('Camera Not Found!');
+    }
+  }
+
+  captureImage() {
+    const video = this.videoRef.nativeElement;
+    const canvas = this.canvasRef.nativeElement;
+    const context = canvas.getContext('2d');
+
+    // Set canvas dimensions to match video stream
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    // Draw the current video frame onto the canvas
+    context?.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    if (this.videoStream) {
+      this.videoStream.getTracks().forEach(track => track.stop());
+    }
+    this.capturedImage = canvas.toDataURL('image/png');
+
+  }
+
+  closeModal() {
+    if (this.videoStream) {
+      this.videoStream.getTracks().forEach(track => track.stop());
+    }
+    this.capturedImage = null;
+    this.isCameraModal = false;
+  }
+
+  doneCapture() {
+    const blob = this.general.dataURItoBlob(this.capturedImage);
+
+    // Create a File object from the Blob
+    let fileName = Date.now().toString() + '.' + blob.type.split('/')[1];
+
+    const file = new File([blob], fileName, { type: blob.type });
+
+    if (file) {
+      const formData = new FormData();
+      formData.append('media', file);
+      this.uploadImage(formData);
+    }
+
+  }
+
+
 
 }

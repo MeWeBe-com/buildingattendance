@@ -3,7 +3,7 @@ import { IonApp, IonRouterOutlet, IonPopover, IonList, IonItem, IonItemDivider, 
 import { Platform } from '@ionic/angular';
 
 import { addIcons } from 'ionicons';
-import { fingerPrintOutline, addCircleOutline, alertCircle, close, lockOpenOutline, arrowForwardCircle, menuOutline, homeOutline, settingsOutline, locationOutline, logOutOutline, folderOutline, warningOutline, bookOutline, shieldOutline, arrowForwardCircleOutline, calendarOutline, filterOutline, lockClosedOutline, arrowBackCircleOutline, chevronBackOutline, mailOutline, closeOutline, calendarClearOutline, addOutline } from 'ionicons/icons';
+import { fingerPrintOutline, addCircleOutline, alertCircle, close, lockOpenOutline, arrowForwardCircle, menuOutline, homeOutline, settingsOutline, locationOutline, logOutOutline, folderOutline, warningOutline, bookOutline, shieldOutline, arrowForwardCircleOutline, calendarOutline, filterOutline, lockClosedOutline, arrowBackCircleOutline, chevronBackOutline, mailOutline, closeOutline, calendarClearOutline, addOutline, cameraOutline, checkmarkDoneOutline, arrowUndoOutline } from 'ionicons/icons';
 import { FcmService } from './providers/fcm.service';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
@@ -45,7 +45,7 @@ export class AppComponent {
   isCheckedIn: boolean = false;
 
   constructor() {
-    addIcons({ fingerPrintOutline, addCircleOutline, alertCircle, close, lockOpenOutline, arrowForwardCircle, menuOutline, homeOutline, settingsOutline, locationOutline, logOutOutline, folderOutline, warningOutline, bookOutline, shieldOutline, arrowForwardCircleOutline, calendarOutline, filterOutline, lockClosedOutline, arrowBackCircleOutline, chevronBackOutline, mailOutline, closeOutline, calendarClearOutline, addOutline });
+    addIcons({ fingerPrintOutline, addCircleOutline, alertCircle, close, lockOpenOutline, arrowForwardCircle, menuOutline, homeOutline, settingsOutline, locationOutline, logOutOutline, folderOutline, warningOutline, bookOutline, shieldOutline, arrowForwardCircleOutline, calendarOutline, filterOutline, lockClosedOutline, arrowBackCircleOutline, chevronBackOutline, mailOutline, closeOutline, calendarClearOutline, addOutline, cameraOutline, checkmarkDoneOutline, arrowUndoOutline });
     this.initApp()
   }
 

@@ -1,6 +1,11 @@
 ion-toolbar {
     ion-back-button {
         color: #fff;
+        font-size: 20px;
+    }
+
+    ion-title {
+        font-size: 25px;
     }
 }
 
@@ -15,15 +20,16 @@ ion-content {
 }
 
 ::ng-deep .ng-select.ng-select-single .ng-select-container {
-  height: 50px;
-  border-radius: 8px;
+    height: 50px;
+    border-radius: 8px;
 
 }
-::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
-  padding: 10px 15px;
+
+::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+    padding: 10px 15px;
 }
 
-::ng-deep .ng-select .ng-select-container .ng-value-container .ng-input>input{
+::ng-deep .ng-select .ng-select-container .ng-value-container .ng-input>input {
     height: 40px;
 }
 
@@ -73,6 +79,7 @@ ion-select {
 
     .user {
         max-width: 150px;
+
         .img-box {
             .upload {
                 margin: 0 auto;
@@ -104,7 +111,7 @@ ion-select {
             font-size: 12px;
             line-height: 18px;
             color: #fff;
-            
+
         }
     }
 
