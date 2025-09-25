@@ -167,7 +167,8 @@
         <div class="ion-margin-bottom">
           <ion-checkbox labelPlacement="end" formControlName="terms">
             <span class="ion-text-wrap">
-              I agree to Terms of Service and Privacy Policy
+              I agree to <a [routerLink]="['/terms']" (click)="$event.stopPropagation()">Terms of Service and Privacy
+                Policy</a>
             </span>
           </ion-checkbox>
           <div>

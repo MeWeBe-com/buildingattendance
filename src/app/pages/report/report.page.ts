@@ -91,6 +91,7 @@ export class ReportPage implements OnInit {
           this.isSubmitted = false;
           this.reportForm.reset();
           this.general.presentToast(res.message);
+          this.general.goToPage('home');
         } else {
           this.general.presentToast(res.message);
         }

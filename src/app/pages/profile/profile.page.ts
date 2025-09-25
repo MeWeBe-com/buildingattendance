@@ -10,13 +10,14 @@ import { GlobaldataService } from 'src/app/providers/globaldata.service';
 import { StorageService } from 'src/app/providers/storage.service';
 import { AnalyticsService } from 'src/app/providers/analytics.service';
 import { EventsService } from 'src/app/providers/events.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgSelectComponent, NgOptionComponent,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgSelectComponent, NgOptionComponent, RouterLink,
     IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOption, IonNote, IonAlert, IonIcon
   ]
 })
