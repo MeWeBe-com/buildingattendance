@@ -52,7 +52,6 @@ export class DirectoryPage implements OnInit {
   getProperties() {
     this.http.get('GetPropertiesByCompanyID', false).subscribe({
       next: async (res: any) => {
-        console.log(res)
         if (res.status == true) {
           this.properties = res.data;
         }

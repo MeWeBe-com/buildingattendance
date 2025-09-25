@@ -35,6 +35,7 @@
         <p>{{item?.employment_name}} -
           @if(item?.mobile_number){<a href="tel:{{ item?.mobile_number }}">{{ item?.mobile_number }}</a>}
         </p>
+        @if(item?.property_name){ <p>{{item?.property_name}}</p> }
       </ion-label>
       <ion-note slot="end" class="time-note">
         <div class="status"
