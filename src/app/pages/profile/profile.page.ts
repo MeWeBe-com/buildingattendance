@@ -54,6 +54,9 @@ export class ProfilePage implements OnInit {
     },
     {
       name: 'Red', value: 'red'
+    },
+    {
+      name: 'None', value: 'none'
     }
   ];
 

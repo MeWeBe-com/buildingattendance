@@ -1,10 +1,10 @@
 <ion-header class="ion-no-border">
   <ion-toolbar mode="ios" class="my-toolbar">
     <ion-buttons slot="start">
-      <ion-back-button  color="dark"></ion-back-button>
+      <ion-back-button color="dark"></ion-back-button>
     </ion-buttons>
-    
-    <ion-title>Report Incident</ion-title>
+
+    <ion-title>Report</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="general.openPopover($event)">
         <ion-icon [name]="!isOpen ? 'menu-outline' : 'close-outline'" class="menu-icon"></ion-icon>
@@ -16,10 +16,9 @@
 <ion-content class="ion-padding">
 
   <form [formGroup]="reportForm" (ngSubmit)="onSubmit()" novalidate>
-
     <div class="form ion-margin-top">
       <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="building_id"
-        mode="md" interface="popover">
+        mode="md" interface="popover" placeholder="Select Building">
         <div slot="label">Select Building
           @if(isSubmitted && getControl['building_id'].errors){
           @if(getControl['building_id'].errors['required']){
@@ -27,12 +26,25 @@
           }
           }
         </div>
-        <ion-select-option value="" selected>Select Building</ion-select-option>
         @for(p of properties; track p?.property_id){
         <ion-select-option [value]="p?.property_id">{{p?.property_name}}</ion-select-option>
         }
       </ion-select>
 
+      <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="type" mode="md"
+        interface="popover" placeholder="Select Type">
+        <div slot="label">Select Type
+          @if(isSubmitted && getControl['type'].errors){
+          @if(getControl['type'].errors['required']){
+          <ion-note color="danger">(is required*)</ion-note>
+          }
+          }
+        </div>
+
+        <ion-select-option value="observation">Observation</ion-select-option>
+        <ion-select-option value="Iincident">Incident</ion-select-option>
+        <ion-select-option value="feedback">Feedback</ion-select-option>
+      </ion-select>
 
       <ion-textarea rows="5" label-placement="floating" fill="outline" type="text" class="ion-margin-bottom" mode="md"
         formControlName="message">
@@ -44,7 +56,6 @@
           }
         </div>
       </ion-textarea>
-
 
       <div class="login-btn">
         <ion-button expand="block" mode="ios" type="submit" class="inter-font">

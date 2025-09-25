@@ -56,6 +56,9 @@ export class SignupPage implements OnInit {
     },
     {
       name: 'Red', value: 'red'
+    },
+    {
+      name: 'None', value: 'none'
     }
   ];
   isEmailTaken: boolean = false;

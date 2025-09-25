@@ -68,6 +68,7 @@ export class ReportPage implements OnInit {
   initForm() {
     this.reportForm = this.formBuilder.group({
       building_id: new FormControl('', Validators.required),
+      type: new FormControl('', Validators.required),
       message: new FormControl('', Validators.required)
     })
   }

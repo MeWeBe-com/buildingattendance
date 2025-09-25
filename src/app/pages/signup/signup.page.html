@@ -99,8 +99,8 @@
         </ion-select>
 
         <div class="ion-margin-vertical custom-select">
-          <label [ngClass]="{'selected' : signupForm.value.emergency_role}">Emergency Role (if any)</label>
-          <ng-select placeholder="Emergency Role (if any)" formControlName="emergency_role" [multiple]="true"
+          <label [ngClass]="{'selected' : signupForm.value.emergency_role}">Key Role (if any)</label>
+          <ng-select placeholder="Key Role (if any)" formControlName="emergency_role" [multiple]="true"
             [closeOnSelect]="false" [searchable]="false">
             @for(r of emergencyRoles; track r?.id){
             <ng-option [value]="r?.id">
