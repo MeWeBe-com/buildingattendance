@@ -141,15 +141,13 @@ export class SelectlocationPage implements OnInit {
   async changeLocation(e: any) {
     if (e) {
       this.selectedProperty = e;
+      this.startBuildingInterval();
       await this.analytics.logEvent('Selected Location', e)
-
       if (this.selectedProperty && this.selectedProperty.status != '0') {
         this.alertHeader = this.selectedProperty.header_message;
         this.alertMessage = this.selectedProperty.message;
         this.alertButtons = ['Dismiss']
         this.isAlertOpen = true;
-      } else {
-        this.startBuildingInterval();
       }
 
       setTimeout(() => {
@@ -170,26 +168,22 @@ export class SelectlocationPage implements OnInit {
           await this.general.stopLoading();
         }
         if (res.status == true) {
-          if (res.data.status !== '0') {
-            this.properties = [];
-            setTimeout(() => {
-              this.properties = [...res.data.properties];
-              const updatedSelectedProperty = this.properties.find((p: any) => p.property_id === this.selectedProperty.property_id);
-              if (updatedSelectedProperty) {
-                this.selectedProperty = updatedSelectedProperty;
-              }
-              this.cdr.detectChanges();
+          this.properties = [];
+          setTimeout(() => {
+            this.properties = [...res.data.properties];
+            const updatedSelectedProperty = this.properties.find((p: any) => p.property_id === this.selectedProperty.property_id);
+            if (updatedSelectedProperty) {
+              this.selectedProperty = updatedSelectedProperty;
+            }
+            this.cdr.detectChanges();
 
-              if (this.selectedProperty && this.selectedProperty.status != '0') {
-                this.alertHeader = this.selectedProperty.header_message;
-                this.alertMessage = this.selectedProperty.message;
-                this.alertButtons = ['Dismiss']
-                this.isAlertOpen = true;
-              }
-            }, 250)
-          } else if (res.data.status == '0' && canCheckIn) {
-            this.checkIn();
-          }
+            if (this.selectedProperty && this.selectedProperty.status != '0') {
+              this.alertHeader = this.selectedProperty.header_message;
+              this.alertMessage = this.selectedProperty.message;
+              this.alertButtons = ['Dismiss']
+              this.isAlertOpen = true;
+            }
+          }, 250);
         }
       },
       error: async (err) => {

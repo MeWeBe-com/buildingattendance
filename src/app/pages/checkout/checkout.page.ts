@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonHeader, IonTitle, IonToolbar, IonButtons, IonContent, IonIcon, IonButton } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonButtons, IonContent, IonIcon, IonButton } from '@ionic/angular/standalone';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { HttpService } from 'src/app/providers/http.service';
@@ -44,7 +44,7 @@ import {
     ])
   ],
   imports: [CommonModule, FormsModule,
-    IonHeader, IonTitle, IonToolbar, IonButtons, IonContent, IonIcon, IonButton
+    IonHeader, IonToolbar, IonButtons, IonContent, IonIcon, IonButton
   ]
 })
 export class CheckoutPage implements OnInit {
@@ -59,7 +59,7 @@ export class CheckoutPage implements OnInit {
   isCheckingOut: boolean = false;
   showCheckInArrow: boolean = true;
   showIconAnimation: boolean = false;
-  building: any = null;
+
   showStatus: boolean = false;
 
   isOpen: boolean = false;
@@ -75,9 +75,6 @@ export class CheckoutPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    if (GlobaldataService.selectedProperty) {
-      this.building = GlobaldataService.selectedProperty.building;
-    }
     this.user = GlobaldataService.userObject;
     this.isCheckedIn = this.user.is_checked_in;
     this.showStatus = this.user.is_checked_in;

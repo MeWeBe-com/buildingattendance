@@ -22,7 +22,6 @@ export class HeaderComponent implements OnInit {
 
   @Input() title: string = '';
   @Input() selected: any = undefined;
-  @Input() showMenu: boolean = false;
   user: any;
 
   isOpen: boolean = false;

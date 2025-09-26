@@ -12,6 +12,26 @@ ion-content {
     background-color: #22C55E;
 }
 
+.red {
+    background-color: #FF3B30;
+}
+
+.orange {
+    background-color: #FDB022;
+}
+
+.green-bg {
+    --background: #22C55E;
+}
+
+.red-bg {
+    --background: #FF3B30;
+}
+
+.orange-bg {
+    --background: #FDB022;
+}
+
 .img-box {
     // margin-top: 10px;
     // margin-bottom: 25px;
@@ -139,6 +159,16 @@ ion-content {
     .arrow-green {
         color: #22C55E;
         border-color: #22C55E;
+    }
+
+    .arrow-red {
+        color: #FF3B30;
+        border-color: #FF3B30;
+    }
+
+    .arrow-orange {
+        color: #FDB022;
+        border-color: #FDB022;
     }
 
 }

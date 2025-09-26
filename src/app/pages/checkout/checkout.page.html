@@ -1,6 +1,9 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar mode="ios" class="green-bg">
-    <ion-title>{{building?.property_name}}</ion-title>
+  <ion-toolbar mode="ios" [ngClass]="{
+    'green-bg': user?.property_status == '0',
+    'orange-bg': user?.property_status === '1',
+    'red-bg': user?.property_status === '2'
+  }">
     <ion-buttons slot="end">
       <ion-button (click)="general.openPopover($event)">
         <ion-icon [name]="!isOpen ? 'menu-outline' : 'close-outline'" class="menu-icon" color="light"></ion-icon>
@@ -9,7 +12,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding-horizontal green">
+<ion-content class="ion-padding-horizontal" [ngClass]="{
+'green': user?.property_status == '0',
+'orange': user?.property_status === '1',
+'red': user?.property_status === '2'
+}">
 
   <div class="ion-text-center img-box">
     @if(user){
@@ -20,25 +27,33 @@
 
     <h4 class="inter-font">{{user?.full_name}}</h4>
     <div class="inter-font myp">{{user?.email_address}}</div>
-    <div class="inter-font myp">{{user?.property_name}}</div>
+    <div class="inter-font myp">{{user?.user}}</div>
   </div>
 
   @if(!showStatus){
   <div class="ion-text-center arrow-icon" (click)="checkIn()">
-    <div class="arrow-bg d-flex align-items-center justify-content-center arrow-green">
+    <div class="arrow-bg d-flex align-items-center justify-content-center"
+    [ngClass]="{
+      'arrow-green': user?.property_status == '0',
+      'arrow-orange': user?.property_status === '1',
+      'arrow-red': user?.property_status === '2'
+    }">
       <ion-icon name="arrow-forward-circle-outline"></ion-icon>
     </div>
   </div>
   }@else{
   <div class="ion-text-center arrow-icon" (click)="checkOut()">
-    <div class="arrow-bg d-flex align-items-center justify-content-center arrow-green">
+    <div class="arrow-bg d-flex align-items-center justify-content-center"
+    [ngClass]="{
+      'arrow-green': user?.property_status == '0',
+      'arrow-orange': user?.property_status === '1',
+      'arrow-red': user?.property_status === '2'
+    }">
       <ion-icon [name]="showCheckInArrow ? 'arrow-back-circle-outline' : 'arrow-forward-circle-outline'"
         [ngClass]="{ 'icon-zoom': isCheckingOut }"></ion-icon>
     </div>
   </div>
   }
-
-
 
   @if(showStatus){
   <div class="ion-text-center check-icon">
@@ -127,9 +142,5 @@
 
   </div>
   }
-
-
-
-
 
 </ion-content>

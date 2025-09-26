@@ -1,5 +1,4 @@
-<app-header [title]="'Select Location'" [selected]="selectedProperty ? selectedProperty?.status : null"
-  [showMenu]="true"></app-header>
+<app-header [title]="'Select Location'" [selected]="selectedProperty ? selectedProperty?.status : null"></app-header>
 
 <ion-content [ngClass]="{
 'green': selectedProperty?.status == '0',
@@ -31,12 +30,12 @@
   </div>
   }
 
-  @if(selectedProperty && selectedProperty.status == '0'){
-  <div class="ion-text-center arrow-icon" (click)="checkStatus()">
+  @if(selectedProperty){
+  <div class="ion-text-center arrow-icon" (click)="checkIn()">
     <div class="arrow-bg d-flex align-items-center justify-content-center" [ngClass]="{
       'arrow-green': selectedProperty?.status == '0',
-      'arrow-red': selectedProperty?.status === '1',
-      'arrow-orange': selectedProperty?.status === '2'
+      'arrow-orange': selectedProperty?.status === '1',
+      'arrow-red': selectedProperty?.status === '2'
     }">
       <ion-icon name="arrow-forward-circle-outline"></ion-icon>
     </div>
@@ -45,9 +44,11 @@
       Tap to check in
     </div>
 
+    @if(selectedProperty?.status == '0'){
     <div class="text inter-font">
       All systems operational.
     </div>
+    }
   </div>
   } @else if(selectedProperty == undefined && user?.show_company_branding){
   <div class="logo-box" [ngStyle]="{'margin-top': 'calc(' + logoTop +'px - 76px)'}">
