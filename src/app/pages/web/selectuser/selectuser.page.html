@@ -18,7 +18,7 @@
 }">
 
   <div class="ion-padding web-container">
-    
+
     <ng-select (change)="onUserSelect($event)" placeholder="Start typing to search..." [closeOnSelect]="true">
       @for(u of users; track u?.user_id){
       <ng-option [value]="u">
@@ -54,8 +54,11 @@
 
     <div>
       <div class="ion-text-center arrow-icon">
-        <div class="arrow-bg d-flex align-items-center justify-content-center arrow-green icon-pulse"
-          (click)="updateStatus(selected_user)">
+        <div class="arrow-bg d-flex align-items-center justify-content-center  icon-pulse" [ngClass]="{
+    'arrow-green': user?.status == '0',
+    'arrow-orange': user?.status === '1',
+    'arrow-red': user?.status === '2'
+  }" (click)="updateStatus(selected_user)">
           <ion-icon
             [name]="selected_user?.is_check_in ? 'arrow-back-circle-outline' : 'arrow-forward-circle-outline'"></ion-icon>
         </div>
