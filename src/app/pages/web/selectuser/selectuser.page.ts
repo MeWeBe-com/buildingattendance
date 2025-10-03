@@ -76,7 +76,7 @@ export class SelectuserPage implements OnInit {
   }
 
   getUsers() {
-    this.http.get('GetCompanyUsers', false).subscribe({
+    this.http.get(`GetCompanyUsers/${GlobaldataService.userObject.property_id}`, false).subscribe({
       next: (res: any) => {
         this.users = res.data.users;
       },
