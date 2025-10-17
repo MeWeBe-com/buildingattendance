@@ -10,6 +10,7 @@ import { AnalyticsService } from 'src/app/providers/analytics.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { PreviousRouteService } from 'src/app/providers/previous-route.service';
+import { GlobaldataService } from 'src/app/providers/globaldata.service';
 
 @Component({
   selector: 'app-add-user',
@@ -86,7 +87,7 @@ export class AddUserPage implements OnInit {
         if (this.userType == 'guest') {
           this.getCompanies('GetGuestCompanies')
         } else {
-          this.getCompanies('GetCompanies');
+          this.getCompanies(`GetCompaniesByPropertyID/${GlobaldataService.userObject.property_id}`);
         }
 
         setTimeout(() => {

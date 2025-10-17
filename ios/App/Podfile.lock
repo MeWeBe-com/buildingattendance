@@ -27,9 +27,9 @@ PODS:
     - Capacitor
   - CapacitorPushNotifications (7.0.1):
     - Capacitor
-  - CapacitorRadar (3.15.0):
+  - CapacitorRadar (3.15.1):
     - Capacitor
-    - RadarSDK (~> 3.19.3)
+    - RadarSDK (~> 3.21.3)
   - CapacitorStatusBar (7.0.1):
     - Capacitor
   - CapgoCapacitorNativeBiometric (0.0.1):
@@ -125,14 +125,14 @@ PODS:
   - GoogleUtilities/UserDefaults (8.1.0):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
-  - IONGeolocationLib (1.0.1)
+  - IONGeolocationLib (1.0.2)
   - nanopb (3.30910.0):
     - nanopb/decode (= 3.30910.0)
     - nanopb/encode (= 3.30910.0)
   - nanopb/decode (3.30910.0)
   - nanopb/encode (3.30910.0)
   - PromisesObjC (2.4.0)
-  - RadarSDK (3.19.6)
+  - RadarSDK (3.21.12)
 
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
@@ -208,7 +208,7 @@ SPEC CHECKSUMS:
   CapacitorKeyboard: 969647d0ca2e5c737d7300088e2517aa832434e2
   CapacitorPreferences: cbf154e5e5519b7f5ab33817a334dda1e98387f9
   CapacitorPushNotifications: 0b653a3264d56daccf0e8769fff15d2f48306de6
-  CapacitorRadar: ffce472a15aeb3e6a3d9262e874558d3b7bf1fdd
+  CapacitorRadar: 2f7fc946628fa0c341e9a642cbf1b539e9c3a17f
   CapacitorStatusBar: 275cbf2f4dfc00388f519ef80c7ec22edda342c9
   CapgoCapacitorNativeBiometric: ef4244ffac92fb918ec8aaf19dc0aaef54e24a99
   CordovaPlugins: 710a72d6b88acbbefebdfd90eeb3751e110404af
@@ -221,10 +221,10 @@ SPEC CHECKSUMS:
   GoogleAppMeasurementOnDeviceConversion: 35ca1deeb019c506d04da8d4887f0d107d1ffca4
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
-  IONGeolocationLib: 20f9d0248a0b5264511fb57a37e25dd2badf797a
+  IONGeolocationLib: adbb2a739b0ccda686d4a66f9bc05f8c4fd3d3c0
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
-  RadarSDK: 8020b428dd73ea5bbd8778a1b90372ddeec9784a
+  RadarSDK: c9b5f76764d3bdb45b127429298cd37e360722ee
 
 PODFILE CHECKSUM: f935e203767593158dbeb6a033ce08c9b9008188
 
