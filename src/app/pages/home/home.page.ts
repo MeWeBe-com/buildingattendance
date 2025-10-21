@@ -103,6 +103,8 @@ export class HomePage implements AfterViewInit {
     this.http.get('GetUserDetails', false).subscribe({
       next: (res: any) => {
         if (res.status == true) {
+          GlobaldataService.userObject = res.data;
+          this.user = GlobaldataService.userObject;
           if (res.data.is_checked_in) {
             this.general.goToRoot('checkout');
           }

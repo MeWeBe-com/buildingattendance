@@ -49,19 +49,19 @@ export class AddUserPage implements OnInit {
   ];
   shifts: any = [
     {
-      name: 'Yellow', value: 'yellow'
-    },
-    {
       name: 'Blue', value: 'blue'
     },
     {
       name: 'Green', value: 'green'
     },
     {
+      name: 'None', value: 'none'
+    },
+    {
       name: 'Red', value: 'red'
     },
     {
-      name: 'None', value: 'none'
+      name: 'Yellow', value: 'yellow'
     }
   ];
 

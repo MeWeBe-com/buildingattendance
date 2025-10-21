@@ -212,7 +212,7 @@ export class SelectlocationPage implements OnInit {
           await this.analytics.logEvent('Check-In', { ...data, user_id: this.user.user_id })
           this.general.goToPage('checkout');
         } else {
-          this.general.presentAlert('Warning!', 'You can only check in when are at the location!');
+          this.general.presentAlert('Warning!', res.message);
           await this.analytics.logEvent('Check-In Failed', { ...data, user_id: this.user.user_id })
         }
       },
