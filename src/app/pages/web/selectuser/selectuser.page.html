@@ -26,6 +26,9 @@
           <div>
             <div class="user-status"
               [ngStyle]="{'background-color': u?.is_check_in ? 'var(--ion-color-success)': 'var(--ion-color-danger)'}">
+              <span style="visibility: hidden;">
+                {{u?.is_check_in}}
+              </span>
             </div>
           </div>
           <div>

@@ -54,7 +54,7 @@ export class SelectuserPage implements OnInit {
   general = inject(GeneralService);
   analytics = inject(AnalyticsService);
   titleService = inject(Title);
-  
+
   user: any = null;
 
   users: any = [];
@@ -63,7 +63,7 @@ export class SelectuserPage implements OnInit {
   isCheckingOut: boolean = false;
 
   intervalId: any;
-  constructor() { 
+  constructor() {
     this.titleService.setTitle('Cocoon | Tablet');
   }
 
