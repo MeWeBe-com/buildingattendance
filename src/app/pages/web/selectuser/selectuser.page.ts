@@ -62,6 +62,7 @@ export class SelectuserPage implements OnInit {
 
   isCheckingOut: boolean = false;
 
+  intervalId: any;
   constructor() { 
     this.titleService.setTitle('Cocoon | Tablet');
   }
@@ -72,7 +73,28 @@ export class SelectuserPage implements OnInit {
   async ionViewWillEnter() {
     this.user = GlobaldataService.userObject;
     this.getUsers();
+    this.intervalId = setInterval(() => {
+      this.getUserDetails();
+    }, 15000)
     await this.analytics.setCurrentScreen('Web-User-Checkin');
+  }
+
+  ionViewWillLeave() {
+    clearInterval(this.intervalId);
+  }
+
+  getUserDetails() {
+    this.http.get('GetUserDetails', false).subscribe({
+      next: (res: any) => {
+        if (res.status == true) {
+          GlobaldataService.userObject = res.data;
+          this.user = res.data;
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    })
   }
 
   getUsers() {

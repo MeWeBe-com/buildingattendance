@@ -108,31 +108,46 @@ export class SelectlocationPage implements OnInit {
   }
 
   async getLocation() {
+    await this.general.presentLoading('Getting your current location...');
+
     try {
-      let per = await Geolocation.requestPermissions();
-      if (per.location == 'granted') {
-        let position = await Geolocation.getCurrentPosition({ enableHighAccuracy: true });
+      const permission = await Geolocation.requestPermissions();
+
+      if (permission.location === 'granted') {
+        const position = await Geolocation.getCurrentPosition({ enableHighAccuracy: true });
+
         if (position) {
           this.userPosition = position;
+          return position;
         }
+      } else {
+        await this.general.presentAlert(
+          'Permission Denied',
+          'Location permission not granted. Please allow access to continue.'
+        );
       }
-    } catch (e) {
-      console.log(e);
-      this.general.presentAlert('Alert!', 'Please enable device location service (GPS).')
+    } catch (error) {
+      console.error('Error getting location:', error);
+      await this.general.presentAlert(
+        'Alert!',
+        'Please enable your device location service (GPS).'
+      );
+    } finally {
+      await this.general.stopLoading();
     }
 
+    return null;
   }
 
+
   getProperties() {
-    this.http.get('GetPropertiesByCompanyID', true).subscribe({
+    this.http.get('GetPropertiesByCompanyID', false).subscribe({
       next: async (res: any) => {
-        await this.general.stopLoading()
         if (res.status == true) {
           this.properties = res.data;
         }
       },
       error: async (err) => {
-        await this.general.stopLoading()
         console.log(err)
       }
     })

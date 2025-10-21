@@ -6,6 +6,7 @@ import { RouterLink } from '@angular/router';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
 import { EventsService } from 'src/app/providers/events.service';
 import { GeneralService } from 'src/app/providers/general.service';
+import { HttpService } from 'src/app/providers/http.service';
 import { AnalyticsService } from 'src/app/providers/analytics.service';
 import { StorageService } from 'src/app/providers/storage.service';
 import { Title } from '@angular/platform-browser';
@@ -22,6 +23,7 @@ import { Title } from '@angular/platform-browser';
 export class SelectUserTypePage implements OnInit {
 
   general = inject(GeneralService);
+  http = inject(HttpService);
   events = inject(EventsService);
   analytics = inject(AnalyticsService);
   storage = inject(StorageService);
@@ -29,7 +31,8 @@ export class SelectUserTypePage implements OnInit {
 
   user: any = null;
 
-  constructor() { 
+  intervalId: any;
+  constructor() {
     this.titleService.setTitle('Cocoon | Tablet');
   }
 
@@ -38,6 +41,27 @@ export class SelectUserTypePage implements OnInit {
 
   ionViewWillEnter() {
     this.user = GlobaldataService.userObject;
+    this.intervalId = setInterval(() => {
+      this.getUserDetails();
+    }, 15000)
+  }
+
+  ionViewWillLeave() {
+    clearInterval(this.intervalId);
+  }
+
+  getUserDetails() {
+    this.http.get('GetUserDetails', false).subscribe({
+      next: (res: any) => {
+        if (res.status == true) {
+          GlobaldataService.userObject = res.data;
+          this.user = res.data;
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    })
   }
 
   async logOut() {
