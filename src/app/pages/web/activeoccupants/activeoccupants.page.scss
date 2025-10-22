@@ -1,0 +1,25 @@
+ion-toolbar {
+    ion-back-button {
+        font-size: 20px;
+        color: #000;
+    }
+
+    ion-title {
+        font-size: 25px;
+    }
+}
+
+ion-checkbox {
+    --size: 25px;
+    --border-color: var(--theme-purple);
+    --border-color-checked: var(--theme-purple);
+    --checkbox-background-checked: #fff;
+    --border-radius: 4px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    color: var(--theme-grey);
+    --checkmark-color: var(--theme-darkblue);
+    --checkmark-width: 3px;
+}

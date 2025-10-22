@@ -7,6 +7,11 @@
     <ion-title>{{user?.property_name}}</ion-title>
     
     <ion-buttons slot="end">
+      <ion-button fill="clear" [routerLink]="['/activeoccupants']">
+        <ion-icon slot="start" name="notifications-outline"></ion-icon>
+        Active Occupants
+      </ion-button>
+
       <ion-button fill="clear" (click)="logOut()">
         <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
       </ion-button>

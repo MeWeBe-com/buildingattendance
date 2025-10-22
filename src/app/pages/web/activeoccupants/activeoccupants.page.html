@@ -1,0 +1,29 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios" class="my-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="select-user-type"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="text-transform: capitalize;">Active Occupants</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="web-container ion-padding">
+    <h3 class="ion-text-center">
+      This list is an occupancy guide only
+    </h3>
+
+    <ion-list>
+      @for(u of users; track $index){
+        <ion-item>
+          <ion-checkbox labelPlacement="start" (ionChange)="checkUseer($event)" [value]="u?.user_id" [checked]="u?.fire_check_status">
+            {{u?.full_name}}
+          </ion-checkbox>
+        </ion-item>
+      }
+
+    </ion-list>
+  </div>
+
+</ion-content>
