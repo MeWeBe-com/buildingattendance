@@ -1,3 +1,26 @@
+.faceid {
+    p {
+        color: var(--theme-grey);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 28px;
+        line-height: 36px;
+    }
+
+    img {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+    }
+
+    .cap {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+    }
+}
+
 .login-btn {
     ion-button {
         font-style: normal;

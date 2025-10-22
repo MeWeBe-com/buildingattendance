@@ -39,31 +39,8 @@ export class AddUserPage implements OnInit {
   companies: any = [];
   emergencyRoles: any = [];
   employmentRoles: any = [];
-  positions: any = [
-    {
-      name: 'ICT Technician', value: 'ict_technician'
-    },
-    {
-      name: 'Managed Services', value: 'managed_services'
-    }
-  ];
-  shifts: any = [
-    {
-      name: 'Blue', value: 'blue'
-    },
-    {
-      name: 'Green', value: 'green'
-    },
-    {
-      name: 'None', value: 'none'
-    },
-    {
-      name: 'Red', value: 'red'
-    },
-    {
-      name: 'Yellow', value: 'yellow'
-    }
-  ];
+  positions: any = GlobaldataService.positions;
+  shifts: any = GlobaldataService.shifts;
 
   signupForm!: FormGroup;
   isSubmitted: boolean = false;

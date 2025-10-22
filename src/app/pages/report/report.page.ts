@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonContent, IonIcon, IonButton, IonTextarea, IonNote, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
@@ -18,6 +18,7 @@ import { EventsService } from 'src/app/providers/events.service';
   ]
 })
 export class ReportPage implements OnInit {
+  @ViewChild('reportInput', { static: false }) reportInput!: ElementRef;
 
   general = inject(GeneralService);
   http = inject(HttpService);
@@ -67,7 +68,9 @@ export class ReportPage implements OnInit {
 
   initForm() {
     this.reportForm = this.formBuilder.group({
-      building_id: new FormControl('', Validators.required),
+      report_image: new FormControl(''),
+      report_image_url: new FormControl(''),
+      building_id: new FormControl('1', Validators.required),
       type: new FormControl('', Validators.required),
       message: new FormControl('', Validators.required)
     })
@@ -103,6 +106,38 @@ export class ReportPage implements OnInit {
       },
     })
 
+  }
+
+  selectPhoto() {
+    this.reportInput.nativeElement.click();
+  }
+
+  uploadImage(e: any) {
+    if (e.target.files.length == 0) {
+      return
+    }
+
+    const formData = new FormData();
+    formData.append('media', e.target.files[0]);
+
+    this.http.uploadImages(formData, 'UploadMedia', true).subscribe({
+      next: async (res: any) => {
+        await this.general.stopLoading();
+        if (res.status == true) {
+          this.reportForm.patchValue({
+            report_image: res.filename,
+            report_image_url: res.media_url
+          });
+        } else {
+          this.general.presentToast('Something went wrong!')
+        }
+        this.reportInput.nativeElement.value = '';
+      },
+      error: async (err) => {
+        await this.general.stopLoading();
+        console.log(err)
+      },
+    })
   }
 
 }

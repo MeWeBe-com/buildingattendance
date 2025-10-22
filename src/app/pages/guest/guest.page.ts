@@ -33,14 +33,7 @@ export class GuestPage implements OnInit {
 
   companies: any = [];
   employmentRoles: any = [];
-  positions: any = [
-    {
-      name: 'ICT Technician', value: 'ict_technician'
-    },
-    {
-      name: 'Managed Services', value: 'managed_services'
-    }
-  ];
+  positions: any = GlobaldataService.positions;
 
   constructor() { }
 

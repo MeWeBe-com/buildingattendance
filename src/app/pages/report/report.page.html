@@ -15,6 +15,15 @@
 
 <ion-content class="ion-padding">
 
+  <div class="faceid ion-text-center ion-margin">
+    <img [src]="getControl['report_image_url'].value || 'assets/imgs/signin/signin.png'" (click)="selectPhoto()" />
+
+    <div class="cap inter-font">
+      Tap to upload image
+    </div>
+
+  </div>
+
   <form [formGroup]="reportForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="form ion-margin-top">
       <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="building_id"
@@ -42,7 +51,7 @@
         </div>
 
         <ion-select-option value="observation">Observation</ion-select-option>
-        <ion-select-option value="Iincident">Incident</ion-select-option>
+        <ion-select-option value="incident">Incident</ion-select-option>
         <ion-select-option value="feedback">Feedback</ion-select-option>
       </ion-select>
 
@@ -65,5 +74,6 @@
     </div>
   </form>
 
-
+  <input type="file" #reportInput (change)="uploadImage($event)" hidden="true" accept="image/*"
+    style="visibility: hidden;" />
 </ion-content>
