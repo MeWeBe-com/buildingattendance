@@ -17,7 +17,15 @@
   <div class="ion-padding">
 
     <div class="faceid ion-text-center" (click)="selectPhoto()">
+
+      @if(getControl['profile_pic'].value){
       <img [src]="getControl['profile_pic_url'].value || 'assets/imgs/signin/signin.png'" />
+      }@else{
+      <div [ngStyle]="{'background': getControl['company_color'].value}"
+        class="initials d-flex align-items-center justify-content-center">
+        {{ getControl['full_name'].value | initials }}
+      </div>
+      }
 
       <div class="cap inter-font">
         Tap to upload or edit profile photo
@@ -115,7 +123,8 @@
 
         <div class="ion-margin-vertical custom-select">
           <label [ngClass]="{'selected' : profileForm.value.emergency_role}">Key Role (if any)</label>
-          <ng-select placeholder="Key Role (if any)" formControlName="emergency_role" [multiple]="true" [closeOnSelect]="false" [searchable]="false">
+          <ng-select placeholder="Key Role (if any)" formControlName="emergency_role" [multiple]="true"
+            [closeOnSelect]="false" [searchable]="false">
             @for(r of emergencyRoles; track r?.id){
             <ng-option [value]="r?.id">
               <div class="d-flex align-items-center" style="gap: 20px">

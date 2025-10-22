@@ -7,6 +7,7 @@ import { GeneralService } from 'src/app/providers/general.service';
 import { HttpService } from 'src/app/providers/http.service';
 import { AnalyticsService } from 'src/app/providers/analytics.service';
 import { EventsService } from 'src/app/providers/events.service';
+import { InitialsPipe } from 'src/app/pipes/initials.pipe';
 
 import {
   trigger,
@@ -43,7 +44,7 @@ import {
       ])
     ])
   ],
-  imports: [CommonModule, FormsModule,
+  imports: [CommonModule, FormsModule, InitialsPipe,
     IonHeader, IonToolbar, IonButtons, IonContent, IonIcon, IonButton
   ]
 })

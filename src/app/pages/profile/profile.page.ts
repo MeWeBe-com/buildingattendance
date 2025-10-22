@@ -11,13 +11,14 @@ import { StorageService } from 'src/app/providers/storage.service';
 import { AnalyticsService } from 'src/app/providers/analytics.service';
 import { EventsService } from 'src/app/providers/events.service';
 import { RouterLink } from '@angular/router';
+import { InitialsPipe } from 'src/app/pipes/initials.pipe';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgSelectComponent, NgOptionComponent, RouterLink,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgSelectComponent, NgOptionComponent, RouterLink, InitialsPipe,
     IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonContent, IonInput, IonButton, IonCheckbox, IonSelect, IonSelectOption, IonNote, IonAlert, IonIcon
   ]
 })
@@ -141,6 +142,7 @@ export class ProfilePage implements OnInit {
       user_shift: new FormControl('', Validators.required),
 
       company_name: new FormControl(''),
+      company_color: new FormControl(''),
       profile_pic_url: new FormControl('')
     })
   }
