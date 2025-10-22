@@ -21,11 +21,11 @@
         Tap to upload profile photo
       </div>
 
-      @if(isSubmitted && getControl['profile_pic'].errors){
+      <!-- @if(isSubmitted && getControl['profile_pic'].errors){
       @if(getControl['profile_pic'].errors['required']){
       <ion-note color="danger">Profile Picture is required*</ion-note>
       }
-      }
+      } -->
     </div>
 
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>

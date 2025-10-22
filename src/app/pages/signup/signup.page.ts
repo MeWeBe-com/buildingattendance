@@ -118,10 +118,11 @@ export class SignupPage implements OnInit {
       mobile_number: new FormControl('', Validators.required),
       biometric_login: new FormControl(false, Validators.requiredTrue),
       terms: new FormControl(false, Validators.requiredTrue),
-      profile_pic: new FormControl('', Validators.required),
+      profile_pic: new FormControl(''),
       user_shift: new FormControl('', Validators.required),
 
       company_name: new FormControl(''),
+      company_color: new FormControl(''),
       emergency_name: new FormControl(''),
       profile_pic_url: new FormControl(''),
       shift_name: new FormControl(''),
@@ -148,6 +149,7 @@ export class SignupPage implements OnInit {
 
     this.signupForm.patchValue({
       company_name: company.company_name,
+      company_color: company.company_color,
       emergency_name: emergencyRole ? emergencyRole.join(', ') : '',
       shift_name: shift_name.name,
       position_name: position_name.name,

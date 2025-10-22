@@ -92,7 +92,7 @@ export class GuestPage implements OnInit {
       visiting: new FormControl('', Validators.required),
       email_address: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       mobile_number: new FormControl('', Validators.required),
-      profile_pic: new FormControl('', Validators.required),
+      profile_pic: new FormControl(''),
       profile_pic_url: new FormControl(''),
     })
   }

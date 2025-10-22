@@ -7,13 +7,14 @@ import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { StorageService } from 'src/app/providers/storage.service';
 import { AnalyticsService } from 'src/app/providers/analytics.service';
+import { InitialsPipe } from 'src/app/pipes/initials.pipe';
 
 @Component({
   selector: 'app-signuppreview',
   templateUrl: './signuppreview.page.html',
   styleUrls: ['./signuppreview.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, InitialsPipe,
     IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonButton, IonButtons, IonBackButton, IonNote
   ]
 })
