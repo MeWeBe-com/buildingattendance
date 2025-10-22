@@ -70,7 +70,7 @@ export class ReportPage implements OnInit {
     this.reportForm = this.formBuilder.group({
       report_image: new FormControl(''),
       report_image_url: new FormControl(''),
-      building_id: new FormControl('1', Validators.required),
+      building_id: new FormControl('', Validators.required),
       type: new FormControl('', Validators.required),
       message: new FormControl('', Validators.required)
     })
