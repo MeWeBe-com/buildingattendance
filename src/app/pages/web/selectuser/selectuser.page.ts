@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon } from '@ionic/angular/standalone';
 import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
 
 import { HttpService } from 'src/app/providers/http.service';
@@ -45,7 +45,7 @@ import { Title } from '@angular/platform-browser';
     ])
   ],
   imports: [CommonModule, FormsModule, NgSelectComponent, NgOptionComponent,
-    IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon, IonSelect, IonSelectOption
+    IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon
   ]
 })
 export class SelectuserPage implements OnInit {
