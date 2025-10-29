@@ -16,7 +16,7 @@ export class GlobaldataService {
   public static logoTop: number = 0;
   public static positions = [
     {
-      name: 'Guest', value: 'guest'
+      name: 'Visitor', value: 'guest'
     },
     {
       name: 'Contractor', value: 'contractor'

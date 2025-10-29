@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
 
 import { HttpService } from 'src/app/providers/http.service';
@@ -45,7 +45,7 @@ import { Title } from '@angular/platform-browser';
     ])
   ],
   imports: [CommonModule, FormsModule, NgSelectComponent, NgOptionComponent,
-    IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon
+    IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon, IonSelect, IonSelectOption
   ]
 })
 export class SelectuserPage implements OnInit {
@@ -60,6 +60,9 @@ export class SelectuserPage implements OnInit {
   users: any = [];
   selected_user: any = null;
 
+  visits: any = [];
+  visit_number: any = '';
+
   isCheckingOut: boolean = false;
 
   intervalId: any;
@@ -73,6 +76,7 @@ export class SelectuserPage implements OnInit {
   async ionViewWillEnter() {
     this.user = GlobaldataService.userObject;
     this.getUsers();
+    this.getVisits();
     this.intervalId = setInterval(() => {
       this.getUserDetails();
     }, 15000)
@@ -108,14 +112,33 @@ export class SelectuserPage implements OnInit {
     })
   }
 
+  getVisits() {
+    this.http.get(`GetHighVis`, false).subscribe({
+      next: (res: any) => {
+        this.visits = res.data;
+      },
+      error: (err) => {
+        console.log(err)
+      },
+    })
+  }
+
   onUserSelect(e: any) {
     this.selected_user = e;
+    if (!e) {
+      this.visit_number = '';
+    }
+  }
+
+  onVisitSelect(e: any) {
+    this.visit_number = e.number;
   }
 
   updateStatus(user: any) {
     let data = {
       user_id: user.user_id,
-      property_id: this.user.property_id
+      property_id: this.user.property_id,
+      high_vis: this.visit_number
     }
     if (user.is_check_in) {
       this.checkOut(data);
@@ -131,7 +154,6 @@ export class SelectuserPage implements OnInit {
         if (res.status == true) {
           this.selected_user.is_check_in = true;
           this.general.presentToast(res.message);
-          //this.general.goToPage('select-user-type')
         } else {
           this.general.presentToast(res.message)
         }

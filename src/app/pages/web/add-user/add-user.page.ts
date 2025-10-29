@@ -62,9 +62,11 @@ export class AddUserPage implements OnInit {
         this.userType = params['type'];
 
         if (this.userType == 'guest') {
-          this.getCompanies('GetGuestCompanies')
+          this.getCompanies('GetGuestCompanies');
+          this.positions = this.positions.filter((p:any) => p.value !== 'contractor' && p.value !== 'employee');
         } else {
           this.getCompanies(`GetCompaniesByPropertyID/${GlobaldataService.userObject.property_id}`);
+          this.positions = this.positions.filter((p:any) => p.value !== 'guest' &&  p.value !== 'client');
         }
 
         setTimeout(() => {

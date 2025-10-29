@@ -22,7 +22,6 @@ ion-content {
 ::ng-deep .ng-select.ng-select-single .ng-select-container {
     height: 50px;
     border-radius: 8px;
-
 }
 
 ::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
@@ -268,9 +267,13 @@ ion-select {
 }
 
 @media only screen and (max-width: 600px) {
+    ::ng-deep .ng-select.ng-select-single .ng-select-container {
+        height: 40px;
+    }
+
     .main-box {
         flex-direction: column;
-        height: calc(75%);
+        height: calc(60%);
 
         .user {
             .img-box {
@@ -481,5 +484,16 @@ svg.tick.animate path:nth-last-of-type(3) {
     50%,
     100% {
         opacity: 1;
+    }
+}
+
+.input-box{
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+
+    ion-input{
+        color: #000;
+        --padding-start: 10px;
     }
 }
