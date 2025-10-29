@@ -44,6 +44,7 @@ export class GuestPage implements OnInit {
   async ionViewWillEnter() {
     this.getCompanies();
     this.getEmploymentRoles();
+    this.positions = this.positions.filter((p:any) => p.value !== 'guest' &&  p.value !== 'client');
     await this.analytics.setCurrentScreen('Guest-login');
   }
 

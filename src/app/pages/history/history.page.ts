@@ -30,8 +30,9 @@ export class HistoryPage implements OnInit {
   isDatePopoverOpen: boolean = false;
   dateRange: any = { from: new Date(), to: new Date() };
   type: any = 'string'; // 'string' | 'js-date' | 'time' | 'object'
-  optionsRange: CalendarComponentOptions = {
-    pickMode: 'range'
+  optionsRange: any = {
+    pickMode: 'range',
+    canBackwardsSelected: true
   };
 
   user: any;

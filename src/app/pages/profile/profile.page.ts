@@ -77,6 +77,12 @@ export class ProfilePage implements OnInit {
   }
 
   async ionViewWillEnter() {
+    console.log(GlobaldataService.userObject)
+    if(GlobaldataService.userObject.position == 'contractor' || GlobaldataService.userObject.position == 'employee'){
+      this.positions = this.positions.filter((p:any) => p.value !== 'guest' &&  p.value !== 'client');
+    }else if(GlobaldataService.userObject.position == 'guest' || GlobaldataService.userObject.position == 'client'){
+      this.positions = this.positions.filter((p:any) => p.value !== 'contractor' && p.value !== 'employee');
+    }
     this.getCompanies();
     this.getEmergencyRoles();
     this.getEmploymentRoles();
