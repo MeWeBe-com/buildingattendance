@@ -57,6 +57,12 @@
     </ng-select>
   </div>
 
+  <div class="ion-padding web-container">
+    <ng-select [(ngModel)]="selected_shift" [items]="shifts" bindLabel="name" bindValue="value" [closeOnSelect]="true"
+      [searchable]="false" placeholder="Select User Shift">
+    </ng-select>
+  </div>
+
   <div class="d-flex align-items-center justify-content-between main-box">
     <div class="user">
       <div class="ion-text-center img-box">

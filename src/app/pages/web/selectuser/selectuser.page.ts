@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon, IonButton } from '@ionic/angular/standalone';
@@ -50,7 +50,6 @@ import { Title } from '@angular/platform-browser';
   ]
 })
 export class SelectuserPage implements OnInit {
-  @ViewChild('vestSelection') vestSelection!: NgSelectComponent;
 
   http = inject(HttpService);
   general = inject(GeneralService);
@@ -64,6 +63,8 @@ export class SelectuserPage implements OnInit {
 
   visits: any = [];
   visit_number: any = null;
+  shifts: any = GlobaldataService.shifts;
+  selected_shift:any = null;
 
   isCheckingOut: boolean = false;
 
@@ -142,7 +143,8 @@ export class SelectuserPage implements OnInit {
     let data = {
       user_id: user.user_id,
       property_id: this.user.property_id,
-      high_vis: this.visit_number
+      high_vis: this.visit_number,
+      shift: this.selected_shift
     }
     if (user.is_check_in) {
       this.checkOut(data);
@@ -157,6 +159,7 @@ export class SelectuserPage implements OnInit {
         await this.general.stopLoading();
         if (res.status == true) {
           this.visit_number = null;
+          this.selected_shift = null;
           this.getVisits();
           this.selected_user.is_check_in = true;
           this.general.presentToast(res.message);
@@ -177,11 +180,10 @@ export class SelectuserPage implements OnInit {
         await this.general.stopLoading();
         if (res.status == true) {
           this.visit_number = null;
-          //this.vestSelection.clearModel();
+          this.selected_shift = null;
           this.getVisits();
           this.selected_user.is_check_in = false;
           this.general.presentToast(res.message);
-          //this.general.goToPage('select-user-type')
         } else {
           this.general.presentToast(res.message)
         }
