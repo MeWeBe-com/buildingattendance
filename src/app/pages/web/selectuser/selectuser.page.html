@@ -8,6 +8,15 @@
       <ion-back-button defaultHref="select-user-type"></ion-back-button>
     </ion-buttons>
     <ion-title>{{user?.property_name}}</ion-title>
+
+    @if(selected_user){
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon slot="start" name="create-outline"></ion-icon>
+        Edit
+      </ion-button>
+    </ion-buttons>
+    }
   </ion-toolbar>
 </ion-header>
 
@@ -43,13 +52,8 @@
 
   @if(selected_user){
   <div class="ion-padding-horizontal web-container">
-    <ng-select (change)="onVisitSelect($event)" placeholder="Select Visit #" [closeOnSelect]="true"
-      [searchable]="false">
-      @for(n of visits; track $index){
-      <ng-option [value]="n" [disabled]="n.disabled">
-        {{n?.number}}
-      </ng-option>
-      }
+    <ng-select [(ngModel)]="visit_number" [items]="visits" bindLabel="number" [closeOnSelect]="true"
+      [searchable]="false" (change)="onVisitSelect($event)" placeholder="Select Vest #">
     </ng-select>
   </div>
 

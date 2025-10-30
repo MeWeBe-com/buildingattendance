@@ -1,7 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon, IonButton } from '@ionic/angular/standalone';
 import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
 
 import { HttpService } from 'src/app/providers/http.service';
@@ -45,10 +45,11 @@ import { Title } from '@angular/platform-browser';
     ])
   ],
   imports: [CommonModule, FormsModule, NgSelectComponent, NgOptionComponent,
-    IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon
+    IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon, IonButton
   ]
 })
 export class SelectuserPage implements OnInit {
+  @ViewChild('vestSelection') vestSelection!: NgSelectComponent;
 
   http = inject(HttpService);
   general = inject(GeneralService);
@@ -61,7 +62,7 @@ export class SelectuserPage implements OnInit {
   selected_user: any = null;
 
   visits: any = [];
-  visit_number: any = '';
+  visit_number: any = null;
 
   isCheckingOut: boolean = false;
 
@@ -115,7 +116,7 @@ export class SelectuserPage implements OnInit {
   getVisits() {
     this.http.get(`GetHighVis`, false).subscribe({
       next: (res: any) => {
-        this.visits = res.data;
+        this.visits = [...res.data];
       },
       error: (err) => {
         console.log(err)
@@ -131,7 +132,9 @@ export class SelectuserPage implements OnInit {
   }
 
   onVisitSelect(e: any) {
-    this.visit_number = e.number;
+    if (e) {
+      this.visit_number = e.number;
+    }
   }
 
   updateStatus(user: any) {
@@ -152,6 +155,8 @@ export class SelectuserPage implements OnInit {
       next: async (res: any) => {
         await this.general.stopLoading();
         if (res.status == true) {
+          this.visit_number = null;
+          this.getVisits();
           this.selected_user.is_check_in = true;
           this.general.presentToast(res.message);
         } else {
@@ -170,6 +175,9 @@ export class SelectuserPage implements OnInit {
       next: async (res: any) => {
         await this.general.stopLoading();
         if (res.status == true) {
+          this.visit_number = null;
+          //this.vestSelection.clearModel();
+          this.getVisits();
           this.selected_user.is_check_in = false;
           this.general.presentToast(res.message);
           //this.general.goToPage('select-user-type')
