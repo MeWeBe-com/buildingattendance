@@ -11,7 +11,7 @@
 
     @if(selected_user){
     <ion-buttons slot="end">
-      <ion-button fill="clear">
+      <ion-button fill="clear" [routerLink]="['/edituser/'+selected_user.user_id]">
         <ion-icon slot="start" name="create-outline"></ion-icon>
         Edit
       </ion-button>

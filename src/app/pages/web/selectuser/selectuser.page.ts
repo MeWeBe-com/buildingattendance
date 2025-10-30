@@ -8,6 +8,7 @@ import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
 import { AnalyticsService } from 'src/app/providers/analytics.service';
 import { GlobaldataService } from 'src/app/providers/globaldata.service';
+import { RouterLink } from '@angular/router';
 import {
   trigger,
   transition,
@@ -44,7 +45,7 @@ import { Title } from '@angular/platform-browser';
       ])
     ])
   ],
-  imports: [CommonModule, FormsModule, NgSelectComponent, NgOptionComponent,
+  imports: [CommonModule, FormsModule, NgSelectComponent, NgOptionComponent, RouterLink,
     IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon, IonButton
   ]
 })
@@ -127,7 +128,7 @@ export class SelectuserPage implements OnInit {
   onUserSelect(e: any) {
     this.selected_user = e;
     if (!e) {
-      this.visit_number = '';
+      this.visit_number = null;
     }
   }
 

@@ -98,6 +98,11 @@ export const routes: Routes = [
     canActivate: [WebAuthGuard]
   },
   {
+    path: 'edituser/:id',
+    loadComponent: () => import('./pages/web/edituser/edituser.page').then(m => m.EdituserPage),
+    canActivate: [WebAuthGuard]
+  },
+  {
     path: 'terms',
     loadComponent: () => import('./pages/terms/terms.page').then(m => m.TermsPage)
   },
@@ -105,5 +110,4 @@ export const routes: Routes = [
     path: 'buildingsafety',
     loadComponent: () => import('./pages/buildingsafety/buildingsafety.page').then(m => m.BuildingsafetyPage)
   }
-
 ];

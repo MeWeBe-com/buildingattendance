@@ -1,0 +1,286 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios" class="my-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="select-user-type"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="text-transform: capitalize;">Edit User</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="web-container ion-padding">
+
+
+    <div class="main-box">
+
+      <div class="main-div1">
+        <div class="faceid ion-text-center ion-margin">
+
+          <img [src]="getControl['profile_pic_url'].value || 'assets/imgs/signin/signin.png'" (click)="selectPhoto()" />
+
+          <div class="cap inter-font">
+            Tap to upload profile photo
+          </div>
+
+          <div class="cam-btn">
+            <ion-button size="small" mode="ios" (click)="openModal()">
+              Take Photo
+            </ion-button>
+          </div>
+        </div>
+      </div>
+
+      <div class="main-div2">
+
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
+          <div class="form ion-margin-top">
+            <ion-input labelPlacement="stacked" placeholder="Full Name" fill="outline" type="text"
+              class="ion-margin-bottom" mode="md" formControlName="full_name">
+              <div slot="label">Full Name
+                @if(isSubmitted && getControl['full_name'].errors){
+                @if(getControl['full_name'].errors['required']){
+                <ion-note color="danger">(is required*)</ion-note>
+                }
+                }
+              </div>
+            </ion-input>
+
+            <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" mode="md" interface="popover"
+              formControlName="company_id" placeholder="Select Company">
+              <div slot="label">Company
+                @if(isSubmitted && getControl['company_id'].errors){
+                @if(getControl['company_id'].errors['required']){
+                <ion-note color="danger">(is required*)</ion-note>
+                }
+                }
+              </div>
+              @for(c of companies; track c?.company_id){
+              <ion-select-option [value]="c?.company_id">{{c?.company_name}}</ion-select-option>
+              }
+              @if(userType == 'guest' || userType == 'client') {
+              <ion-select-option value="other">Other</ion-select-option>
+              }
+            </ion-select>
+
+            @if((userType == 'guest' || userType == 'client') && signupForm.value.company_id == 'other'){
+            <ion-input labelPlacement="stacked" placeholder="Company Name" fill="outline" type="text"
+              class="ion-margin-bottom" mode="md" formControlName="company_name">
+              <div slot="label">Company Name
+                @if(isSubmitted && signupForm.value.company_id == 'other'){
+                @if(signupForm.value.company_name == ''){
+                <ion-note color="danger">(is required*)</ion-note>
+                }
+                }
+              </div>
+            </ion-input>
+            }
+
+            <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="position"
+              mode="md" interface="popover" placeholder="Position">
+              <div slot="label">Position
+                @if(isSubmitted && getControl['position'].errors){
+                @if(getControl['position'].errors['required']){
+                <ion-note color="danger">(is required*)</ion-note>
+                }
+                }
+              </div>
+              @for(p of positions; track p?.name){
+              <ion-select-option [value]="p?.value">{{p?.name}}</ion-select-option>
+              }
+            </ion-select>
+
+            <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom"
+              formControlName="employment_role" mode="md" interface="popover" placeholder="Employment Role">
+              <div slot="label">Employment Role
+                @if(isSubmitted && getControl['employment_role'].errors){
+                @if(getControl['employment_role'].errors['required']){
+                <ion-note color="danger">(is required*)</ion-note>
+                }
+                }
+              </div>
+              @for(p of employmentRoles; track p?.id){
+              <ion-select-option [value]="p?.id">{{p?.name}}</ion-select-option>
+              }
+              @if (userType == 'guest' || userType == 'client') {
+              <ion-select-option value="other">Other</ion-select-option>
+              }
+            </ion-select>
+
+            @if(signupForm.value.employment_role == 'other'){
+            <ion-input labelPlacement="stacked" placeholder="Enter Employment Role" fill="outline" type="text"
+              class="ion-margin-bottom" mode="md" formControlName="employment_role_name">
+              <div slot="label">Enter Employment Role
+                @if(isSubmitted && signupForm.value.employment_role == 'other'){
+                @if(signupForm.value.employment_role_name == ''){
+                <ion-note color="danger">(is required*)</ion-note>
+                }
+                }
+              </div>
+            </ion-input>
+            }
+
+            @if(userType == 'employee' || userType == 'contractor'){
+            <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="user_shift"
+              mode="md" interface="popover" placeholder="Select Shift">
+              <div slot="label">User Shift
+                @if(isSubmitted && getControl['user_shift'].errors){
+                @if(getControl['user_shift'].errors['required']){
+                <ion-note color="danger">(is required*)</ion-note>
+                }
+                }
+              </div>
+              @for(s of shifts; track s?.name){
+              <ion-select-option [value]="s?.value">{{s?.name}}</ion-select-option>
+              }
+            </ion-select>
+
+            <div class="ion-margin-vertical custom-select">
+              <label [ngClass]="{'selected' : signupForm.value.emergency_role}">Key Role (if any)</label>
+              <ng-select placeholder="Key Role (if any)" formControlName="emergency_role" [multiple]="true"
+                [closeOnSelect]="false" [searchable]="false">
+                @for(r of emergencyRoles; track r?.id){
+                <ng-option [value]="r?.id">
+                  <div class="d-flex align-items-center" style="gap: 20px">
+                    <div>
+                      <img [src]="r?.emergency_logo" style="width: 25px; height: 25px; object-fit: contain;" />
+                    </div>
+                    <div>
+                      {{r?.name}}
+                    </div>
+                  </div>
+                </ng-option>
+                }
+              </ng-select>
+            </div>
+            }@else{
+
+            <ion-input labelPlacement="stacked" placeholder="Visiting" fill="outline" type="text"
+              class="ion-margin-bottom" mode="md" formControlName="visiting">
+              <div slot="label">Visiting
+                @if(isSubmitted && getControl['visiting'].errors){
+                @if(getControl['visiting'].errors['required']){
+                <ion-note color="danger">(is required*)</ion-note>
+                }
+                @if(getControl['visiting'].invalid && !getControl['visiting'].errors['required']){
+                <ion-note color="danger">(is invalid*)</ion-note>
+                }
+                }
+              </div>
+            </ion-input>
+
+            }
+
+            <ion-input labelPlacement="stacked" placeholder="Email" fill="outline" type="email"
+              class="ion-margin-bottom" mode="md" formControlName="email_address">
+              <div slot="label">Email
+                @if(isSubmitted && getControl['email_address'].errors){
+                @if(getControl['email_address'].errors['required']){
+                <ion-note color="danger">(is required*)</ion-note>
+                }
+                @if(getControl['email_address'].invalid && !getControl['email_address'].errors['required']){
+                <ion-note color="danger">(is invalid*)</ion-note>
+                }
+                }
+              </div>
+            </ion-input>
+
+            <ion-input labelPlacement="stacked" placeholder="Mobile" fill="outline" type="text"
+              class="ion-margin-bottom" mode="md" formControlName="mobile_number">
+              <div slot="label">Mobile
+                @if(isSubmitted && getControl['mobile_number'].errors){
+                @if(getControl['mobile_number'].errors['required']){
+                <ion-note color="danger">(is required*)</ion-note>
+                }
+                }
+              </div>
+            </ion-input>
+
+            <div class="ion-margin-bottom">
+              <ion-checkbox labelPlacement="end" formControlName="terms">
+                <span class="ion-text-wrap">
+                  I agree to <a [routerLink]="['/terms']" (click)="$event.stopPropagation()">Terms of Service and
+                    Privacy
+                    Policy</a>
+                </span>
+              </ion-checkbox>
+              <div>
+                @if(isSubmitted && getControl['terms'].errors){
+                @if(getControl['terms'].errors['required']){
+                <ion-note color="danger">(is required*)</ion-note>
+                }
+                }
+              </div>
+            </div>
+
+            <div class="login-btn">
+              <ion-button expand="block" mode="ios" type="submit" class="inter-font">
+                Submit
+              </ion-button>
+            </div>
+
+
+          </div>
+        </form>
+
+
+      </div>
+    </div>
+
+  </div>
+
+  <input type="file" #selfieInput (change)="uploadSelfie($event)" hidden="true" accept="image/*"
+    style="visibility: hidden;" />
+
+  <input type="file" #selfieInput2 (change)="uploadSelfie($event)" hidden="true" accept="image/*"
+    style="visibility: hidden;" capture="user" />
+
+  <ion-modal class="cam-modal" [isOpen]="isCameraModal" (willDismiss)="isCameraModal = false"
+    (ionModalDidPresent)="startCamera()">
+    <ng-template>
+      <ion-header class="ion-no-border">
+        <ion-toolbar mode="ios" class="my-toolbar">
+          <ion-title style="text-transform: capitalize;">Capture Photo</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeModal()">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="ion-padding">
+        <div class="camera-container">
+          @if(!capturedImage){
+            <video #video autoplay playsinline></video>
+            <canvas #canvas></canvas>
+          }@else{
+            <img [src]="capturedImage" style="object-fit: contain;">
+          }
+        </div>
+
+        <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+          <div class="d-flex align-items-center" style="gap: 15px">
+            @if(!capturedImage){
+            <ion-fab-button (click)="captureImage()" color="dark">
+              <ion-icon name="camera-outline"></ion-icon>
+            </ion-fab-button>
+          }@else{
+
+            <ion-fab-button (click)="startCamera()" color="dark">
+              <ion-icon name="arrow-undo-outline"></ion-icon>
+            </ion-fab-button>
+
+            <ion-fab-button (click)="doneCapture()" color="dark">
+              <ion-icon name="checkmark-done-outline"></ion-icon>
+            </ion-fab-button>
+          }
+            
+            
+          </div>
+        </ion-fab>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+
+
+</ion-content>
