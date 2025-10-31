@@ -52,7 +52,9 @@
     }
 
     ion-checkbox {
+        --size: 18px;
         --border-color: var(--theme-purple);
+        --border-color-checked: var(--theme-purple);
         --checkbox-background-checked: #fff;
         --border-radius: 4px;
         font-style: normal;

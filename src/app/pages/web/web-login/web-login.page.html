@@ -14,7 +14,7 @@
         Login into continue
       </div>
     </div>
-    
+
     <div class="ion-padding">
 
       <div class="form">
@@ -33,8 +33,8 @@
             </div>
           </ion-input>
 
-          <ion-input labelPlacement="stacked" placeholder="Password" fill="outline" type="password" mode="md"
-            formControlName="password">
+          <ion-input labelPlacement="stacked" placeholder="Password" fill="outline" type="password"
+            class="ion-margin-bottom" mode="md" formControlName="password">
             <div slot="label">Password
               @if(isSubmitted && getControl['password'].errors){
               @if(getControl['password'].errors['required']){
@@ -44,6 +44,13 @@
             </div>
           </ion-input>
 
+          <div class="ion-margin-bottom">
+            <ion-checkbox labelPlacement="end" formControlName="remember_me">
+              <span class="ion-text-wrap">
+                Remember me
+              </span>
+            </ion-checkbox>
+          </div>
 
           <div class="login-btn ion-margin-top">
             <ion-button expand="block" mode="ios" type="submit" class="inter-font">

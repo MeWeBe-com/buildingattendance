@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { IonContent, IonInput, IonButton, IonNote, } from '@ionic/angular/standalone';
+import { IonContent, IonInput, IonButton, IonNote, IonCheckbox } from '@ionic/angular/standalone';
 
 import { HttpService } from 'src/app/providers/http.service';
 import { GeneralService } from 'src/app/providers/general.service';
@@ -16,7 +16,7 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./web-login.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule,
-    IonContent, IonInput, IonButton, IonNote
+    IonContent, IonInput, IonButton, IonNote, IonCheckbox
   ]
 })
 export class WebLoginPage implements OnInit {
@@ -31,7 +31,7 @@ export class WebLoginPage implements OnInit {
   loginForm!: FormGroup;
   isSubmitted: boolean = false;
 
-  constructor() { 
+  constructor() {
     this.titleService.setTitle('Cocoon | Tablet');
   }
 
@@ -39,14 +39,15 @@ export class WebLoginPage implements OnInit {
     this.initForm();
   }
 
-  async ionViewWillEnter(){
+  async ionViewWillEnter() {
     await this.analytics.setCurrentScreen('Web-login');
   }
 
   initForm() {
     this.loginForm = this.formBuilder.group({
       email_address: new FormControl('', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
-      password: new FormControl('', Validators.required)
+      password: new FormControl('', Validators.required),
+      remember_me: new FormControl(false),
     })
   }
 
