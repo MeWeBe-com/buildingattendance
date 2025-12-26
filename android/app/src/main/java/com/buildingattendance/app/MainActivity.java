@@ -1,4 +1,4 @@
-package com.qtcbresentry.app;
+package com.buildingattendance.app;
 
 import android.os.Bundle;
 

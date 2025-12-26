@@ -2,8 +2,8 @@ import type { CapacitorConfig } from '@capacitor/cli';
 import { KeyboardResize } from '@capacitor/keyboard';
 
 const config: CapacitorConfig = {
-  appId: 'com.qtcbresentry.app',
-  appName: 'Cocoon live',
+  appId: 'com.buildingattendance.app',
+  appName: 'Building Attendance',
   webDir: 'www',
   plugins: {
     Keyboard: {

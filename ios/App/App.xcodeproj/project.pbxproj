@@ -380,7 +380,7 @@
 				);
 				MARKETING_VERSION = 1.9.20;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.qtcbresentry.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.buildingattendance.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -409,7 +409,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.9.20;
-				PRODUCT_BUNDLE_IDENTIFIER = com.qtcbresentry.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.buildingattendance.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
