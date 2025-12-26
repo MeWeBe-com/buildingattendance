@@ -1,5 +1,5 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar mode="ios" [ngStyle]="{'--background': user?.company_color}">
+  <ion-toolbar mode="ios">
     <ion-buttons slot="start">
       <ion-back-button color="light" mode="md"></ion-back-button>
     </ion-buttons>
@@ -11,7 +11,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [ngStyle]="{'--background': user?.company_color}">
+<ion-content>
 
   <div class="search-card ion-padding-horizontal">
     <ion-searchbar placeholder="Search History" mode="ios" enterkeyhint="search" [(ngModel)]="keyword" (keyup.enter)="searchNow()">

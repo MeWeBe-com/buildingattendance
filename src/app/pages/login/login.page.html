@@ -1,6 +1,6 @@
 <ion-header class="ion-no-border">
   <ion-toolbar mode="ios" class="my-toolbar">
-    <ion-title class=" my-toolbar-title">Sign In</ion-title>
+    <ion-title class=" my-toolbar-title">Building Attendance</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -21,7 +21,7 @@
 
     <div class="form">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
-        <ion-input labelPlacement="stacked" placeholder="Email" fill="outline" type="email" class="ion-margin-bottom" mode="md"
+        <ion-input labelPlacement="floating" placeholder="Email" fill="outline" type="email" class="ion-margin-bottom" mode="md"
           clearOnEdit="false" formControlName="email_address">
           <div slot="label">Email
             @if(isSubmitted && getControl['email_address'].errors){
@@ -35,7 +35,7 @@
           </div>
         </ion-input>
 
-        <ion-input labelPlacement="stacked" placeholder="Password" fill="outline" type="password" mode="md" clearOnEdit="false" formControlName="password">
+        <ion-input labelPlacement="floating" placeholder="Password" fill="outline" type="password" mode="md" clearOnEdit="false" formControlName="password">
           <div slot="label">Password
             @if(isSubmitted && getControl['password'].errors){
             @if(getControl['password'].errors['required']){
@@ -65,14 +65,14 @@
 
 
         <div class="login-btn">
-          <ion-button expand="block" mode="ios" type="submit" class="inter-font">
+          <ion-button expand="block" mode="ios" type="submit" class="inter-font" color="dark">
             Sign In
           </ion-button>
         </div>
       </form>
 
       <div class="guest-btn ion-margin-top">
-        <ion-button expand="block" mode="ios" class="inter-font" (click)="general.goToPage('guest')">
+        <ion-button expand="block" mode="ios" class="inter-font" (click)="general.goToPage('guest')"  color="dark" fill="outline">
           Visitor Login
         </ion-button>
       </div>
@@ -105,7 +105,7 @@
         </div>
         <form [formGroup]="forgetPasswordForm" (ngSubmit)="onSibmitForgetForm()" novalidate>
           <div class="ion-margin-vertical ion-padding-top">
-            <ion-input labelPlacement="stacked" placeholder="Email" mode="md" fill="outline" type="email" placeholder="Enter email" formControlName="email_address">
+            <ion-input labelPlacement="floating" placeholder="Email" mode="md" fill="outline" type="email" placeholder="Enter email" formControlName="email_address">
               <div slot="label">Email
                 @if(forgetPasswordSubmitted && forgetPasswordControls['email_address'].errors){
                 @if(forgetPasswordControls['email_address'].errors['required']){

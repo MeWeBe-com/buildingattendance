@@ -30,7 +30,7 @@
 
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
       <div class="form ion-margin-top">
-        <ion-input labelPlacement="stacked" placeholder="Full Name" fill="outline" type="text" class="ion-margin-bottom"
+        <ion-input labelPlacement="floating" placeholder="Full Name" fill="outline" type="text" class="ion-margin-bottom"
           mode="md" formControlName="full_name">
           <div slot="label">Full Name
             @if(isSubmitted && getControl['full_name'].errors){
@@ -41,7 +41,7 @@
           </div>
         </ion-input>
 
-        <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="company_id"
+        <ion-select label-placement="floating" fill="outline" class="ion-margin-bottom" formControlName="company_id"
           mode="md" interface="popover" placeholder="Select Comapny">
           <div slot="label">Company
             @if(isSubmitted && getControl['company_id'].errors){
@@ -56,7 +56,7 @@
 
         </ion-select>
 
-        <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="position"
+        <ion-select label-placement="floating" fill="outline" class="ion-margin-bottom" formControlName="position"
           mode="md" interface="popover" placeholder="Select Position">
           <div slot="label">Position
             @if(isSubmitted && getControl['position'].errors){
@@ -70,7 +70,7 @@
           }
         </ion-select>
 
-        <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="employment_role"
+        <ion-select label-placement="floating" fill="outline" class="ion-margin-bottom" formControlName="employment_role"
           mode="md" interface="popover" placeholder="Employment Role">
           <div slot="label">Employment Role
             @if(isSubmitted && getControl['employment_role'].errors){
@@ -84,7 +84,7 @@
           }
         </ion-select>
 
-        <ion-select label-placement="stacked" fill="outline" class="ion-margin-bottom" formControlName="user_shift"
+        <ion-select label-placement="floating" fill="outline" class="ion-margin-bottom" formControlName="user_shift"
           mode="md" interface="popover" placeholder="Select Shift">
           <div slot="label">User Shift
             @if(isSubmitted && getControl['user_shift'].errors){
@@ -117,7 +117,7 @@
           </ng-select>
         </div>
 
-        <ion-input labelPlacement="stacked" placeholder="Email" fill="outline" type="email" class="ion-margin-bottom"
+        <ion-input labelPlacement="floating" placeholder="Email" fill="outline" type="email" class="ion-margin-bottom"
           mode="md" formControlName="email_address">
           <div slot="label">Email
             @if(isSubmitted && getControl['email_address'].errors){
@@ -134,7 +134,7 @@
           </div>
         </ion-input>
 
-        <ion-input labelPlacement="stacked" placeholder="Mobile" fill="outline" type="text" class="ion-margin-bottom"
+        <ion-input labelPlacement="floating" placeholder="Mobile" fill="outline" type="text" class="ion-margin-bottom"
           mode="md" formControlName="mobile_number">
           <div slot="label">Mobile
             @if(isSubmitted && getControl['mobile_number'].errors){
@@ -178,7 +178,7 @@
 
 
         <div class="login-btn">
-          <ion-button expand="block" mode="ios" type="submit" class="inter-font">
+          <ion-button expand="block" mode="ios" type="submit" class="inter-font" color="dark">
             Submit
           </ion-button>
         </div>

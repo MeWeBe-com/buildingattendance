@@ -83,16 +83,16 @@ ion-toolbar{
     }
 
     ion-checkbox {
-        --size: 18px;
-        --border-color: var(--theme-purple);
+        --border-color: var(--ion-color-dark);
         --checkbox-background-checked: #fff;
-        --checkmark-color: var(--theme-light-green);
         --border-radius: 4px;
         font-style: normal;
         font-weight: 400;
         font-size: 12px;
         line-height: 18px;
         color: var(--theme-grey);
+        --checkmark-color: var(--ion-color-dark);
+        --checkmark-width: 3px;
     }
 
     .login-btn {
@@ -103,7 +103,6 @@ ion-toolbar{
             font-weight: 600;
             font-size: 16px;
             line-height: 24px;
-            --background: var(--theme-light-green);
         }
     }
 }

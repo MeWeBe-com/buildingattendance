@@ -1,5 +1,5 @@
 ion-content {
-  --background: url('../../../assets/imgs/bg-image.svg') center no-repeat;
+  // --background: url('../../../assets/imgs/bg-image.svg') center no-repeat;
 }
 
 .check {
@@ -106,10 +106,6 @@ ion-content {
 
 
   ion-checkbox {
-    --border-color: #00BC2F;
-    --border-color-checked: #00BC2F;
-    --checkbox-background-checked: #00BC2F;
-    --checkmark-color: #fff;
     --border-radius: 4px;
     font-weight: 600;
 

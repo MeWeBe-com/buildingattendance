@@ -11,15 +11,14 @@ ion-toolbar {
 
 ion-checkbox {
     --size: 25px;
-    --border-color: var(--theme-purple);
-    --border-color-checked: var(--theme-purple);
+    --border-color: var(--ion-color-dark);
     --checkbox-background-checked: #fff;
     --border-radius: 4px;
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 12px;
     line-height: 18px;
     color: var(--theme-grey);
-    --checkmark-color: var(--theme-darkblue);
+    --checkmark-color: var(--ion-color-dark);
     --checkmark-width: 3px;
 }
